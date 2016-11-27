@@ -10,14 +10,14 @@ public class DataLineTest {
 
     @Test
     public void shouldReturnRetiredIfCheckpointIdIsRetired() {
-        DataLine line = builder.withCheckpointId('R').build();
+        DataLine line = builder.withCheckpointId(-1).build();
 
         assertThat(line.isRetired()).isTrue();
     }
 
     @Test
     public void shouldNotReturnRetiredIfCheckpointIdIsNotRetired() {
-        DataLine line = builder.withCheckpointId('0').build();
+        DataLine line = builder.withCheckpointId(0).build();
 
         assertThat(line.isRetired()).isFalse();
     }

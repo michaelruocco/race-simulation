@@ -40,8 +40,8 @@ public class DataLineParserTest {
         DataLine line = parser.parse(INPUT);
         DataLine retiredLine = parser.parse(RETIRED_INPUT);
 
-        assertThat(line.getCheckpointId()).isEqualTo('3');
-        assertThat(retiredLine.getCheckpointId()).isEqualTo('R');
+        assertThat(line.getCheckpointId()).isEqualTo(3);
+        assertThat(retiredLine.getCheckpointId()).isEqualTo(-1);
     }
 
     @Test
@@ -78,14 +78,47 @@ public class DataLineParserTest {
 
     @Test
     public void shouldThrowExceptionIfCarIdIsNotInteger() {
-        String invalidCarIdLine = "00:16:05.67 A 3 0";
+        String invalidCarIdLine = "00:16:05.67 1.1 3 0";
 
         when(parser).parse(invalidCarIdLine);
 
         then(caughtException())
                 .isInstanceOf(DataLineFormatException.class)
-                .hasMessage("A")
+                .hasMessage("1.1")
                 .hasCauseInstanceOf(NumberFormatException.class);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCheckpointIdIsNotAnIntegerOrRetired() {
+        String invalidCheckpointIdLine = "00:16:05.67 7 EA 0";
+
+        when(parser).parse(invalidCheckpointIdLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("invalid checkpoint id EA it must be an integer or R");
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCheckpointIdIsNotRetired() {
+        String invalidCheckpointIdLine = "00:16:05.67 7 E 0";
+
+        when(parser).parse(invalidCheckpointIdLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("invalid checkpoint id E it must be an integer or R");
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCheckpointIdIsNotInteger() {
+        String invalidCheckpointIdLine = "00:16:05.67 7 1.1 0";
+
+        when(parser).parse(invalidCheckpointIdLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("invalid checkpoint id 1.1 it must be an integer or R");
     }
 
 }

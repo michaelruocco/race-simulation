@@ -6,10 +6,10 @@ public class TestDataLineBuilder {
 
     private ElapsedTime time = new ElapsedTime();
     private int carId = 0;
-    private char checkpointId = '0';
+    private int checkpointId = '0';
     private boolean queried = false;
 
-    public TestDataLineBuilder withCheckpointId(char checkpointId) {
+    public TestDataLineBuilder withCheckpointId(int checkpointId) {
         this.checkpointId = checkpointId;
         return this;
     }
