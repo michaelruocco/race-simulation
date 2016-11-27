@@ -18,6 +18,7 @@ public class DataLineParser {
 
     private final ElapsedTimeConverter elapsedTimeConverter = new ElapsedTimeConverter();
     private final DataLineValidator validator = new DataLineValidator();
+    private final RetiredConverter retiredConverter = new RetiredConverter();
 
     public DataLine parse(String input) {
         LOG.debug("parsing input line " + input);
@@ -47,16 +48,9 @@ public class DataLineParser {
     }
 
     private int toCheckpointId(String input) {
-        boolean retired = isRetired(input);
-
-        if (retired)
-            return -1;
-
+        if (retiredConverter.isRetired(input))
+            return retiredConverter.toValue(input);
         return parseInt(input);
-    }
-
-    private boolean isRetired(String input) {
-        return input.equals("R");
     }
 
     private boolean toQueriedFlag(String input) {

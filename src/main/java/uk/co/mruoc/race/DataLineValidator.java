@@ -18,6 +18,7 @@ public class DataLineValidator {
     private static final int QUERIED_INDEX = 3;
 
     private final ElapsedTimeValidator elapsedTimeValidator = new ElapsedTimeValidator();
+    private final RetiredConverter retiredConverter = new RetiredConverter();
 
     public boolean validate(String input) {
         LOG.debug("validating input line " + input);
@@ -65,19 +66,13 @@ public class DataLineValidator {
     }
 
     private boolean validateCheckpointId(String input) {
-        boolean retired = isRetired(input);
-
-        if (retired)
+        if (retiredConverter.isRetired(input))
             return true;
 
         if (!StringUtils.isNumeric(input))
             throw new DataLineFormatException("invalid checkpoint id " + input + " it must be an integer or R");
 
         return true;
-    }
-
-    private boolean isRetired(String input) {
-        return input.equals("R");
     }
 
     private boolean validateQueriedFlag(String input) {
