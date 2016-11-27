@@ -1,0 +1,89 @@
+package uk.co.mruoc.race;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import uk.co.mruoc.time.ElapsedTimeFormatException;
+import uk.co.mruoc.time.ElapsedTimeValidator;
+
+public class DataLineValidator {
+
+    private static final Logger LOG = LogManager.getLogger(DataLineValidator.class);
+
+    private static final int NUMBER_OF_ARGUMENTS = 4;
+
+    private static final int TIME_INDEX = 0;
+    private static final int CAR_ID_INDEX = 1;
+    private static final int CHECKPOINT_ID_INDEX = 2;
+    private static final int QUERIED_INDEX = 3;
+
+    private final ElapsedTimeValidator elapsedTimeValidator = new ElapsedTimeValidator();
+
+    public boolean validate(String input) {
+        LOG.debug("validating input line " + input);
+        validateLine(input);
+        String[] args = input.split(" ");
+        return validateArguments(args);
+    }
+
+    private void validateLine(String input) {
+        int count = StringUtils.countMatches(input, ' ');
+        if (count != NUMBER_OF_ARGUMENTS - 1)
+            throw new DataLineFormatException(buildNumberOfArgumentsErrorMessage(input));
+    }
+
+    private String buildNumberOfArgumentsErrorMessage(String input) {
+        StringBuilder message = new StringBuilder();
+        message.append("invalid data line ");
+        message.append(input);
+        message.append(" it should contain ");
+        message.append(NUMBER_OF_ARGUMENTS);
+        message.append(" items separated by spaces");
+        return message.toString();
+    }
+
+    private boolean validateArguments(String[] args) {
+        validateTime(args[TIME_INDEX]);
+        validateCarId(args[CAR_ID_INDEX]);
+        validateCheckpointId(args[CHECKPOINT_ID_INDEX]);
+        validateQueriedFlag(args[QUERIED_INDEX]);
+        return true;
+    }
+
+    private boolean validateTime(String input) {
+        try {
+            return elapsedTimeValidator.validate(input);
+        } catch (ElapsedTimeFormatException e) {
+            throw new DataLineFormatException(input, e);
+        }
+    }
+
+    private boolean validateCarId(String input) {
+        if (!StringUtils.isNumeric(input))
+            throw new DataLineFormatException("invalid car id " + input + " it must be an integer");
+        return true;
+    }
+
+    private boolean validateCheckpointId(String input) {
+        boolean retired = isRetired(input);
+
+        if (retired)
+            return true;
+
+        if (!StringUtils.isNumeric(input))
+            throw new DataLineFormatException("invalid checkpoint id " + input + " it must be an integer or R");
+
+        return true;
+    }
+
+    private boolean isRetired(String input) {
+        return input.equals("R");
+    }
+
+    private boolean validateQueriedFlag(String input) {
+        if (!StringUtils.isNumeric(input))
+            throw new DataLineFormatException("invalid queried flag " + input + " it must be an integer");
+        return true;
+    }
+
+}

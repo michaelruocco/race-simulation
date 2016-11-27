@@ -84,8 +84,7 @@ public class DataLineParserTest {
 
         then(caughtException())
                 .isInstanceOf(DataLineFormatException.class)
-                .hasMessage("invalid car id 1.1 it must be an integer")
-                .hasCauseInstanceOf(NumberFormatException.class);
+                .hasMessage("invalid car id 1.1 it must be an integer");
     }
 
     @Test
