@@ -4,6 +4,8 @@ import uk.co.mruoc.time.ElapsedTime;
 
 public class DataLine {
 
+    private static final char RETIRED = 'R';
+
     private final ElapsedTime time;
     private final int carId;
     private final char checkpointId;
@@ -30,6 +32,10 @@ public class DataLine {
 
     public boolean isQueried() {
         return queried;
+    }
+
+    public boolean isRetired() {
+        return checkpointId == RETIRED;
     }
 
 }
