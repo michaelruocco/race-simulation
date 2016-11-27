@@ -29,4 +29,11 @@ public class DataLineParserTest {
         assertThat(line.getCarId()).isEqualTo(7);
     }
 
+    @Test
+    public void shouldParseCheckpointId() {
+        DataLine line = parser.parse(INPUT);
+
+        assertThat(line.getCheckpointId()).isEqualTo(3);
+    }
+
 }
