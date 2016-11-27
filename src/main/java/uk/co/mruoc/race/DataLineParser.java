@@ -24,11 +24,7 @@ public class DataLineParser {
         LOG.debug("parsing input line " + input);
         validate(input);
         String[] args = input.split(" ");
-        ElapsedTime time = toTime(args[TIME_INDEX]);
-        int carId = toInt(args[CAR_ID_INDEX]);
-        char checkpointId = toChar(args[CHECKPOINT_ID_INDEX]);
-        boolean queried = toBoolean(args[QUERIED_INDEX]);
-        return new DataLine(time, carId, checkpointId, queried);
+        return toLine(args);
     }
 
     private void validate(String input) {
@@ -45,6 +41,14 @@ public class DataLineParser {
         message.append(NUMBER_OF_ARGUMENTS);
         message.append(" items separated by spaces");
         return message.toString();
+    }
+
+    private DataLine toLine(String[] args) {
+        ElapsedTime time = toTime(args[TIME_INDEX]);
+        int carId = toInt(args[CAR_ID_INDEX]);
+        char checkpointId = toChar(args[CHECKPOINT_ID_INDEX]);
+        boolean queried = toBoolean(args[QUERIED_INDEX]);
+        return new DataLine(time, carId, checkpointId, queried);
     }
 
     private ElapsedTime toTime(String input) {
