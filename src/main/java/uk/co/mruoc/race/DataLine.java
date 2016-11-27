@@ -6,10 +6,10 @@ public class DataLine {
 
     private final ElapsedTime time;
     private final int carId;
-    private final int checkpointId;
+    private final char checkpointId;
     private final boolean queried;
 
-    public DataLine(ElapsedTime time, int carId, int checkpointId, boolean queried) {
+    public DataLine(ElapsedTime time, int carId, char checkpointId, boolean queried) {
         this.time = time;
         this.carId = carId;
         this.checkpointId = checkpointId;
@@ -24,7 +24,7 @@ public class DataLine {
         return carId;
     }
 
-    public int getCheckpointId() {
+    public char getCheckpointId() {
         return checkpointId;
     }
 

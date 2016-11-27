@@ -11,7 +11,7 @@ public class DataLineParser {
         String[] args = input.split(" ");
         ElapsedTime time = toTime(args[0]);
         int carId = Integer.parseInt(args[1]);
-        int checkpointId = Integer.parseInt(args[2]);
+        char checkpointId = args[2].charAt(0);
         boolean queried = Integer.parseInt(args[3]) > 0;
         return new DataLine(time, carId, checkpointId, queried);
     }
