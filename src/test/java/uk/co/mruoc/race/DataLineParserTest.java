@@ -34,8 +34,10 @@ public class DataLineParserTest {
     @Test
     public void shouldParseCheckpointId() {
         DataLine line = parser.parse(INPUT);
+        DataLine retiredLine = parser.parse(RETIRED_INPUT);
 
         assertThat(line.getCheckpointId()).isEqualTo('3');
+        assertThat(retiredLine.getCheckpointId()).isEqualTo('R');
     }
 
     @Test
@@ -45,13 +47,6 @@ public class DataLineParserTest {
 
         assertThat(line.isQueried()).isFalse();
         assertThat(queriedLine.isQueried()).isTrue();
-    }
-
-    @Test
-    public void shouldParseRetiredCheckpointId() {
-        DataLine line = parser.parse(RETIRED_INPUT);
-
-        assertThat(line.getCheckpointId()).isEqualTo('R');
     }
 
 }

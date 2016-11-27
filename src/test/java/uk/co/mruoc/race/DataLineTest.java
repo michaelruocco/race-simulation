@@ -6,13 +6,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class DataLineTest {
 
-    private static final char RETIRED = 'R';
-
     private final TestDataLineBuilder builder = new TestDataLineBuilder();
 
     @Test
     public void shouldReturnRetiredIfCheckpointIdIsRetired() {
-        DataLine line = builder.withCheckpointId(RETIRED).build();
+        DataLine line = builder.withCheckpointId('R').build();
 
         assertThat(line.isRetired()).isTrue();
     }
