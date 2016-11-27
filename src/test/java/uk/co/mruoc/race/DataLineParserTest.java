@@ -36,4 +36,11 @@ public class DataLineParserTest {
         assertThat(line.getCheckpointId()).isEqualTo(3);
     }
 
+    @Test
+    public void shouldParseQueriedFlag() {
+        DataLine line = parser.parse(INPUT);
+
+        assertThat(line.isQueried()).isFalse();
+    }
+
 }

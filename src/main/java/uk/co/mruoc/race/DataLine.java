@@ -26,4 +26,8 @@ public class DataLine {
         return checkpointId;
     }
 
+    public boolean isQueried() {
+        return false;
+    }
+
 }
