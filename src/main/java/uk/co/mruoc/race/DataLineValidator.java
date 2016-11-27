@@ -66,7 +66,7 @@ public class DataLineValidator {
     }
 
     private boolean validateCheckpointId(String input) {
-        if (retiredConverter.isRetired(input))
+        if (retiredConverter.isValid(input))
             return true;
 
         if (!StringUtils.isNumeric(input))

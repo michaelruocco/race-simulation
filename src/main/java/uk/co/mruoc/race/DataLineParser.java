@@ -48,7 +48,7 @@ public class DataLineParser {
     }
 
     private int toCheckpointId(String input) {
-        if (retiredConverter.isRetired(input))
+        if (retiredConverter.isValid(input))
             return retiredConverter.toValue(input);
         return parseInt(input);
     }
