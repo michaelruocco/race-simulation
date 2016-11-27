@@ -76,4 +76,16 @@ public class DataLineParserTest {
                 .hasCauseInstanceOf(ElapsedTimeFormatException.class);
     }
 
+    @Test
+    public void shouldThrowExceptionIfCarIdIsNotInteger() {
+        String invalidCarIdLine = "00:16:05.67 A 3 0";
+
+        when(parser).parse(invalidCarIdLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("A")
+                .hasCauseInstanceOf(NumberFormatException.class);
+    }
+
 }

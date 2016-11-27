@@ -60,7 +60,11 @@ public class DataLineParser {
     }
 
     private int toInt(String input) {
-        return Integer.parseInt(input);
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new DataLineFormatException(input, e);
+        }
     }
 
     private char toChar(String input) {
