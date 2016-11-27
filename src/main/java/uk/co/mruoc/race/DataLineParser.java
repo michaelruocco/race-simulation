@@ -34,7 +34,7 @@ public class DataLineParser {
     }
 
     private boolean toBoolean(String input) {
-        return toInt(input) != 0;
+        return toInt(input) == 1;
     }
 
 }
