@@ -7,6 +7,9 @@ import uk.co.mruoc.time.ElapsedTime;
 import uk.co.mruoc.time.ElapsedTimeConverter;
 import uk.co.mruoc.time.ElapsedTimeFormatException;
 
+import static java.lang.Integer.parseInt;
+import static org.apache.commons.lang3.math.NumberUtils.toInt;
+
 public class DataLineParser {
 
     private static final Logger LOG = LogManager.getLogger(DataLineParser.class);
@@ -45,9 +48,9 @@ public class DataLineParser {
 
     private DataLine toLine(String[] args) {
         ElapsedTime time = toTime(args[TIME_INDEX]);
-        int carId = toInt(args[CAR_ID_INDEX]);
+        int carId = toCarId(args[CAR_ID_INDEX]);
         int checkpointId = toCheckpointId(args[CHECKPOINT_ID_INDEX]);
-        boolean queried = toBoolean(args[QUERIED_INDEX]);
+        boolean queried = toQueriedFlag(args[QUERIED_INDEX]);
         return new DataLine(time, carId, checkpointId, queried);
     }
 
@@ -59,11 +62,11 @@ public class DataLineParser {
         }
     }
 
-    private int toInt(String input) {
+    private int toCarId(String input) {
         try {
-            return Integer.parseInt(input);
+            return parseInt(input);
         } catch (NumberFormatException e) {
-            throw new DataLineFormatException(input, e);
+            throw new DataLineFormatException("invalid car id " + input + " it must be an integer", e);
         }
     }
 
@@ -76,15 +79,23 @@ public class DataLineParser {
         if (!StringUtils.isNumeric(input))
             throw new DataLineFormatException("invalid checkpoint id " + input + " it must be an integer or R");
 
-        return toInt(input);
+        try {
+            return parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new DataLineFormatException("invalid checkpoint id " + input + " it must be an integer or R", e);
+        }
     }
 
     private boolean isRetired(String input) {
         return input.equals("R");
     }
 
-    private boolean toBoolean(String input) {
-        return toInt(input) == 1;
+    private boolean toQueriedFlag(String input) {
+        try {
+            return parseInt(input) == 1;
+        } catch (NumberFormatException e) {
+            throw new DataLineFormatException("invalid queried flag " + input + " it must be an integer", e);
+        }
     }
 
 }

@@ -84,7 +84,7 @@ public class DataLineParserTest {
 
         then(caughtException())
                 .isInstanceOf(DataLineFormatException.class)
-                .hasMessage("1.1")
+                .hasMessage("invalid car id 1.1 it must be an integer")
                 .hasCauseInstanceOf(NumberFormatException.class);
     }
 
@@ -119,6 +119,17 @@ public class DataLineParserTest {
         then(caughtException())
                 .isInstanceOf(DataLineFormatException.class)
                 .hasMessage("invalid checkpoint id 1.1 it must be an integer or R");
+    }
+
+    @Test
+    public void shouldThrowExceptionIfQueriedFlagIsNotInteger() {
+        String invalidCheckpointIdLine = "00:16:05.67 7 3 1.1";
+
+        when(parser).parse(invalidCheckpointIdLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("invalid queried flag 1.1 it must be an integer");
     }
 
 }
