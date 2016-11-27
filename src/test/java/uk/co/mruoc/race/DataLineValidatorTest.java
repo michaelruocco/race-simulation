@@ -15,14 +15,18 @@ public class DataLineValidatorTest {
 
     @Test
     public void shouldReturnTrueForValidInput() {
-        boolean result = validator.validate("00:16:05.67 7 3 0");
+        String validInput = "00:16:05.67 7 3 0";
+        
+        boolean result = validator.validate(validInput);
 
         assertThat(result).isTrue();
     }
 
     @Test
     public void shouldReturnTrueForValidRetiredInput() {
-        boolean result = validator.validate("00:16:05.67 7 R 0");
+        String validRetiredInput = "00:16:05.67 7 R 0";
+
+        boolean result = validator.validate(validRetiredInput);
 
         assertThat(result).isTrue();
     }
