@@ -2,8 +2,12 @@ package uk.co.mruoc.race;
 
 import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTime;
+import uk.co.mruoc.time.ElapsedTimeFormatException;
 
+import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
+import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 
 public class DataLineParserTest {
 
@@ -47,6 +51,29 @@ public class DataLineParserTest {
 
         assertThat(line.isQueried()).isFalse();
         assertThat(queriedLine.isQueried()).isTrue();
+    }
+
+    @Test
+    public void shouldThrowExceptionIfInputNotFormattedCorrectly() {
+        String invalidLine = "invalidLine";
+
+        when(parser).parse(invalidLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("invalid data line invalidLine it should contain 4 items separated by spaces");
+    }
+
+    @Test
+    public void shouldThrowExceptionIfTimeNotFormattedCorrectly() {
+        String invalidTimeLine = "16:05.67 7 3 0";
+
+        when(parser).parse(invalidTimeLine);
+
+        then(caughtException())
+                .isInstanceOf(DataLineFormatException.class)
+                .hasMessage("16:05.67")
+                .hasCauseInstanceOf(ElapsedTimeFormatException.class);
     }
 
 }
