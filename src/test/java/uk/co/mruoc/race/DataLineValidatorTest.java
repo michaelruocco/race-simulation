@@ -1,7 +1,6 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
-import uk.co.mruoc.time.ElapsedTime;
 import uk.co.mruoc.time.ElapsedTimeFormatException;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
@@ -16,7 +15,7 @@ public class DataLineValidatorTest {
     @Test
     public void shouldReturnTrueForValidInput() {
         String validInput = "00:16:05.67 7 3 0";
-        
+
         boolean result = validator.validate(validInput);
 
         assertThat(result).isTrue();
