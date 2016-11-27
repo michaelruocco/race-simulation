@@ -12,7 +12,7 @@ public class DataLineParserTest {
     private final DataLineParser parser = new DataLineParser();
 
     @Test
-    public void shouldParseTimeFromDataLine() {
+    public void shouldParseTime() {
         DataLine line = parser.parse(INPUT);
 
         ElapsedTime time = line.getTime();
@@ -20,6 +20,13 @@ public class DataLineParserTest {
         assertThat(time.getMinutes()).isEqualTo(16);
         assertThat(time.getSeconds()).isEqualTo(5);
         assertThat(time.getMillis()).isEqualTo(67);
+    }
+
+    @Test
+    public void shouldParseCarId() {
+        DataLine line = parser.parse(INPUT);
+
+        assertThat(line.getCarId()).isEqualTo(7);
     }
 
 }

@@ -10,7 +10,8 @@ public class DataLineParser {
     public DataLine parse(String input) {
         String[] args = input.split(" ");
         ElapsedTime time = toTime(args[0]);
-        return new DataLine(time);
+        int carId = Integer.parseInt(args[1]);
+        return new DataLine(time, carId);
     }
 
     private ElapsedTime toTime(String input) {
