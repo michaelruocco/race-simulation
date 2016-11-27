@@ -12,7 +12,8 @@ public class DataLineParser {
         ElapsedTime time = toTime(args[0]);
         int carId = Integer.parseInt(args[1]);
         int checkpointId = Integer.parseInt(args[2]);
-        return new DataLine(time, carId, checkpointId);
+        boolean queried = Integer.parseInt(args[3]) > 0;
+        return new DataLine(time, carId, checkpointId, queried);
     }
 
     private ElapsedTime toTime(String input) {

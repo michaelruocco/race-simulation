@@ -7,11 +7,13 @@ public class DataLine {
     private final ElapsedTime time;
     private final int carId;
     private final int checkpointId;
+    private final boolean queried;
 
-    public DataLine(ElapsedTime time, int carId, int checkpointId) {
+    public DataLine(ElapsedTime time, int carId, int checkpointId, boolean queried) {
         this.time = time;
         this.carId = carId;
         this.checkpointId = checkpointId;
+        this.queried = queried;
     }
 
     public ElapsedTime getTime() {
@@ -27,7 +29,7 @@ public class DataLine {
     }
 
     public boolean isQueried() {
-        return false;
+        return queried;
     }
 
 }
