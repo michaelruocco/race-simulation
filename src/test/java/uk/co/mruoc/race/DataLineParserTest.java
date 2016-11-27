@@ -7,8 +7,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DataLineParserTest {
 
     private static final String INPUT = "00:16:05.67 7 3 0";
-    private static final String QUERIED_INPUT = "00:12:46.05 3 3 1";
-    private static final String RETIRED_INPUT = "00:01:53.55 2 R 0";
 
     private final DataLineParser parser = new DataLineParser();
 
@@ -32,8 +30,9 @@ public class DataLineParserTest {
 
     @Test
     public void shouldParseCheckpointId() {
+        String retiredInput = "00:01:53.55 2 R 0";
         DataLine line = parser.parse(INPUT);
-        DataLine retiredLine = parser.parse(RETIRED_INPUT);
+        DataLine retiredLine = parser.parse(retiredInput);
 
         assertThat(line.getCheckpointId()).isEqualTo(3);
         assertThat(retiredLine.getCheckpointId()).isEqualTo(-1);
@@ -41,8 +40,9 @@ public class DataLineParserTest {
 
     @Test
     public void shouldParseQueriedFlag() {
+        String queriedInput = "00:12:46.05 3 3 1";
         DataLine line = parser.parse(INPUT);
-        DataLine queriedLine = parser.parse(QUERIED_INPUT);
+        DataLine queriedLine = parser.parse(queriedInput);
 
         assertThat(line.isQueried()).isFalse();
         assertThat(queriedLine.isQueried()).isTrue();
