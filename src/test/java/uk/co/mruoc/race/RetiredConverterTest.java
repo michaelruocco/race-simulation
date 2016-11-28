@@ -1,7 +1,6 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
-import uk.co.mruoc.time.ElapsedTimeFormatException;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
@@ -12,6 +11,7 @@ public class RetiredConverterTest {
 
     private static final String INVALID_FLAG = "";
     private static final String VALID_FLAG = "R";
+    private static final int RETIRED_VALUE = -1;
 
     private final RetiredConverter converter = new RetiredConverter();
 
@@ -23,7 +23,7 @@ public class RetiredConverterTest {
 
     @Test
     public void shouldConvertToValueIfValid() {
-        assertThat(converter.toValue(VALID_FLAG)).isEqualTo(-1);
+        assertThat(converter.toValue(VALID_FLAG)).isEqualTo(RETIRED_VALUE);
     }
 
     @Test
