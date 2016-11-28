@@ -30,7 +30,7 @@ public class FileLineValidator {
     private void validateLine(String input) {
         int count = StringUtils.countMatches(input, ' ');
         if (count != NUMBER_OF_ARGUMENTS - 1)
-            throw new DataLineFormatException(buildNumberOfArgumentsErrorMessage(input));
+            throw new FileLineFormatException(buildNumberOfArgumentsErrorMessage(input));
     }
 
     private String buildNumberOfArgumentsErrorMessage(String input) {
@@ -55,13 +55,13 @@ public class FileLineValidator {
         try {
             return elapsedTimeValidator.validate(input);
         } catch (ElapsedTimeFormatException e) {
-            throw new DataLineFormatException(input, e);
+            throw new FileLineFormatException(input, e);
         }
     }
 
     private boolean validateCarId(String input) {
         if (!StringUtils.isNumeric(input))
-            throw new DataLineFormatException("invalid car id " + input + " it must be an integer");
+            throw new FileLineFormatException("invalid car id " + input + " it must be an integer");
         return true;
     }
 
@@ -70,14 +70,14 @@ public class FileLineValidator {
             return true;
 
         if (!StringUtils.isNumeric(input))
-            throw new DataLineFormatException("invalid checkpoint id " + input + " it must be an integer or R");
+            throw new FileLineFormatException("invalid checkpoint id " + input + " it must be an integer or R");
 
         return true;
     }
 
     private boolean validateQueriedFlag(String input) {
         if (!StringUtils.isNumeric(input))
-            throw new DataLineFormatException("invalid queried flag " + input + " it must be an integer");
+            throw new FileLineFormatException("invalid queried flag " + input + " it must be an integer");
         return true;
     }
 

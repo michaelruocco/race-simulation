@@ -37,7 +37,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid data line invalidLine it should contain 4 items separated by spaces");
     }
 
@@ -48,7 +48,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidTimeLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("16:05.67")
                 .hasCauseInstanceOf(ElapsedTimeFormatException.class);
     }
@@ -60,7 +60,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidCarIdLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid car id 1.1 it must be an integer");
     }
 
@@ -71,7 +71,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidCheckpointIdLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id EA it must be an integer or R");
     }
 
@@ -82,7 +82,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidCheckpointIdLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id E it must be an integer or R");
     }
 
@@ -93,7 +93,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidCheckpointIdLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id 1.1 it must be an integer or R");
     }
 
@@ -104,7 +104,7 @@ public class FileLineValidatorTest {
         when(validator).validate(invalidCheckpointIdLine);
 
         then(caughtException())
-                .isInstanceOf(DataLineFormatException.class)
+                .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid queried flag 1.1 it must be an integer");
     }
 
