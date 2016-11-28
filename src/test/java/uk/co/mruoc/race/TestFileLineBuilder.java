@@ -14,6 +14,11 @@ public class TestFileLineBuilder {
         return this;
     }
 
+    public TestFileLineBuilder withCarId(int carId) {
+        this.carId = carId;
+        return this;
+    }
+
     public FileLine build() {
         return new FileLine(time, carId, checkpointId, queried);
     }
