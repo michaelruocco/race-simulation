@@ -5,7 +5,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileLoader {
@@ -14,12 +13,12 @@ public class FileLoader {
 
     private final FileLineParser parser = new FileLineParser();
 
-    public CarData load(File file) {
+    public CarsData load(File file) {
         try {
             List<String> lines = FileUtils.readLines(file, ENCODING);
-            CarData carData = new CarData();
-            lines.forEach(l -> carData.add(parser.parse(l)));
-            return carData;
+            CarsData carsData = new CarsData();
+            lines.forEach(l -> carsData.add(parser.parse(l)));
+            return carsData;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

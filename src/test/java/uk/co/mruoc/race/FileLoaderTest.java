@@ -16,23 +16,23 @@ public class FileLoaderTest {
 
     @Test
     public void shouldLoadEveryLineOfFile() {
-        CarData carData = loader.load(file);
+        CarsData carsData = loader.load(file);
 
-        assertThat(carData.getLineCount()).isEqualTo(1147);
+        assertThat(carsData.getLineCount()).isEqualTo(1147);
     }
 
     @Test
     public void shouldGroupLinesByCar() {
-        CarData carData = loader.load(file);
+        CarsData carsData = loader.load(file);
 
-        assertThat(carData.getLineCountForCar(0)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(1)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(2)).isEqualTo(6);
-        assertThat(carData.getLineCountForCar(3)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(4)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(5)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(6)).isEqualTo(163);
-        assertThat(carData.getLineCountForCar(7)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(0)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(1)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(2)).isEqualTo(6);
+        assertThat(carsData.getLineCountForCar(3)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(4)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(5)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(6)).isEqualTo(163);
+        assertThat(carsData.getLineCountForCar(7)).isEqualTo(163);
     }
 
 }

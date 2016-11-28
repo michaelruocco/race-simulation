@@ -2,7 +2,7 @@ package uk.co.mruoc.race;
 
 import java.util.*;
 
-public class CarData {
+public class CarsData {
 
     private final Map<Integer, List<FileLine>> groupedLines = new HashMap<>();
 
