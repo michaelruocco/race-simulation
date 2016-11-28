@@ -4,20 +4,20 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DataLineTest {
+public class FileLineTest {
 
-    private final TestDataLineBuilder builder = new TestDataLineBuilder();
+    private final TestFileLineBuilder builder = new TestFileLineBuilder();
 
     @Test
     public void shouldReturnRetiredIfCheckpointIdIsRetired() {
-        DataLine line = builder.withCheckpointId(-1).build();
+        FileLine line = builder.withCheckpointId(-1).build();
 
         assertThat(line.isRetired()).isTrue();
     }
 
     @Test
     public void shouldNotReturnRetiredIfCheckpointIdIsNotRetired() {
-        DataLine line = builder.withCheckpointId(0).build();
+        FileLine line = builder.withCheckpointId(0).build();
 
         assertThat(line.isRetired()).isFalse();
     }

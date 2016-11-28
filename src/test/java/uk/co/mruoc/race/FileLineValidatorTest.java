@@ -8,9 +8,9 @@ import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class DataLineValidatorTest {
+public class FileLineValidatorTest {
 
-    private final DataLineValidator validator = new DataLineValidator();
+    private final FileLineValidator validator = new FileLineValidator();
 
     @Test
     public void shouldReturnTrueForValidInput() {

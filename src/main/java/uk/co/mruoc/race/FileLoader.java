@@ -8,18 +8,18 @@ import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataLoader {
+public class FileLoader {
 
     private static final String ENCODING = "utf-8";
 
-    private final DataLineParser parser = new DataLineParser();
+    private final FileLineParser parser = new FileLineParser();
 
-    public List<DataLine> load(File file) {
+    public List<FileLine> load(File file) {
         try {
             List<String> lines = FileUtils.readLines(file, ENCODING);
-            List<DataLine> dataLines = new ArrayList<>();
-            lines.forEach(l -> dataLines.add(parser.parse(l)));
-            return dataLines;
+            List<FileLine> fileLines = new ArrayList<>();
+            lines.forEach(l -> fileLines.add(parser.parse(l)));
+            return fileLines;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

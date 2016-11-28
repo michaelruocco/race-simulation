@@ -6,9 +6,9 @@ import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.time.ElapsedTimeFormatException;
 import uk.co.mruoc.time.ElapsedTimeValidator;
 
-public class DataLineValidator {
+public class FileLineValidator {
 
-    private static final Logger LOG = LogManager.getLogger(DataLineValidator.class);
+    private static final Logger LOG = LogManager.getLogger(FileLineValidator.class);
 
     private static final int NUMBER_OF_ARGUMENTS = 4;
 

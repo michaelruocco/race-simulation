@@ -2,7 +2,7 @@ package uk.co.mruoc.race;
 
 import uk.co.mruoc.time.ElapsedTime;
 
-public class DataLine {
+public class FileLine {
 
     private static final int RETIRED = -1;
 
@@ -11,7 +11,7 @@ public class DataLine {
     private final int checkpointId;
     private final boolean queried;
 
-    public DataLine(ElapsedTime time, int carId, int checkpointId, boolean queried) {
+    public FileLine(ElapsedTime time, int carId, int checkpointId, boolean queried) {
         this.time = time;
         this.carId = carId;
         this.checkpointId = checkpointId;

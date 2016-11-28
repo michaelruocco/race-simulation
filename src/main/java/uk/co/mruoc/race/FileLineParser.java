@@ -7,9 +7,9 @@ import uk.co.mruoc.time.ElapsedTimeConverter;
 
 import static java.lang.Integer.parseInt;
 
-public class DataLineParser {
+public class FileLineParser {
 
-    private static final Logger LOG = LogManager.getLogger(DataLineParser.class);
+    private static final Logger LOG = LogManager.getLogger(FileLineParser.class);
 
     private static final int TIME_INDEX = 0;
     private static final int CAR_ID_INDEX = 1;
@@ -17,10 +17,10 @@ public class DataLineParser {
     private static final int QUERIED_INDEX = 3;
 
     private final ElapsedTimeConverter elapsedTimeConverter = new ElapsedTimeConverter();
-    private final DataLineValidator validator = new DataLineValidator();
+    private final FileLineValidator validator = new FileLineValidator();
     private final RetiredConverter retiredConverter = new RetiredConverter();
 
-    public DataLine parse(String input) {
+    public FileLine parse(String input) {
         LOG.debug("parsing input line " + input);
         validate(input);
         String[] args = input.split(" ");
@@ -31,12 +31,12 @@ public class DataLineParser {
         validator.validate(input);
     }
 
-    private DataLine toLine(String[] args) {
+    private FileLine toLine(String[] args) {
         ElapsedTime time = toTime(args[TIME_INDEX]);
         int carId = toCarId(args[CAR_ID_INDEX]);
         int checkpointId = toCheckpointId(args[CHECKPOINT_ID_INDEX]);
         boolean queried = toQueriedFlag(args[QUERIED_INDEX]);
-        return new DataLine(time, carId, checkpointId, queried);
+        return new FileLine(time, carId, checkpointId, queried);
     }
 
     private ElapsedTime toTime(String input) {

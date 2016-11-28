@@ -2,20 +2,20 @@ package uk.co.mruoc.race;
 
 import uk.co.mruoc.time.ElapsedTime;
 
-public class TestDataLineBuilder {
+public class TestFileLineBuilder {
 
     private ElapsedTime time = new ElapsedTime();
     private int carId = 0;
     private int checkpointId = '0';
     private boolean queried = false;
 
-    public TestDataLineBuilder withCheckpointId(int checkpointId) {
+    public TestFileLineBuilder withCheckpointId(int checkpointId) {
         this.checkpointId = checkpointId;
         return this;
     }
 
-    public DataLine build() {
-        return new DataLine(time, carId, checkpointId, queried);
+    public FileLine build() {
+        return new FileLine(time, carId, checkpointId, queried);
     }
 
 }
