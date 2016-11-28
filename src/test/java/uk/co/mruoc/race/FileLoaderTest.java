@@ -4,7 +4,6 @@ import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTimeConverter;
 
 import java.io.File;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,31 +16,23 @@ public class FileLoaderTest {
 
     @Test
     public void shouldLoadEveryLineOfFile() {
-        List<FileLine> lines = loader.load(file);
+        CarData carData = loader.load(file);
 
-        assertThat(lines.size()).isEqualTo(1147);
+        assertThat(carData.getLineCount()).isEqualTo(1147);
     }
 
     @Test
-    public void firstLineShouldBeLoadedCorrectly() {
-        List<FileLine> lines = loader.load(file);
+    public void shouldGroupLinesByCar() {
+        CarData carData = loader.load(file);
 
-        FileLine line = lines.get(0);
-        assertThat(converter.toString(line.getTime())).isEqualTo("00:00:00.000");
-        assertThat(line.getCarId()).isEqualTo(5);
-        assertThat(line.getCheckpointId()).isEqualTo(0);
-        assertThat(line.isQueried()).isFalse();
-    }
-
-    @Test
-    public void lastLineShouldBeLoadedCorrectly() {
-        List<FileLine> lines = loader.load(file);
-
-        FileLine line = lines.get(1146);
-        assertThat(converter.toString(line.getTime())).isEqualTo("00:50:48.850");
-        assertThat(line.getCarId()).isEqualTo(6);
-        assertThat(line.getCheckpointId()).isEqualTo(0);
-        assertThat(line.isQueried()).isFalse();
+        assertThat(carData.getLineCountForCar(0)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(1)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(2)).isEqualTo(6);
+        assertThat(carData.getLineCountForCar(3)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(4)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(5)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(6)).isEqualTo(163);
+        assertThat(carData.getLineCountForCar(7)).isEqualTo(163);
     }
 
 }

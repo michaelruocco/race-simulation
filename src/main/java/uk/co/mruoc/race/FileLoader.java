@@ -14,12 +14,12 @@ public class FileLoader {
 
     private final FileLineParser parser = new FileLineParser();
 
-    public List<FileLine> load(File file) {
+    public CarData load(File file) {
         try {
             List<String> lines = FileUtils.readLines(file, ENCODING);
-            List<FileLine> fileLines = new ArrayList<>();
-            lines.forEach(l -> fileLines.add(parser.parse(l)));
-            return fileLines;
+            CarData carData = new CarData();
+            lines.forEach(l -> carData.add(parser.parse(l)));
+            return carData;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
