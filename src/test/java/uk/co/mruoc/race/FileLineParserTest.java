@@ -18,7 +18,7 @@ public class FileLineParserTest {
         assertThat(time.getHours()).isEqualTo(0);
         assertThat(time.getMinutes()).isEqualTo(16);
         assertThat(time.getSeconds()).isEqualTo(5);
-        assertThat(time.getMillis()).isEqualTo(67);
+        assertThat(time.getMillis()).isEqualTo(670);
     }
 
     @Test

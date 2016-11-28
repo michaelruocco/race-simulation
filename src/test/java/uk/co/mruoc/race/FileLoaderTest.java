@@ -33,12 +33,12 @@ public class FileLoaderTest {
         assertThat(line.isQueried()).isFalse();
     }
 
-    @Test //TODO this needs fixing once 1.0.3 elapsed time is used, it should be .850 not .085
+    @Test
     public void lastLineShouldBeLoadedCorrectly() {
         List<FileLine> lines = loader.load(file);
 
         FileLine line = lines.get(1146);
-        assertThat(converter.toString(line.getTime())).isEqualTo("00:50:48.085");
+        assertThat(converter.toString(line.getTime())).isEqualTo("00:50:48.850");
         assertThat(line.getCarId()).isEqualTo(6);
         assertThat(line.getCheckpointId()).isEqualTo(0);
         assertThat(line.isQueried()).isFalse();
