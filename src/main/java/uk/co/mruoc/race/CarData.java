@@ -15,6 +15,7 @@ public class CarData {
     private int lapNumber = 1;
     private double distance = 0;
 
+    private CarDataLine currentLine;
 
     public CarData(DistanceProvider distanceProvider, int carId) {
         this.distanceProvider = distanceProvider;
@@ -29,10 +30,24 @@ public class CarData {
         return lines.size();
     }
 
-    public CarStats getCarStats(ElapsedTime time) {
+    public ElapsedTime getEndTime() {
+        return getLastLine().getTime();
+    }
+
+    public void setTime(ElapsedTime time) {
         Entry<Long, CarDataLine> entry = lines.floorEntry(time.getTotalMillis());
-        CarDataLine line = entry.getValue();
-        return new CarStats(getLapNumber(line), line.getDistance());
+        currentLine = entry.getValue();
+    }
+
+    public int getLapNumber() {
+        int lapNumber = currentLine.getLapNumber();
+        if (currentLine.getTotalMillis() >= lines.lastKey())
+            lapNumber--;
+        return lapNumber;
+    }
+
+    public double getDistance() {
+        return currentLine.getDistance();
     }
 
     public void add(FileLine line) {
@@ -73,11 +88,8 @@ public class CarData {
         return line.getCheckpointId();
     }
 
-    private int getLapNumber(CarDataLine line) {
-        int lapNumber = line.getLapNumber();
-        if (line.getTotalMillis() >= lines.lastKey())
-            lapNumber--;
-        return lapNumber;
+    private CarDataLine getLastLine() {
+        return lines.lastEntry().getValue();
     }
 
 }

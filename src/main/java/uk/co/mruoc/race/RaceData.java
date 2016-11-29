@@ -2,12 +2,15 @@ package uk.co.mruoc.race;
 
 import uk.co.mruoc.time.ElapsedTime;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class RaceData {
 
     private final Map<Integer, CarData> carsData = new HashMap<>();
     private final DistanceProvider distanceProvider;
+
+    private RaceStats raceStats;
 
     public RaceData(DistanceProvider distanceProvider) {
         this.distanceProvider = distanceProvider;
@@ -22,8 +25,21 @@ public class RaceData {
         }
     }
 
-    public CarStats getCarStats(int carId, ElapsedTime time) {
-        return getCarData(carId).getCarStats(time);
+    public void setTime(ElapsedTime time) {
+        carsData.values().forEach(c -> c.setTime(time));
+
+        Comparator<CarData> comparator = buildComparator(time);
+        raceStats = new RaceStats(new ArrayList<>(carsData.values()), comparator);
+    }
+
+    private Comparator<CarData> buildComparator(ElapsedTime time) {
+        if (time.getTotalMillis() == 0)
+            return new CarIdComparator();
+        return new CarPositionComparator();
+    }
+
+    public CarStats getCarStats(int carId) {
+        return raceStats.getCarStats(carId);
     }
 
     public int getLineCountForCar(int carId) {
@@ -32,9 +48,8 @@ public class RaceData {
 
     public int getLineCount() {
         int totalCount = 0;
-        Set<Integer> carIds = carsData.keySet();
-        for (int carId : carIds)
-            totalCount += getLineCountForCar(carId);
+        for (CarData carData : carsData.values())
+            totalCount += carData.size();
         return totalCount;
     }
 

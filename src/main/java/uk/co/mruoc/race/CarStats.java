@@ -2,20 +2,28 @@ package uk.co.mruoc.race;
 
 public class CarStats {
 
-    private final int lapNumber;
-    private final double distance;
+    private final int position;
+    private final CarData carData;
 
-    public CarStats(int lapNumber, double distance) {
-        this.lapNumber = lapNumber;
-        this.distance = distance;
+    public CarStats(int position, CarData carData) {
+        this.position = position;
+        this.carData = carData;
+    }
+
+    public int getCarId() {
+        return carData.getCarId();
+    }
+
+    public int getPosition() {
+        return position;
     }
 
     public int getLapNumber() {
-        return lapNumber;
+        return carData.getLapNumber();
     }
 
     public double getDistance() {
-        return distance;
+        return carData.getDistance();
     }
 
 }

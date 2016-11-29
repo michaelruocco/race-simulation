@@ -41,47 +41,123 @@ public class FileLoaderTest {
     }
 
     @Test
-    public void shouldReturnCarStatsWithCorrectLapNumbers() {
+    public void shouldReturnCarStatsWithCorrectStartLapNumbers() {
         RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats startStats = raceData.getCarStats(CAR_ID, timeParser.parse(START_TIME));
-        CarStats endStats = raceData.getCarStats(CAR_ID, timeParser.parse(END_TIME));
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(startStats.getLapNumber()).isEqualTo(1);
-        assertThat(endStats.getLapNumber()).isEqualTo(20);
+        assertThat(stats.getLapNumber()).isEqualTo(1);
     }
 
     @Test
-    public void shouldReturnCarStatsWithCorrectDistances() {
+    public void shouldReturnCarStatsWithCorrectEndLapNumbers() {
         RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats startStats = raceData.getCarStats(CAR_ID, timeParser.parse(START_TIME));
-        CarStats endStats = raceData.getCarStats(CAR_ID, timeParser.parse(END_TIME));
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(startStats.getDistance()).isEqualTo(0);
-        assertThat(endStats.getDistance()).isEqualTo(120200);
+        assertThat(stats.getLapNumber()).isEqualTo(20);
     }
 
     @Test
-    public void shouldReturnRetiredStatsWithCorrectLapNumbers() {
+    public void shouldReturnRetiredStatsWithCorrectStartLapNumbers() {
         RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats startStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(START_TIME));
-        CarStats endStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(END_TIME));
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
-        assertThat(startStats.getLapNumber()).isEqualTo(1);
-        assertThat(endStats.getLapNumber()).isEqualTo(1);
+        assertThat(stats.getLapNumber()).isEqualTo(1);
     }
 
     @Test
-    public void shouldReturnRetiredCarStatsWithCorrectDistances() {
+    public void shouldReturnRetiredStatsWithCorrectEndLapNumbers() {
         RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats startStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(START_TIME));
-        CarStats endStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(END_TIME));
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
-        assertThat(startStats.getDistance()).isEqualTo(0);
-        assertThat(endStats.getDistance()).isEqualTo(3800);
+        assertThat(stats.getLapNumber()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectStartDistances() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
+
+        CarStats stats = raceData.getCarStats(CAR_ID);
+
+        assertThat(stats.getDistance()).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectEndDistances() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
+
+        CarStats stats = raceData.getCarStats(CAR_ID);
+
+        assertThat(stats.getDistance()).isEqualTo(120200);
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsWithCorrectStartDistances() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
+
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
+
+        assertThat(stats.getDistance()).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsWithCorrectEndDistances() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
+
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
+
+        assertThat(stats.getDistance()).isEqualTo(3800);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectStartPositions() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
+
+        CarStats stats = raceData.getCarStats(CAR_ID);
+
+        assertThat(stats.getPosition()).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectEndPositions() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
+
+        CarStats stats = raceData.getCarStats(CAR_ID);
+
+        assertThat(stats.getPosition()).isEqualTo(3);
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsWithCorrectStartPositions() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(START_TIME));
+
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
+
+        assertThat(stats.getPosition()).isEqualTo(3);
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsWithCorrectEndPositions() {
+        RaceData raceData = loader.load(file);
+        raceData.setTime(timeParser.parse(END_TIME));
+
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
+
+        assertThat(stats.getPosition()).isEqualTo(8);
     }
 
     @Test
