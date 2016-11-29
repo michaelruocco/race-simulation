@@ -40,5 +40,4 @@ public class CarDataTest {
                 .hasMessage("added file line for car id 2 but should be for car id 1");
     }
 
-
 }

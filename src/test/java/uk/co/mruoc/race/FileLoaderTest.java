@@ -1,7 +1,7 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
-import uk.co.mruoc.time.ElapsedTimeConverter;
+import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
 import java.io.UncheckedIOException;
@@ -13,64 +13,75 @@ import static org.assertj.core.api.BDDAssertions.then;
 
 public class FileLoaderTest {
 
+    private static final int CAR_ID = 0;
+    private static final int RETIRED_CAR_ID = 2;
+
+    private static final String START_TIME = "00:00:00.00";
+    private static final String END_TIME = "00:50:48.85";
+
     private final File file = new File("data/raceinfo.dat");
 
     private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
     private final FileLoader loader = new FileLoader(distanceProvider);
-    private final ElapsedTimeConverter converter = new ElapsedTimeConverter();
+    private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
 
     @Test
     public void shouldLoadEveryLineOfFile() {
-        RaceData carsData = loader.load(file);
+        RaceData raceData = loader.load(file);
 
-        assertThat(carsData.getLineCount()).isEqualTo(1147);
+        assertThat(raceData.getLineCount()).isEqualTo(1147);
     }
 
     @Test
     public void shouldGroupLinesByCar() {
-        RaceData carsData = loader.load(file);
+        RaceData raceData = loader.load(file);
 
-        assertThat(carsData.getLineCountForCar(0)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(1)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(2)).isEqualTo(6);
-        assertThat(carsData.getLineCountForCar(3)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(4)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(5)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(6)).isEqualTo(163);
-        assertThat(carsData.getLineCountForCar(7)).isEqualTo(163);
+        assertThat(raceData.getLineCountForCar(CAR_ID)).isEqualTo(163);
+        assertThat(raceData.getLineCountForCar(RETIRED_CAR_ID)).isEqualTo(6);
     }
 
     @Test
     public void shouldReturnCarStatsWithCorrectLapNumbers() {
         RaceData raceData = loader.load(file);
 
-        CarStats stats1 = raceData.getCarStats(0, converter.toElapsedTime("00:00:00.00"));
-        CarStats stats2 = raceData.getCarStats(0, converter.toElapsedTime("00:50:48.85"));
+        CarStats startStats = raceData.getCarStats(CAR_ID, timeParser.parse(START_TIME));
+        CarStats endStats = raceData.getCarStats(CAR_ID, timeParser.parse(END_TIME));
 
-        assertThat(stats1.getLapNumber()).isEqualTo(1);
-        assertThat(stats2.getLapNumber()).isEqualTo(20);
+        assertThat(startStats.getLapNumber()).isEqualTo(1);
+        assertThat(endStats.getLapNumber()).isEqualTo(20);
     }
 
     @Test
     public void shouldReturnCarStatsWithCorrectDistances() {
         RaceData raceData = loader.load(file);
 
-        CarStats stats1 = raceData.getCarStats(0, converter.toElapsedTime("00:00:00.00"));
-        CarStats stats2 = raceData.getCarStats(0, converter.toElapsedTime("00:50:48.85"));
+        CarStats startStats = raceData.getCarStats(CAR_ID, timeParser.parse(START_TIME));
+        CarStats endStats = raceData.getCarStats(CAR_ID, timeParser.parse(END_TIME));
 
-        assertThat(stats1.getDistance()).isEqualTo(0);
-        assertThat(stats2.getDistance()).isEqualTo(120200);
+        assertThat(startStats.getDistance()).isEqualTo(0);
+        assertThat(endStats.getDistance()).isEqualTo(120200);
+    }
+
+    @Test
+    public void shouldReturnRetiredStatsWithCorrectLapNumbers() {
+        RaceData raceData = loader.load(file);
+
+        CarStats startStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(START_TIME));
+        CarStats endStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(END_TIME));
+
+        assertThat(startStats.getLapNumber()).isEqualTo(1);
+        assertThat(endStats.getLapNumber()).isEqualTo(1);
     }
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectDistances() {
         RaceData raceData = loader.load(file);
 
-        CarStats stats1 = raceData.getCarStats(2, converter.toElapsedTime("00:00:00.00"));
-        CarStats stats2 = raceData.getCarStats(2, converter.toElapsedTime("00:50:48.85"));
+        CarStats startStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(START_TIME));
+        CarStats endStats = raceData.getCarStats(RETIRED_CAR_ID, timeParser.parse(END_TIME));
 
-        assertThat(stats1.getDistance()).isEqualTo(0);
-        assertThat(stats2.getDistance()).isEqualTo(3800);
+        assertThat(startStats.getDistance()).isEqualTo(0);
+        assertThat(endStats.getDistance()).isEqualTo(3800);
     }
 
     @Test

@@ -12,7 +12,7 @@ public class CarData {
     private final int carId;
 
     private int firstCheckpointId = -1;
-    private int lapNumber = 0;
+    private int lapNumber = 1;
     private double distance = 0;
 
 
@@ -42,13 +42,13 @@ public class CarData {
         if (lines.isEmpty())
             firstCheckpointId = line.getCheckpointId();
 
-        if (line.getCheckpointId() == firstCheckpointId)
-            lapNumber++;
-
         if (!lines.isEmpty())
             distance += getCheckpointDistance(line);
 
         add(new CarDataLine(line, lapNumber, distance));
+
+        if (line.getCheckpointId() == firstCheckpointId)
+            lapNumber++;
     }
 
     private void add(CarDataLine line) {
