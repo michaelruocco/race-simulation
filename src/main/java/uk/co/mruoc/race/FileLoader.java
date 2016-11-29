@@ -12,13 +12,18 @@ public class FileLoader {
     private static final String ENCODING = "utf-8";
 
     private final FileLineParser parser = new FileLineParser();
+    private final DistanceProvider distanceProvider;
 
-    public CarsData load(File file) {
+    public FileLoader(DistanceProvider distanceProvider) {
+        this.distanceProvider = distanceProvider;
+    }
+
+    public RaceData load(File file) {
         try {
             List<String> lines = FileUtils.readLines(file, ENCODING);
-            CarsData carsData = new CarsData();
-            lines.forEach(l -> carsData.add(parser.parse(l)));
-            return carsData;
+            RaceData raceData = new RaceData(distanceProvider);
+            lines.forEach(l -> raceData.add(parser.parse(l)));
+            return raceData;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

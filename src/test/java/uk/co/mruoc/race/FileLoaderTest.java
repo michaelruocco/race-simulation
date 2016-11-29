@@ -15,19 +15,20 @@ public class FileLoaderTest {
 
     private final File file = new File("data/raceinfo.dat");
 
-    private final FileLoader loader = new FileLoader();
+    private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
+    private final FileLoader loader = new FileLoader(distanceProvider);
     private final ElapsedTimeConverter converter = new ElapsedTimeConverter();
 
     @Test
     public void shouldLoadEveryLineOfFile() {
-        CarsData carsData = loader.load(file);
+        RaceData carsData = loader.load(file);
 
         assertThat(carsData.getLineCount()).isEqualTo(1147);
     }
 
     @Test
     public void shouldGroupLinesByCar() {
-        CarsData carsData = loader.load(file);
+        RaceData carsData = loader.load(file);
 
         assertThat(carsData.getLineCountForCar(0)).isEqualTo(163);
         assertThat(carsData.getLineCountForCar(1)).isEqualTo(163);
@@ -37,6 +38,39 @@ public class FileLoaderTest {
         assertThat(carsData.getLineCountForCar(5)).isEqualTo(163);
         assertThat(carsData.getLineCountForCar(6)).isEqualTo(163);
         assertThat(carsData.getLineCountForCar(7)).isEqualTo(163);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectLapNumbers() {
+        RaceData raceData = loader.load(file);
+
+        CarStats stats1 = raceData.getCarStats(0, converter.toElapsedTime("00:00:00.00"));
+        CarStats stats2 = raceData.getCarStats(0, converter.toElapsedTime("00:50:48.85"));
+
+        assertThat(stats1.getLapNumber()).isEqualTo(1);
+        assertThat(stats2.getLapNumber()).isEqualTo(20);
+    }
+
+    @Test
+    public void shouldReturnCarStatsWithCorrectDistances() {
+        RaceData raceData = loader.load(file);
+
+        CarStats stats1 = raceData.getCarStats(0, converter.toElapsedTime("00:00:00.00"));
+        CarStats stats2 = raceData.getCarStats(0, converter.toElapsedTime("00:50:48.85"));
+
+        assertThat(stats1.getDistance()).isEqualTo(0);
+        assertThat(stats2.getDistance()).isEqualTo(120200);
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsWithCorrectDistances() {
+        RaceData raceData = loader.load(file);
+
+        CarStats stats1 = raceData.getCarStats(2, converter.toElapsedTime("00:00:00.00"));
+        CarStats stats2 = raceData.getCarStats(2, converter.toElapsedTime("00:50:48.85"));
+
+        assertThat(stats1.getDistance()).isEqualTo(0);
+        assertThat(stats2.getDistance()).isEqualTo(3800);
     }
 
     @Test

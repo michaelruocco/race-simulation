@@ -10,7 +10,9 @@ import static org.assertj.core.api.BDDAssertions.then;
 public class CarDataTest {
 
     private static final int CAR_ID = 1;
-    private final CarData carData = new CarData(CAR_ID);
+
+    private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
+    private final CarData carData = new CarData(distanceProvider, CAR_ID);
 
     @Test
     public void shouldReturnCarId() {
@@ -25,9 +27,8 @@ public class CarDataTest {
     @Test
     public void sizeShouldIncrementWhenLinesAdded() {
         carData.add(new TestFileLineBuilder().withCarId(CAR_ID).build());
-        carData.add(new TestFileLineBuilder().withCarId(CAR_ID).build());
 
-        assertThat(carData.size()).isEqualTo(2);
+        assertThat(carData.size()).isEqualTo(1);
     }
 
     @Test
