@@ -7,9 +7,9 @@ import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class DefaultDistanceProviderTest {
+public class DefaultTrackDistanceProviderTest {
 
-    private final DistanceProvider provider = new DefaultDistanceProvider();
+    private final DistanceProvider provider = new DefaultTrackDistanceProvider();
 
     @Test
     public void shouldReturnDistancesBetweenCheckpoints() {

@@ -1,31 +1,31 @@
 package uk.co.mruoc.race;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DefaultDistanceProvider implements DistanceProvider {
 
+    private static final Logger LOG = LogManager.getLogger(FileLineParser.class);
+
     private final Map<String, Double> distances = new LinkedHashMap<>();
 
-    public DefaultDistanceProvider() {
-        distances.put("0-1", 800d);
-        distances.put("1-2", 1200d);
-        distances.put("2-3", 300d);
-        distances.put("3-6", 700d);
-        distances.put("6-7", 800d);
-        distances.put("7-8", 1200d);
-        distances.put("8-9", 400d);
-        distances.put("9-0", 600d);
-
-        distances.put("3-4", 200d);
-        distances.put("4-5", 200d);
-        distances.put("5-6", 500d);
+    @Override
+    public void add(String key, double distance) {
+        distances.put(key, distance);
     }
 
     @Override
     public double getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId) {
         String key = toKey(startCheckpointId, endCheckpointId);
-        return distances.get(key);
+        LOG.info("returning distance between checkpoints " + key);
+        if (distances.containsKey(key))
+            return distances.get(key);
+
+        LOG.info("no distance found returning 0 ");
+        return 0;
     }
 
     @Override

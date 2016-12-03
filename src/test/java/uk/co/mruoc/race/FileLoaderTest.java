@@ -21,7 +21,7 @@ public class FileLoaderTest {
 
     private final File file = new File("data/raceinfo.dat");
 
-    private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
+    private final DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
     private final FileLoader loader = new FileLoader(distanceProvider);
     private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
 

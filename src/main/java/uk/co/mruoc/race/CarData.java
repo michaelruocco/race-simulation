@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public class CarData {
 
-    private final TreeMap<Long, CarDataLine> lines = new TreeMap<>();
+    private final TreeMap<ElapsedTime, CarDataLine> lines = new TreeMap<>();
     private final DistanceProvider distanceProvider;
     private final int carId;
 
@@ -35,13 +35,13 @@ public class CarData {
     }
 
     public void setTime(ElapsedTime time) {
-        Entry<Long, CarDataLine> entry = lines.floorEntry(time.getTotalMillis());
+        Entry<ElapsedTime, CarDataLine> entry = lines.floorEntry(time);
         currentLine = entry.getValue();
     }
 
     public int getLapNumber() {
         int lapNumber = currentLine.getLapNumber();
-        if (currentLine.getTotalMillis() >= lines.lastKey())
+        if (isFinished())
             lapNumber--;
         return lapNumber;
     }
@@ -67,7 +67,7 @@ public class CarData {
     }
 
     private void add(CarDataLine line) {
-        lines.put(line.getTotalMillis(), line);
+        lines.put(line.getTime(), line);
     }
 
     private double getCheckpointDistance(FileLine line) {
@@ -77,7 +77,7 @@ public class CarData {
     }
 
     private int getLastCheckpointId() {
-        Entry<Long, CarDataLine> entry = lines.lastEntry();
+        Entry<ElapsedTime, CarDataLine> entry = lines.lastEntry();
         CarDataLine line = entry.getValue();
         return line.getCheckpointId();
     }
@@ -90,6 +90,12 @@ public class CarData {
 
     private CarDataLine getLastLine() {
         return lines.lastEntry().getValue();
+    }
+
+    private boolean isFinished() {
+        ElapsedTime currentTime = currentLine.getTime();
+        ElapsedTime endTime = getEndTime();
+        return currentTime.isAfter(endTime) || currentTime.equals(endTime);
     }
 
 }

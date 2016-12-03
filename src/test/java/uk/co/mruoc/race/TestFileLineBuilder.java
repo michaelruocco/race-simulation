@@ -6,7 +6,7 @@ public class TestFileLineBuilder {
 
     private ElapsedTime time = new ElapsedTime();
     private int carId = 0;
-    private int checkpointId = '0';
+    private int checkpointId = 0;
     private boolean queried = false;
 
     public TestFileLineBuilder withCheckpointId(int checkpointId) {
