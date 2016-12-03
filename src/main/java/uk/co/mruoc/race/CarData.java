@@ -1,5 +1,6 @@
 package uk.co.mruoc.race;
 
+import uk.co.mruoc.race.CarDataLine.CarDataLineBuilder;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.util.Map.Entry;
@@ -60,7 +61,13 @@ public class CarData {
         if (!lines.isEmpty())
             distance += getCheckpointDistance(line);
 
-        add(new CarDataLine(line, lapNumber, distance));
+        CarDataLine carDataLine = new CarDataLineBuilder()
+                .setCheckpointId(line.getCheckpointId())
+                .setTime(line.getTime())
+                .setLapNumber(lapNumber)
+                .setDistance(distance)
+                .build();
+        add(carDataLine);
 
         if (line.getCheckpointId() == firstCheckpointId)
             lapNumber++;

@@ -4,22 +4,24 @@ import uk.co.mruoc.time.ElapsedTime;
 
 public class CarDataLine {
 
-    private final FileLine fileLine;
+    private final int checkpointId;
+    private final ElapsedTime time;
     private final int lapNumber;
     private final double distance;
 
-    public CarDataLine(FileLine fileLine, int lapNumber, double distance) {
-        this.fileLine = fileLine;
-        this.lapNumber = lapNumber;
-        this.distance = distance;
+    private CarDataLine(CarDataLineBuilder builder) {
+        this.checkpointId = builder.checkpointId;
+        this.time = builder.time;
+        this.lapNumber = builder.lapNumber;
+        this.distance = builder.distance;
     }
 
     public int getCheckpointId() {
-        return fileLine.getCheckpointId();
+        return checkpointId;
     }
 
     public ElapsedTime getTime() {
-        return fileLine.getTime();
+        return time;
     }
 
     public int getLapNumber() {
@@ -28,6 +30,39 @@ public class CarDataLine {
 
     public double getDistance() {
         return distance;
+    }
+
+    public static class CarDataLineBuilder {
+
+        private int checkpointId;
+        private ElapsedTime time;
+        private int lapNumber;
+        private double distance;
+
+        public CarDataLineBuilder setCheckpointId(int checkpointId) {
+            this.checkpointId = checkpointId;
+            return this;
+        }
+
+        public CarDataLineBuilder setTime(ElapsedTime time) {
+            this.time = time;
+            return this;
+        }
+
+        public CarDataLineBuilder setLapNumber(int lapNumber) {
+            this.lapNumber = lapNumber;
+            return this;
+        }
+
+        public CarDataLineBuilder setDistance(double distance) {
+            this.distance = distance;
+            return this;
+        }
+
+        public CarDataLine build() {
+            return new CarDataLine(this);
+        }
+
     }
 
 }
