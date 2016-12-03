@@ -19,6 +19,11 @@ public class TestFileLineBuilder {
         return this;
     }
 
+    public TestFileLineBuilder withTime(ElapsedTime time) {
+        this.time = time;
+        return this;
+    }
+
     public FileLine build() {
         return new FileLine(time, carId, checkpointId, queried);
     }
