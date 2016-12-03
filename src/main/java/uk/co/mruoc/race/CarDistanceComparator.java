@@ -2,7 +2,7 @@ package uk.co.mruoc.race;
 
 import java.util.Comparator;
 
-public class CarPositionComparator implements Comparator<CarData> {
+public class CarDistanceComparator implements Comparator<CarData> {
 
     @Override
     public int compare(CarData c1, CarData c2) {

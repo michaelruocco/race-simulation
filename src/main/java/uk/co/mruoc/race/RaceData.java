@@ -2,7 +2,6 @@ package uk.co.mruoc.race;
 
 import uk.co.mruoc.time.ElapsedTime;
 
-import java.math.BigInteger;
 import java.util.*;
 
 public class RaceData {
@@ -35,7 +34,7 @@ public class RaceData {
     private Comparator<CarData> buildComparator(ElapsedTime time) {
         if (time.getTotalMillis() == 0)
             return new CarIdComparator();
-        return new CarPositionComparator();
+        return new CarDistanceComparator();
     }
 
     public CarStats getCarStats(int carId) {
