@@ -14,10 +14,6 @@ public class CarDataLine {
         this.distance = distance;
     }
 
-    public long getTotalMillis() {
-        return getTime().getTotalMillis();
-    }
-
     public int getCheckpointId() {
         return fileLine.getCheckpointId();
     }

@@ -72,4 +72,28 @@ public class CarDataTest {
         assertThat(distance).isEqualTo(2000);
     }
 
+    @Test
+    public void shouldReturnLapNumberAtGivenTimeWhenCarHasRetired() {
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(0).withTime(new ElapsedTime()).build());
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(1).withTime(new ElapsedTime("00:00:01.000")).build());
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(-1).withTime(new ElapsedTime("00:00:02.000")).build());
+        carData.setTime(new ElapsedTime("00:00:02.000"));
+
+        double distance = carData.getDistance();
+
+        assertThat(distance).isEqualTo(2000);
+    }
+
+    @Test
+    public void shouldReturnLapNumberAtGivenTime() {
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(0).withTime(new ElapsedTime()).build());
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(1).withTime(new ElapsedTime("00:00:01.000")).build());
+        carData.add(fileLineBuilder.withCarId(CAR_ID).withCheckpointId(2).withTime(new ElapsedTime("00:00:02.000")).build());
+        carData.setTime(new ElapsedTime("00:00:02.000"));
+
+        int lapNumber = carData.getLapNumber();
+
+        assertThat(lapNumber).isEqualTo(1);
+    }
+
 }
