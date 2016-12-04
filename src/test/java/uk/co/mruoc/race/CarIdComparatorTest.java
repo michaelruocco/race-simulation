@@ -8,8 +8,8 @@ import static org.mockito.Mockito.mock;
 
 public class CarIdComparatorTest {
 
-    private CarData carData1 = mock(CarData.class);
-    private CarData carData2 = mock(CarData.class);
+    private final CarData carData1 = mock(CarData.class);
+    private final CarData carData2 = mock(CarData.class);
 
     private final CarIdComparator comparator = new CarIdComparator();
 
