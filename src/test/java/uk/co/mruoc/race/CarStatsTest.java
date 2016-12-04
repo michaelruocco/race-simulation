@@ -42,5 +42,5 @@ public class CarStatsTest {
 
         assertThat(carStats.getDistance()).isEqualTo(distance);
     }
-    
+
 }
