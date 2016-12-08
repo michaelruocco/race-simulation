@@ -3,16 +3,18 @@ package uk.co.mruoc.race.console;
 import org.apache.commons.lang3.StringUtils;
 import uk.co.mruoc.race.model.CarStats;
 import uk.co.mruoc.race.model.RaceData;
-//import uk.co.mruoc.race.model.SpeedConverter;
+import uk.co.mruoc.race.model.SpeedConverter;
 import uk.co.mruoc.time.ElapsedTime;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Iterator;
 
 public class ConsoleReportBuilder {
 
     private static final String NEW_LINE = System.lineSeparator();
 
-    //private final SpeedConverter speedConverter = new SpeedConverter();
+    private final SpeedConverter speedConverter = new SpeedConverter();
     private StringBuilder report;
 
     public String build(RaceData raceData) {
@@ -44,11 +46,42 @@ public class ConsoleReportBuilder {
 
     private void appendLine(CarStats stats) {
         report.append("|");
-        report.append(StringUtils.leftPad(Integer.toString(stats.getPosition()), 10, ' '));
+        report.append(pad(formatPosition(stats), 10));
         report.append("|");
-        report.append(StringUtils.leftPad(Integer.toString(stats.getCarId()), 4, ' '));
+        report.append(pad(formatCarId(stats), 4));
+        report.append("|");
+        report.append(pad(formatSpeed(stats), 7));
+        report.append("|");
+        report.append(pad(formatLapNumber(stats), 12));
+        report.append("|");
+        report.append(pad(formatTimeDifference(stats), 17));
         report.append("|");
         report.append(NEW_LINE);
+    }
+
+    private String formatPosition(CarStats stats) {
+        return Integer.toString(stats.getPosition());
+    }
+
+    private String formatCarId(CarStats stats) {
+        return Integer.toString(stats.getCarId());
+    }
+
+    private String formatSpeed(CarStats stats) {
+        BigDecimal speed = stats.getSpeed();
+        return speedConverter.metersPerMilliToKmPerHour(speed).setScale(2, RoundingMode.HALF_UP).toString();
+    }
+
+    private String formatLapNumber(CarStats stats) {
+        return Integer.toString(stats.getLapNumber());
+    }
+
+    private String formatTimeDifference(CarStats stats) {
+        return stats.getTimeDifference().toString();
+    }
+
+    private String pad(String value, int size) {
+        return StringUtils.leftPad(value, size, ' ');
     }
 
 }
