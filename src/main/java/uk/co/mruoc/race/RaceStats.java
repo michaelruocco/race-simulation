@@ -1,37 +1,25 @@
 package uk.co.mruoc.race;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
 
 public class RaceStats {
 
-    private final Map<Integer, CarStats> carStats = new HashMap<>();
+    private List<CarStats> carStatsList;
 
-    public RaceStats(Collection<CarData> carDatas, Comparator<CarData> comparator) {
-        List<CarData> carDataList = toList(carDatas);
-        carDataList.sort(comparator);
-        add(carDataList);
+    public RaceStats(List<CarStats> carStatsList) {
+        this.carStatsList = carStatsList;
+    }
+
+    public Iterator<CarStats> getCarStats() {
+        return carStatsList.iterator();
     }
 
     public CarStats getCarStats(int carId) {
-        return carStats.get(carId);
-    }
-
-    private List<CarData> toList(Collection<CarData> carDatas) {
-        return new ArrayList<>(carDatas);
-    }
-
-    private void add(List<CarData> carDataList) {
-        carDataList.forEach(this::add);
-    }
-
-    private void add(CarData carData) {
-        int position = size() + 1;
-        CarStats stats = new CarStats(position, carData);
-        carStats.put(stats.getCarId(), stats);
-    }
-
-    private int size() {
-        return carStats.size();
+        for (CarStats stats : carStatsList)
+            if (stats.getCarId() == carId)
+                return stats;
+        throw new RuntimeException("car stats for car id " + carId + " not found");
     }
 
 }

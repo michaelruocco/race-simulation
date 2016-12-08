@@ -1,20 +1,22 @@
 package uk.co.mruoc.race;
 
+import java.math.BigDecimal;
+
 public class DefaultTrackDistanceProvider extends DefaultDistanceProvider {
 
     public DefaultTrackDistanceProvider() {
-        add("0-1", 800d);
-        add("1-2", 1200d);
-        add("2-3", 300d);
-        add("3-6", 700d);
-        add("6-7", 800d);
-        add("7-8", 1200d);
-        add("8-9", 400d);
-        add("9-0", 600d);
+        add("0-1", BigDecimal.valueOf(800));
+        add("1-2", BigDecimal.valueOf(1200));
+        add("2-3", BigDecimal.valueOf(300));
+        add("3-6", BigDecimal.valueOf(700));
+        add("6-7", BigDecimal.valueOf(800));
+        add("7-8", BigDecimal.valueOf(1200));
+        add("8-9", BigDecimal.valueOf(400));
+        add("9-0", BigDecimal.valueOf(600));
 
-        add("3-4", 200d);
-        add("4-5", 200d);
-        add("5-6", 500d);
+        add("3-4", BigDecimal.valueOf(200));
+        add("4-5", BigDecimal.valueOf(200));
+        add("5-6", BigDecimal.valueOf(500));
     }
 
 }

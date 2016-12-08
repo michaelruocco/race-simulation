@@ -1,29 +1,35 @@
 package uk.co.mruoc.race;
 
 import org.apache.commons.io.FileUtils;
+import uk.co.mruoc.time.ElapsedTime;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Map;
 
 public class FileLoader {
 
     private static final String ENCODING = "utf-8";
 
     private final FileLineParser parser = new FileLineParser();
-    private final DistanceProvider distanceProvider;
+    private final FileLineGrouper fileLineGrouper = new FileLineGrouper();
+    private final FileLinesToQueryTimeConverter queryTimeConverter = new FileLinesToQueryTimeConverter();
+    private final FileLinesToCarDataConverter carDataConverter;
 
     public FileLoader(DistanceProvider distanceProvider) {
-        this.distanceProvider = distanceProvider;
+        this.carDataConverter = new FileLinesToCarDataConverter(distanceProvider);
     }
 
     public RaceData load(File file) {
         try {
-            List<String> lines = FileUtils.readLines(file, ENCODING);
-            RaceData raceData = new RaceData(distanceProvider);
-            lines.forEach(l -> raceData.add(parser.parse(l)));
-            return raceData;
+            List<String> inputs = FileUtils.readLines(file, ENCODING);
+            List<FileLine> lines = parser.parse(inputs);
+            List<ElapsedTime> queryTimes = queryTimeConverter.toQueryTimes(lines);
+            Map<Integer, List<FileLine>> carLines = fileLineGrouper.groupByCarId(lines);
+            List<CarData> carData = carDataConverter.toCarData(carLines);
+            return new RaceData(queryTimes, carData);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

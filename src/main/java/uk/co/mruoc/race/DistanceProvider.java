@@ -1,10 +1,12 @@
 package uk.co.mruoc.race;
 
+import java.math.BigDecimal;
+
 public interface DistanceProvider {
 
-    void add(String key, double distance);
+    void add(String key, BigDecimal distance);
 
-    double getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId);
+    BigDecimal getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId);
 
     int getNextCheckpointId(int checkpointId);
 

@@ -3,6 +3,7 @@ package uk.co.mruoc.race;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -10,22 +11,22 @@ public class DefaultDistanceProvider implements DistanceProvider {
 
     private static final Logger LOG = LogManager.getLogger(FileLineParser.class);
 
-    private final Map<String, Double> distances = new LinkedHashMap<>();
+    private final Map<String, BigDecimal> distances = new LinkedHashMap<>();
 
     @Override
-    public void add(String key, double distance) {
+    public void add(String key, BigDecimal distance) {
         distances.put(key, distance);
     }
 
     @Override
-    public double getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId) {
+    public BigDecimal getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId) {
         String key = toKey(startCheckpointId, endCheckpointId);
         LOG.info("returning distance between checkpoints " + key);
         if (distances.containsKey(key))
             return distances.get(key);
 
         LOG.info("no distance found returning 0 ");
-        return 0;
+        return BigDecimal.ZERO;
     }
 
     @Override

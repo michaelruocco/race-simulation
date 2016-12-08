@@ -1,10 +1,12 @@
 package uk.co.mruoc.race;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
 import java.io.UncheckedIOException;
+import java.math.BigDecimal;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
@@ -24,21 +26,6 @@ public class FileLoaderTest {
     private final DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
     private final FileLoader loader = new FileLoader(distanceProvider);
     private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
-
-    @Test
-    public void shouldLoadEveryLineOfFile() {
-        RaceData raceData = loader.load(file);
-
-        assertThat(raceData.getLineCount()).isEqualTo(1147);
-    }
-
-    @Test
-    public void shouldGroupLinesByCar() {
-        RaceData raceData = loader.load(file);
-
-        assertThat(raceData.getLineCountForCar(CAR_ID)).isEqualTo(163);
-        assertThat(raceData.getLineCountForCar(RETIRED_CAR_ID)).isEqualTo(6);
-    }
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartLapNumbers() {
@@ -87,7 +74,7 @@ public class FileLoaderTest {
 
         CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(stats.getDistance()).isEqualTo(0);
+        assertThat(stats.getDistance()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
@@ -97,7 +84,7 @@ public class FileLoaderTest {
 
         CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(stats.getDistance()).isEqualTo(120200);
+        assertThat(stats.getDistance()).isEqualTo(BigDecimal.valueOf(120200));
     }
 
     @Test
@@ -107,7 +94,7 @@ public class FileLoaderTest {
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
-        assertThat(stats.getDistance()).isEqualTo(0);
+        assertThat(stats.getDistance()).isEqualTo(BigDecimal.ZERO);
     }
 
     @Test
@@ -117,7 +104,7 @@ public class FileLoaderTest {
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
-        assertThat(stats.getDistance()).isEqualTo(3800);
+        assertThat(stats.getDistance()).isEqualTo(BigDecimal.valueOf(3240.0));
     }
 
     @Test
@@ -137,7 +124,7 @@ public class FileLoaderTest {
 
         CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(stats.getPosition()).isEqualTo(3);
+        assertThat(stats.getPosition()).isEqualTo(1);
     }
 
     @Test

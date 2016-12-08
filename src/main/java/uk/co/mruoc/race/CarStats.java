@@ -1,12 +1,18 @@
 package uk.co.mruoc.race;
 
+import uk.co.mruoc.time.ElapsedTime;
+
+import java.math.BigDecimal;
+
 public class CarStats {
 
     private final int position;
+    private final ElapsedTime timeDifference;
     private final CarData carData;
 
-    public CarStats(int position, CarData carData) {
+    public CarStats(int position, ElapsedTime timeDifference, CarData carData) {
         this.position = position;
+        this.timeDifference = timeDifference;
         this.carData = carData;
     }
 
@@ -22,8 +28,15 @@ public class CarStats {
         return carData.getLapNumber();
     }
 
-    public double getDistance() {
+    public BigDecimal getDistance() {
         return carData.getDistance();
     }
 
+    public ElapsedTime getTimeDifference() {
+        return timeDifference;
+    }
+
+    public BigDecimal getSpeed() {
+        return carData.getSpeed();
+    }
 }

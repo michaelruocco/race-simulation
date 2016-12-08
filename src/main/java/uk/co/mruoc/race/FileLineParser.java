@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.time.ElapsedTime;
 import uk.co.mruoc.time.ElapsedTimeConverter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.lang.Integer.parseInt;
 
 public class FileLineParser {
@@ -19,6 +22,12 @@ public class FileLineParser {
     private final ElapsedTimeConverter elapsedTimeConverter = new ElapsedTimeConverter();
     private final FileLineValidator validator = new FileLineValidator();
     private final RetiredConverter retiredConverter = new RetiredConverter();
+
+    public List<FileLine> parse(List<String> inputs) {
+        List<FileLine> lines = new ArrayList<>();
+        inputs.forEach(i -> lines.add(parse(i)));
+        return lines;
+    }
 
     public FileLine parse(String input) {
         LOG.debug("parsing input line " + input);

@@ -2,6 +2,8 @@ package uk.co.mruoc.race;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,19 +15,19 @@ public class DefaultTrackDistanceProviderTest {
 
     @Test
     public void shouldReturnDistancesBetweenCheckpoints() {
-        assertThat(provider.getDistanceBetweenCheckpoints(0, 1)).isEqualTo(800);
-        assertThat(provider.getDistanceBetweenCheckpoints(1, 2)).isEqualTo(1200);
-        assertThat(provider.getDistanceBetweenCheckpoints(2, 3)).isEqualTo(300);
+        assertThat(provider.getDistanceBetweenCheckpoints(0, 1)).isEqualTo(BigDecimal.valueOf(800));
+        assertThat(provider.getDistanceBetweenCheckpoints(1, 2)).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(provider.getDistanceBetweenCheckpoints(2, 3)).isEqualTo(BigDecimal.valueOf(300));
 
-        assertThat(provider.getDistanceBetweenCheckpoints(3, 4)).isEqualTo(200);
-        assertThat(provider.getDistanceBetweenCheckpoints(4, 5)).isEqualTo(200);
-        assertThat(provider.getDistanceBetweenCheckpoints(5, 6)).isEqualTo(500);
-        assertThat(provider.getDistanceBetweenCheckpoints(3, 6)).isEqualTo(700);
+        assertThat(provider.getDistanceBetweenCheckpoints(3, 4)).isEqualTo(BigDecimal.valueOf(200));
+        assertThat(provider.getDistanceBetweenCheckpoints(4, 5)).isEqualTo(BigDecimal.valueOf(200));
+        assertThat(provider.getDistanceBetweenCheckpoints(5, 6)).isEqualTo(BigDecimal.valueOf(500));
+        assertThat(provider.getDistanceBetweenCheckpoints(3, 6)).isEqualTo(BigDecimal.valueOf(700));
 
-        assertThat(provider.getDistanceBetweenCheckpoints(6, 7)).isEqualTo(800);
-        assertThat(provider.getDistanceBetweenCheckpoints(7, 8)).isEqualTo(1200);
-        assertThat(provider.getDistanceBetweenCheckpoints(8, 9)).isEqualTo(400);
-        assertThat(provider.getDistanceBetweenCheckpoints(9, 0)).isEqualTo(600);
+        assertThat(provider.getDistanceBetweenCheckpoints(6, 7)).isEqualTo(BigDecimal.valueOf(800));
+        assertThat(provider.getDistanceBetweenCheckpoints(7, 8)).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(provider.getDistanceBetweenCheckpoints(8, 9)).isEqualTo(BigDecimal.valueOf(400));
+        assertThat(provider.getDistanceBetweenCheckpoints(9, 0)).isEqualTo(BigDecimal.valueOf(600));
     }
 
     @Test

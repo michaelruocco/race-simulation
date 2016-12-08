@@ -2,6 +2,8 @@ package uk.co.mruoc.race;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +15,7 @@ public class DefaultDistanceProviderTest {
 
     @Test
     public void shouldReturnDistancesBetweenCheckpoints() {
-        double distance = 500;
+        BigDecimal distance = BigDecimal.valueOf(500);
         provider.add("0-1", distance);
 
         assertThat(provider.getDistanceBetweenCheckpoints(0, 1)).isEqualTo(distance);
@@ -21,7 +23,7 @@ public class DefaultDistanceProviderTest {
 
     @Test
     public void shouldReturnNextCheckpointIdForNormalLap() {
-        provider.add("0-1", 0);
+        provider.add("0-1", BigDecimal.ZERO);
 
         assertThat(provider.getNextCheckpointId(0)).isEqualTo(1);
     }
@@ -33,6 +35,11 @@ public class DefaultDistanceProviderTest {
         then(caughtException())
                 .isInstanceOf(NextCheckpointIdNotFoundException.class)
                 .hasMessage("next checkpoint id not found for checkpoint id 0");
+    }
+
+    @Test
+    public void shouldReturnZeroIfSplitNotFound() {
+        assertThat(provider.getDistanceBetweenCheckpoints(0, 1)).isEqualTo(BigDecimal.ZERO);
     }
 
 }

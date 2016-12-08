@@ -6,29 +6,41 @@ import java.util.*;
 
 public class RaceData {
 
-    private final Map<Integer, CarData> carsData = new HashMap<>();
-    private final DistanceProvider distanceProvider;
-
+    private final List<ElapsedTime> queryTimes;
+    private final List<CarData> carDataList;
     private RaceStats raceStats;
 
-    public RaceData(DistanceProvider distanceProvider) {
-        this.distanceProvider = distanceProvider;
+    public RaceData(List<ElapsedTime> queryTimes, List<CarData> carsDataList) {
+        this.queryTimes = queryTimes;
+        this.carDataList = carsDataList;
     }
 
-    public void add(FileLine line) {
-        int carId = line.getCarId();
-        if (carsData.containsKey(carId)) {
-            carsData.get(carId).add(line);
-        } else {
-            carsData.put(carId, toCarData(line));
-        }
+    public Iterator<ElapsedTime> getQueryTimes() {
+        return queryTimes.iterator();
     }
 
     public void setTime(ElapsedTime time) {
-        carsData.values().forEach(c -> c.setTime(time));
+        carDataList.forEach(c -> c.setTime(time));
+        raceStats = buildRaceStats(time);
+    }
 
+    public Iterator<CarStats> getCarStats() {
+        return raceStats.getCarStats();
+    }
+
+    public CarStats getCarStats(int carId) {
+        return raceStats.getCarStats(carId);
+    }
+
+    private RaceStats buildRaceStats(ElapsedTime time) {
+        CarDataToCarStatsConverter converter = buildConverter(time);
+        List<CarStats> carStatsList = converter.toCarStats(carDataList);
+        return new RaceStats(carStatsList);
+    }
+
+    private CarDataToCarStatsConverter buildConverter(ElapsedTime time) {
         Comparator<CarData> comparator = buildComparator(time);
-        raceStats = new RaceStats(new ArrayList<>(carsData.values()), comparator);
+        return new CarDataToCarStatsConverter(comparator);
     }
 
     private Comparator<CarData> buildComparator(ElapsedTime time) {
@@ -36,31 +48,5 @@ public class RaceData {
             return new CarIdComparator();
         return new CarDistanceComparator();
     }
-
-    public CarStats getCarStats(int carId) {
-        return raceStats.getCarStats(carId);
-    }
-
-    public int getLineCountForCar(int carId) {
-        return getCarData(carId).size();
-    }
-
-    public int getLineCount() {
-        int totalCount = 0;
-        for (CarData carData : carsData.values())
-            totalCount += carData.size();
-        return totalCount;
-    }
-
-    private CarData getCarData(int carId) {
-        return carsData.get(carId);
-    }
-
-    private CarData toCarData(FileLine line) {
-        CarData carData = new CarData(distanceProvider, line.getCarId());
-        carData.add(line);
-        return carData;
-    }
-
 
 }
