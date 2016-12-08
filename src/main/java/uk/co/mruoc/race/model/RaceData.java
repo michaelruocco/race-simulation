@@ -1,10 +1,14 @@
 package uk.co.mruoc.race.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.util.*;
 
 public class RaceData {
+
+    private static final Logger LOG = LogManager.getLogger(RaceData.class);
 
     private final List<ElapsedTime> queryTimes;
     private final List<CarData> carDataList;
@@ -20,6 +24,7 @@ public class RaceData {
     }
 
     public void setTime(ElapsedTime time) {
+        LOG.info("set time " + time);
         carDataList.forEach(c -> c.setTime(time));
         raceStats = buildRaceStats(time);
     }
