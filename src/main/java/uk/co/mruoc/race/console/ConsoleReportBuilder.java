@@ -12,7 +12,15 @@ import java.util.Iterator;
 
 public class ConsoleReportBuilder {
 
+    private static final char COLUMN_SEPARATOR = '|';
+    private static final char HEADER_SEPARATOR = '-';
     private static final String NEW_LINE = System.lineSeparator();
+
+    private static final int POSITION_COLUMN_WIDTH = 10;
+    private static final int ID_COLUMN_WIDTH = 4;
+    private static final int SPEED_COLUMN_WIDTH = 7;
+    private static final int LAP_NUMBER_COLUMN_WIDTH = 12;
+    private static final int TIME_DIFFERENCE_COLUMN_WIDTH = 17;
 
     private final SpeedConverter speedConverter = new SpeedConverter();
     private StringBuilder report;
@@ -23,40 +31,91 @@ public class ConsoleReportBuilder {
         while (queryTimes.hasNext()) {
             ElapsedTime queryTime = queryTimes.next();
             raceData.setTime(queryTime);
+            appendHeaderSeparator();
             appendHeader();
+            appendHeaderSeparator();
             appendLines(raceData.getCarStats());
         }
         return report.toString();
     }
 
     private void appendHeader() {
-        report.append(NEW_LINE);
-        report.append("| Position | ID | Speed | Lap Number | Time Difference | Average Speed | Max Average Speed | Pit Time | Pit Lap |");
-        report.append(NEW_LINE);
-        report.append("|----------|----|-------|------------|-----------------|---------------|-------------------|----------|---------|");
-        report.append(NEW_LINE);
+        appendNewLine();
+        appendColumnSeparator();
+        report.append(" Position ");
+        appendColumnSeparator();
+        report.append(" ID ");
+        appendColumnSeparator();
+        report.append(" Speed ");
+        appendColumnSeparator();
+        report.append(" Lap Number ");
+        appendColumnSeparator();
+        report.append(" Time Difference ");
+        appendColumnSeparator();
+        report.append(" Average Lap Speed ");
+        appendColumnSeparator();
+        report.append(" Max Average Lap Speed ");
+        appendColumnSeparator();
+        report.append(" Pit Time ");
+        appendColumnSeparator();
+        report.append(" Pit Lap ");
+        appendColumnSeparator();
+    }
+
+    private void appendHeaderSeparator() {
+        appendNewLine();
+        appendColumnSeparator();
+        appendHeaderSeparator(POSITION_COLUMN_WIDTH);
+        appendColumnSeparator();
+        appendHeaderSeparator(ID_COLUMN_WIDTH);
+        appendColumnSeparator();
+        appendHeaderSeparator(SPEED_COLUMN_WIDTH);
+        appendColumnSeparator();
+        appendHeaderSeparator(LAP_NUMBER_COLUMN_WIDTH);
+        appendColumnSeparator();
+        appendHeaderSeparator(TIME_DIFFERENCE_COLUMN_WIDTH);
+        appendColumnSeparator();
+        report.append("-------------------");
+        appendColumnSeparator();
+        report.append("-----------------------");
+        appendColumnSeparator();
+        report.append("----------");
+        appendColumnSeparator();
+        report.append("---------");
+        appendColumnSeparator();
     }
 
     private void appendLines(Iterator<CarStats> carStatsIterator) {
-        while (carStatsIterator.hasNext()) {
+        while (carStatsIterator.hasNext())
             appendLine(carStatsIterator.next());
-        }
-        report.append(NEW_LINE);
+        appendNewLine();
     }
 
     private void appendLine(CarStats stats) {
-        report.append("|");
-        report.append(pad(formatPosition(stats), 10));
-        report.append("|");
-        report.append(pad(formatCarId(stats), 4));
-        report.append("|");
-        report.append(pad(formatSpeed(stats), 7));
-        report.append("|");
-        report.append(pad(formatLapNumber(stats), 12));
-        report.append("|");
-        report.append(pad(formatTimeDifference(stats), 17));
-        report.append("|");
+        appendNewLine();
+        appendColumnSeparator();
+        report.append(pad(formatPosition(stats), POSITION_COLUMN_WIDTH));
+        appendColumnSeparator();
+        report.append(pad(formatCarId(stats), ID_COLUMN_WIDTH));
+        appendColumnSeparator();
+        report.append(pad(formatSpeed(stats), SPEED_COLUMN_WIDTH));
+        appendColumnSeparator();
+        report.append(pad(formatLapNumber(stats), LAP_NUMBER_COLUMN_WIDTH));
+        appendColumnSeparator();
+        report.append(pad(formatTimeDifference(stats), TIME_DIFFERENCE_COLUMN_WIDTH));
+        appendColumnSeparator();
+    }
+
+    private void appendNewLine() {
         report.append(NEW_LINE);
+    }
+
+    private void appendColumnSeparator() {
+        report.append(COLUMN_SEPARATOR);
+    }
+
+    private void appendHeaderSeparator(int size) {
+        report.append(StringUtils.leftPad("", size, HEADER_SEPARATOR));
     }
 
     private String formatPosition(CarStats stats) {
