@@ -1,4 +1,4 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 import org.apache.commons.io.FileUtils;
 import uk.co.mruoc.time.ElapsedTime;

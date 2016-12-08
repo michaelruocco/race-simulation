@@ -1,6 +1,8 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
+import uk.co.mruoc.race.model.FileLineFormatException;
+import uk.co.mruoc.race.model.FileLineValidator;
 import uk.co.mruoc.time.ElapsedTimeFormatException;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;

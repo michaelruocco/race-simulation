@@ -1,6 +1,8 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
+import uk.co.mruoc.race.model.InvalidRetiredFlagException;
+import uk.co.mruoc.race.model.RetiredConverter;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;

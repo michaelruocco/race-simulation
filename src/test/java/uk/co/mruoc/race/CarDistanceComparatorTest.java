@@ -1,6 +1,8 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
+import uk.co.mruoc.race.model.CarData;
+import uk.co.mruoc.race.model.CarDistanceComparator;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;

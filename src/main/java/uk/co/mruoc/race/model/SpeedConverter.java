@@ -1,4 +1,4 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

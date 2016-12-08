@@ -1,5 +1,6 @@
 package uk.co.mruoc.race;
 
+import uk.co.mruoc.race.model.*;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 public class InvalidRetiredFlagException extends RuntimeException {
 

@@ -1,6 +1,8 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
+import uk.co.mruoc.race.model.FileLine;
+import uk.co.mruoc.race.model.FileLineParser;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.util.Arrays;

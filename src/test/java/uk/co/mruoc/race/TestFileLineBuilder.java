@@ -1,5 +1,6 @@
 package uk.co.mruoc.race;
 
+import uk.co.mruoc.race.model.FileLine;
 import uk.co.mruoc.time.ElapsedTime;
 
 public class TestFileLineBuilder {

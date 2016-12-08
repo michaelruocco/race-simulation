@@ -1,6 +1,9 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
+import uk.co.mruoc.race.model.DefaultDistanceProvider;
+import uk.co.mruoc.race.model.DistanceProvider;
+import uk.co.mruoc.race.model.NextCheckpointIdNotFoundException;
 
 import java.math.BigDecimal;
 

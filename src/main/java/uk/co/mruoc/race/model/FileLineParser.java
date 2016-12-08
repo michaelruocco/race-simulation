@@ -1,4 +1,4 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,7 +1,7 @@
 package uk.co.mruoc.race;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import uk.co.mruoc.race.model.*;
 import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
