@@ -63,14 +63,12 @@ public class ConsoleReportBuilder {
         int rowWidth = 0;
         for (int c = 0; c < columnCount; c++)
             rowWidth += getColumnWidth(c) + 1;
-        return rowWidth - 1;
+        return rowWidth + 1;
     }
 
     private void appendRowLine() {
-        appendColumnSeparator();
         int width = getRowWidth();
         appendHeaderSeparator(width);
-        appendColumnSeparator();
     }
 
     private void appendHeader() {
