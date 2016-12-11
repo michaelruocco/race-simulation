@@ -157,6 +157,8 @@ public class ConsoleReportBuilder {
     }
 
     private String formatTimeDifference(CarStats stats) {
+        if (stats.getPosition() == 1)
+            return "Leader";
         return stats.getTimeDifference().toString();
     }
 
