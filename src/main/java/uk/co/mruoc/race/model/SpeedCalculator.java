@@ -8,7 +8,10 @@ import java.math.MathContext;
 public class SpeedCalculator {
 
     public static BigDecimal calculate(BigDecimal distance, ElapsedTime time) {
-        return distance.divide(BigDecimal.valueOf(time.getTotalMillis()), MathContext.DECIMAL32);
+        BigDecimal totalMillis = BigDecimal.valueOf(time.getTotalMillis());
+        if (totalMillis.equals(BigDecimal.ZERO))
+            return BigDecimal.ZERO;
+        return distance.divide(totalMillis, MathContext.DECIMAL32);
     }
 
 }
