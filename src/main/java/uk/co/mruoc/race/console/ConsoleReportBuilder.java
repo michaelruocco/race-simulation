@@ -21,6 +21,7 @@ public class ConsoleReportBuilder {
     private static final int SPEED_COLUMN_WIDTH = 7;
     private static final int LAP_NUMBER_COLUMN_WIDTH = 12;
     private static final int TIME_DIFFERENCE_COLUMN_WIDTH = 17;
+    private static final int AVERAGE_LAP_SPEED_COLUMN_WIDTH = 19;
 
     private final SpeedConverter speedConverter = new SpeedConverter();
     private StringBuilder report;
@@ -75,7 +76,7 @@ public class ConsoleReportBuilder {
         appendColumnSeparator();
         appendHeaderSeparator(TIME_DIFFERENCE_COLUMN_WIDTH);
         appendColumnSeparator();
-        report.append("-------------------");
+        appendHeaderSeparator(AVERAGE_LAP_SPEED_COLUMN_WIDTH);
         appendColumnSeparator();
         report.append("-----------------------");
         appendColumnSeparator();
@@ -104,6 +105,8 @@ public class ConsoleReportBuilder {
         appendColumnSeparator();
         report.append(pad(formatTimeDifference(stats), TIME_DIFFERENCE_COLUMN_WIDTH));
         appendColumnSeparator();
+        report.append(pad(formatAverageLapSpeed(stats), AVERAGE_LAP_SPEED_COLUMN_WIDTH));
+        appendColumnSeparator();
     }
 
     private void appendNewLine() {
@@ -127,8 +130,11 @@ public class ConsoleReportBuilder {
     }
 
     private String formatSpeed(CarStats stats) {
-        BigDecimal speed = stats.getSpeed();
-        return speedConverter.metersPerMilliToKmPerHour(speed).setScale(2, RoundingMode.HALF_UP).toString();
+        return formatSpeed(stats.getSpeed());
+    }
+
+    private String formatAverageLapSpeed(CarStats stats) {
+        return formatSpeed(stats.getAverageLapSpeed());
     }
 
     private String formatLapNumber(CarStats stats) {
@@ -137,6 +143,10 @@ public class ConsoleReportBuilder {
 
     private String formatTimeDifference(CarStats stats) {
         return stats.getTimeDifference().toString();
+    }
+
+    private String formatSpeed(BigDecimal speed) {
+        return speedConverter.metersPerMilliToKmPerHour(speed).setScale(2, RoundingMode.HALF_UP).toString();
     }
 
     private String pad(String value, int size) {

@@ -2,6 +2,7 @@ package uk.co.mruoc.race.model;
 
 import uk.co.mruoc.time.ElapsedTime;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Lap {
@@ -36,8 +37,21 @@ public class Lap {
         for (Split split : splits)
             if (split.contains(time))
                 return split;
-
         return splits.get(splits.size() - 1);
+    }
+
+    public BigDecimal getAverageLapSpeed(ElapsedTime time) {
+        BigDecimal lapDistance = BigDecimal.ZERO;
+        for (Split split : splits) {
+            if (split.contains(time)) {
+                lapDistance = lapDistance.add(split.getSplitDistanceAt(time));
+                ElapsedTime lapTime = time.subtract(getStartTime());
+                return SpeedCalculator.calculate(lapDistance, lapTime);
+            }
+            lapDistance = lapDistance.add(split.getDistance());
+        }
+        ElapsedTime lapTime = getEndTime().subtract(getStartTime());
+        return SpeedCalculator.calculate(lapDistance, lapTime);
     }
 
 }

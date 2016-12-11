@@ -39,4 +39,9 @@ public class CarStats {
     public BigDecimal getSpeed() {
         return carData.getSpeed();
     }
+
+    public BigDecimal getAverageLapSpeed() {
+        return carData.getAverageLapSpeed();
+    }
+
 }

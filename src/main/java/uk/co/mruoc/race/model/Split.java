@@ -43,15 +43,23 @@ public class Split {
         return time.equals(startTime) || time.equals(endTime) || (time.isAfter(startTime) && time.isBefore(endTime));
     }
 
-    public BigDecimal getDistanceAt(ElapsedTime time) {
+    public BigDecimal getDistance() {
+        return splitDistance;
+    }
+
+    public BigDecimal getTotalDistanceAt(ElapsedTime time) {
+        return startDistance.add(getSplitDistanceAt(time));
+    }
+
+    public BigDecimal getSplitDistanceAt(ElapsedTime time) {
         BigDecimal progress = getProgressAt(time);
-        return startDistance.add(progress.multiply(splitDistance));
+        return progress.multiply(splitDistance);
     }
 
     public BigDecimal getSpeed() {
         if (retired)
             return BigDecimal.ZERO;
-        return splitDistance.divide(BigDecimal.valueOf(splitTime.getTotalMillis()), MathContext.DECIMAL32);
+        return SpeedCalculator.calculate(splitDistance, splitTime);
     }
 
     private BigDecimal getProgressAt(ElapsedTime time) {
