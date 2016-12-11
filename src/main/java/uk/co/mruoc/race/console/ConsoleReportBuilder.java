@@ -40,22 +40,25 @@ public class ConsoleReportBuilder {
         while (queryTimes.hasNext()) {
             ElapsedTime queryTime = queryTimes.next();
             raceData.setTime(queryTime);
-            appendNewLine();
-            appendRowLine();
-            appendHeader();
-            appendHeaderSeparator();
-            appendLines(raceData.getCarStats());
-            appendRowLine();
-            appendNewLine();
-            appendNewLine();
+            appendReport(raceData.getCarStats());
         }
         return report.toString();
     }
 
+    private void appendReport(Iterator<CarStats> stats) {
+        appendNewLine();
+        appendRowLine();
+        appendHeader();
+        appendHeaderSeparator();
+        appendLines(stats);
+        appendRowLine();
+        appendNewLine();
+        appendNewLine();
+    }
 
-    private int getColumnWidth(int columnIndex) {
-        String header = COLUMN_HEADERS.get(columnIndex);
-        return header.length();
+    private void appendRowLine() {
+        int width = getRowWidth();
+        appendHeaderSeparator(width);
     }
 
     private int getRowWidth() {
@@ -66,9 +69,9 @@ public class ConsoleReportBuilder {
         return rowWidth + 1;
     }
 
-    private void appendRowLine() {
-        int width = getRowWidth();
-        appendHeaderSeparator(width);
+    private int getColumnWidth(int columnIndex) {
+        String header = COLUMN_HEADERS.get(columnIndex);
+        return header.length();
     }
 
     private void appendHeader() {
