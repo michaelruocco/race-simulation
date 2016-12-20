@@ -16,15 +16,15 @@ public class Split {
     private final BigDecimal startDistance;
     private final BigDecimal splitDistance;
 
-    public Split(FileLine startLine, FileLine endLine, BigDecimal startDistance, BigDecimal splitDistance) {
-        this.carId = startLine.getCarId();
-        this.endCheckpointId = endLine.getCheckpointId();
-        this.retired = endLine.isRetired();
-        this.startTime = startLine.getTime();
-        this.endTime = endLine.getTime();
+    private Split(SplitBuilder builder) {
+        this.carId = builder.carId;
+        this.endCheckpointId = builder.endCheckpointId;
+        this.retired = builder.retired;
+        this.startTime = builder.startTime;
+        this.endTime = builder.endTime;
         this.splitTime = endTime.subtract(startTime);
-        this.startDistance = startDistance;
-        this.splitDistance = splitDistance;
+        this.startDistance = builder.startDistance;
+        this.splitDistance = builder.splitDistance;
     }
 
     public ElapsedTime getStartTime() {
@@ -84,5 +84,57 @@ public class Split {
     private BigDecimal getTimeIntoSplitMillis(ElapsedTime time) {
         return BigDecimal.valueOf(time.subtract(startTime).getTotalMillis());
     }
+
+    public static class SplitBuilder {
+
+        private int carId;
+        private int endCheckpointId;
+        private boolean retired;
+        private ElapsedTime startTime;
+        private ElapsedTime endTime;
+        private BigDecimal startDistance;
+        private BigDecimal splitDistance;
+
+        public SplitBuilder setCarId(int carId) {
+            this.carId = carId;
+            return this;
+        }
+
+        public SplitBuilder setEndCheckpointId(int endCheckpointId) {
+            this.endCheckpointId = endCheckpointId;
+            return this;
+        }
+
+        public SplitBuilder setRetired(boolean retired) {
+            this.retired = retired;
+            return this;
+        }
+
+        public SplitBuilder setStartTime(ElapsedTime startTime) {
+            this.startTime = startTime;
+            return this;
+        }
+
+        public SplitBuilder setEndTime(ElapsedTime endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+
+        public SplitBuilder setStartDistance(BigDecimal startDistance) {
+            this.startDistance = startDistance;
+            return this;
+        }
+
+        public SplitBuilder setSplitDistance(BigDecimal splitDistance) {
+            this.splitDistance = splitDistance;
+            return this;
+        }
+
+        public Split build() {
+            return new Split(this);
+        }
+
+    }
+
 
 }

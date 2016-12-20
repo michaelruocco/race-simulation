@@ -4,18 +4,18 @@ import uk.co.mruoc.time.ElapsedTime;
 
 public class FileLine {
 
-    private static final int RETIRED = -1;
-
     private final ElapsedTime time;
     private final int carId;
     private final int checkpointId;
     private final boolean queried;
 
-    public FileLine(ElapsedTime time, int carId, int checkpointId, boolean queried) {
-        this.time = time;
-        this.carId = carId;
-        this.checkpointId = checkpointId;
-        this.queried = queried;
+    private final RetiredConverter retiredConverter = new RetiredConverter();
+
+    private FileLine(FileLineBuilder builder) {
+        this.time = builder.time;
+        this.carId = builder.carId;
+        this.checkpointId = builder.checkpointId;
+        this.queried = builder.queried;
     }
 
     public ElapsedTime getTime() {
@@ -35,7 +35,38 @@ public class FileLine {
     }
 
     public boolean isRetired() {
-        return checkpointId == RETIRED;
+        return retiredConverter.isRetired(checkpointId);
     }
 
+    public static class FileLineBuilder {
+
+        private ElapsedTime time = new ElapsedTime();
+        private int carId = 0;
+        private int checkpointId = 0;
+        private boolean queried = false;
+
+        public FileLineBuilder setTime(ElapsedTime time) {
+            this.time = time;
+            return this;
+        }
+
+        public FileLineBuilder setCarId(int carId) {
+            this.carId = carId;
+            return this;
+        }
+
+        public FileLineBuilder setCheckpointId(int checkpointId) {
+            this.checkpointId = checkpointId;
+            return this;
+        }
+
+        public FileLineBuilder setQueried(boolean queried) {
+            this.queried = queried;
+            return this;
+        }
+
+        public FileLine build() {
+            return new FileLine(this);
+        }
+    }
 }

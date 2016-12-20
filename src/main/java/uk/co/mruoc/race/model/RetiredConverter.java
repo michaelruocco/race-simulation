@@ -15,4 +15,8 @@ public class RetiredConverter {
         throw new InvalidRetiredFlagException(input);
     }
 
+    public boolean isRetired(int value) {
+        return value == VALUE;
+    }
+
 }

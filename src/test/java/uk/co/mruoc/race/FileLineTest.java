@@ -11,14 +11,14 @@ public class FileLineTest {
 
     @Test
     public void shouldReturnRetiredIfCheckpointIdIsRetired() {
-        FileLine line = builder.withCheckpointId(-1).build();
+        FileLine line = builder.setCheckpointId(-1).build();
 
         assertThat(line.isRetired()).isTrue();
     }
 
     @Test
     public void shouldNotReturnRetiredIfCheckpointIdIsNotRetired() {
-        FileLine line = builder.withCheckpointId(0).build();
+        FileLine line = builder.setCheckpointId(0).build();
 
         assertThat(line.isRetired()).isFalse();
     }

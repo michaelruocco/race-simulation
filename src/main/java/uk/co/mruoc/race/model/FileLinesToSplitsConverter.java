@@ -1,5 +1,7 @@
 package uk.co.mruoc.race.model;
 
+import uk.co.mruoc.race.model.Split.SplitBuilder;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +20,24 @@ public class FileLinesToSplitsConverter {
         for (int i = 1; i < lines.size(); i++) {
             FileLine line1 = lines.get(i - 1);
             FileLine line2 = lines.get(i);
-            BigDecimal splitDistance = getSplitDistance(line1, line2);
-            Split split = new Split(line1, line2, startDistance, splitDistance);
+            Split split = buildSplit(line1, line2, startDistance);
             splits.add(split);
-            startDistance = startDistance.add(splitDistance);
+            startDistance = startDistance.add(split.getDistance());
         }
         return splits;
+    }
+
+    private Split buildSplit(FileLine startLine, FileLine endLine, BigDecimal startDistance) {
+        BigDecimal splitDistance = getSplitDistance(startLine, endLine);
+        return new SplitBuilder()
+                .setCarId(startLine.getCarId())
+                .setEndCheckpointId(endLine.getCheckpointId())
+                .setRetired(endLine.isRetired())
+                .setStartTime(startLine.getTime())
+                .setEndTime(endLine.getTime())
+                .setStartDistance(startDistance)
+                .setSplitDistance(splitDistance)
+                .build();
     }
 
     private BigDecimal getSplitDistance(FileLine line1, FileLine line2) {

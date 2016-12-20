@@ -3,6 +3,8 @@ package uk.co.mruoc.race;
 import uk.co.mruoc.race.model.FileLine;
 import uk.co.mruoc.time.ElapsedTime;
 
+import static uk.co.mruoc.race.model.FileLine.*;
+
 public class TestFileLineBuilder {
 
     private ElapsedTime time = new ElapsedTime();
@@ -10,23 +12,28 @@ public class TestFileLineBuilder {
     private int checkpointId = 0;
     private boolean queried = false;
 
-    public TestFileLineBuilder withCheckpointId(int checkpointId) {
-        this.checkpointId = checkpointId;
+    private FileLineBuilder builder = new FileLineBuilder();
+
+    public TestFileLineBuilder() {
+        builder = builder
+                .setTime(time)
+                .setCarId(carId)
+                .setCheckpointId(checkpointId)
+                .setQueried(queried);
+    }
+
+    public TestFileLineBuilder setCheckpointId(int checkpointId) {
+        builder.setCheckpointId(checkpointId);
         return this;
     }
 
-    public TestFileLineBuilder withCarId(int carId) {
-        this.carId = carId;
-        return this;
-    }
-
-    public TestFileLineBuilder withTime(ElapsedTime time) {
-        this.time = time;
+    public TestFileLineBuilder setCarId(int carId) {
+        builder.setCarId(carId);
         return this;
     }
 
     public FileLine build() {
-        return new FileLine(time, carId, checkpointId, queried);
+        return builder.build();
     }
 
 }

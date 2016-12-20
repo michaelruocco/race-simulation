@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
+import static uk.co.mruoc.race.model.FileLine.*;
 
 public class FileLineParser {
 
@@ -45,7 +46,12 @@ public class FileLineParser {
         int carId = toCarId(args[CAR_ID_INDEX]);
         int checkpointId = toCheckpointId(args[CHECKPOINT_ID_INDEX]);
         boolean queried = toQueriedFlag(args[QUERIED_INDEX]);
-        return new FileLine(time, carId, checkpointId, queried);
+        return new FileLineBuilder()
+                .setTime(time)
+                .setCarId(carId)
+                .setCheckpointId(checkpointId)
+                .setQueried(queried)
+                .build();
     }
 
     private ElapsedTime toTime(String input) {

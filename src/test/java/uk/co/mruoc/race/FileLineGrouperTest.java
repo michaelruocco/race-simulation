@@ -16,10 +16,10 @@ public class FileLineGrouperTest {
     private static final int CAR_ID_2 = 2;
 
     private final TestFileLineBuilder builder = new TestFileLineBuilder();
-    private final FileLine line1 = builder.withCarId(CAR_ID_1).build();
-    private final FileLine line2 = builder.withCarId(CAR_ID_2).build();
-    private final FileLine line3 = builder.withCarId(CAR_ID_1).build();
-    private final FileLine line4 = builder.withCarId(CAR_ID_1).build();
+    private final FileLine line1 = builder.setCarId(CAR_ID_1).build();
+    private final FileLine line2 = builder.setCarId(CAR_ID_2).build();
+    private final FileLine line3 = builder.setCarId(CAR_ID_1).build();
+    private final FileLine line4 = builder.setCarId(CAR_ID_1).build();
     private final List<FileLine> lines = Arrays.asList(line1, line2, line3, line4);
 
     private final FileLineGrouper grouper = new FileLineGrouper();
