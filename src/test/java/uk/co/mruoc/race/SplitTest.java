@@ -7,6 +7,8 @@ import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.valueOf;
+import static java.math.MathContext.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SplitTest {
@@ -16,8 +18,8 @@ public class SplitTest {
     private static final boolean RETIRED = false;
     private static final ElapsedTime START_TIME = new ElapsedTime("00:00:00.000");
     private static final ElapsedTime END_TIME = new ElapsedTime("00:01:00.000");
-    private static final BigDecimal START_DISTANCE = BigDecimal.valueOf(200);
-    private static final BigDecimal SPLIT_DISTANCE = BigDecimal.valueOf(300);
+    private static final BigDecimal START_DISTANCE = valueOf(200);
+    private static final BigDecimal SPLIT_DISTANCE = valueOf(300);
 
     private final SplitBuilder builder = new SplitBuilder()
             .setCarId(CAR_ID)
@@ -83,20 +85,36 @@ public class SplitTest {
     public void shouldReturnSplitDistanceAtGivenTime() {
         ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
 
-        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(BigDecimal.valueOf(150.0));
+        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(valueOf(150.0));
     }
 
     @Test
     public void shouldReturnTotalDistanceAtGivenTime() {
         ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
 
-        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(BigDecimal.valueOf(350.0));
+        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(valueOf(350.0));
+    }
+
+    @Test
+    public void shouldReturnAdjustedSplitDistanceAtGivenTimeIfRetired() {
+        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
+        Split split = builder.setRetired(true).build();
+
+        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(valueOf(30.0));
+    }
+
+    @Test
+    public void shouldReturnAdjustedTotalDistanceAtGivenTimeIfRetired() {
+        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
+        Split split = builder.setRetired(true).build();
+
+        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(valueOf(230.0));
     }
 
     @Test
     public void shouldReturnSpeedInMetersPerMillisecond() {
         ElapsedTime splitTime = END_TIME.subtract(START_TIME);
-        BigDecimal speedInMetersPerMillisecond = SPLIT_DISTANCE.divide(BigDecimal.valueOf(splitTime.getTotalMillis()));
+        BigDecimal speedInMetersPerMillisecond = SPLIT_DISTANCE.divide(valueOf(splitTime.getTotalMillis()), DECIMAL32);
 
         assertThat(split.getSpeed()).isEqualTo(speedInMetersPerMillisecond);
     }
