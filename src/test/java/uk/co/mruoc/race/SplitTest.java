@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 import static java.math.BigDecimal.valueOf;
 import static java.math.MathContext.*;
+import static java.math.RoundingMode.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SplitTest {
@@ -99,16 +100,18 @@ public class SplitTest {
     public void shouldReturnAdjustedSplitDistanceAtGivenTimeIfRetired() {
         ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
         Split split = builder.setRetired(true).build();
+        BigDecimal expectedDistance = BigDecimal.valueOf(30.0).setScale(2, HALF_UP);
 
-        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(valueOf(30.0));
+        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(expectedDistance);
     }
 
     @Test
     public void shouldReturnAdjustedTotalDistanceAtGivenTimeIfRetired() {
         ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
         Split split = builder.setRetired(true).build();
+        BigDecimal expectedDistance = BigDecimal.valueOf(230.0).setScale(2, HALF_UP);
 
-        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(valueOf(230.0));
+        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(expectedDistance);
     }
 
     @Test

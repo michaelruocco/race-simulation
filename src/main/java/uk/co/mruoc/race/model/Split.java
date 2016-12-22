@@ -4,7 +4,6 @@ import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 import static java.math.RoundingMode.*;
 
@@ -77,7 +76,7 @@ public class Split {
 
     private BigDecimal adjust(BigDecimal progress) {
         BigDecimal adjustment = calculateRetiredAdjustment();
-        return progress.multiply(adjustment).setScale(1, HALF_UP);
+        return progress.multiply(adjustment);
     }
 
     private BigDecimal calculateRetiredAdjustment() {
