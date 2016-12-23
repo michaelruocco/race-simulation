@@ -1,4 +1,4 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 import org.junit.Test;
 import uk.co.mruoc.race.model.FileLine;

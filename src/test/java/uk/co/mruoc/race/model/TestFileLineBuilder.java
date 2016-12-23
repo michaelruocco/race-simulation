@@ -1,6 +1,5 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
-import uk.co.mruoc.race.model.FileLine;
 import uk.co.mruoc.time.ElapsedTime;
 
 import static uk.co.mruoc.race.model.FileLine.*;

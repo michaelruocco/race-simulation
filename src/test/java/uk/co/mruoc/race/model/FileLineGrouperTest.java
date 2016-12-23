@@ -1,8 +1,6 @@
-package uk.co.mruoc.race;
+package uk.co.mruoc.race.model;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.FileLine;
-import uk.co.mruoc.race.model.FileLineGrouper;
 
 import java.util.Arrays;
 import java.util.List;
