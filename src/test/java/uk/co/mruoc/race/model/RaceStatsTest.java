@@ -6,7 +6,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
+import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -37,6 +40,17 @@ public class RaceStatsTest {
 
         assertThat(raceStats.getCarStats(carId1)).isEqualTo(carStats1);
         assertThat(raceStats.getCarStats(carId2)).isEqualTo(carStats2);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCarStatsNotFound() {
+        int carId = 1;
+
+        when(raceStats).getCarStats(carId);
+
+        then(caughtException())
+                .isInstanceOf(CarStatsNotFoundException.class)
+                .hasMessage(Integer.toString(carId));
     }
 
 }

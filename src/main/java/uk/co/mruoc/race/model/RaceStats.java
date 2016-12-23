@@ -19,7 +19,7 @@ public class RaceStats {
         for (CarStats stats : carStatsList)
             if (stats.getCarId() == carId)
                 return stats;
-        throw new RuntimeException("car stats for car id " + carId + " not found");
+        throw new CarStatsNotFoundException(Integer.toString(carId));
     }
 
 }
