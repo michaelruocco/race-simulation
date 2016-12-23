@@ -10,6 +10,8 @@ public class RaceData {
 
     private static final Logger LOG = LogManager.getLogger(RaceData.class);
 
+    private final CarDataComparatorBuilder comparatorBuilder = new CarDataComparatorBuilder();
+
     private final List<ElapsedTime> queryTimes;
     private final List<CarData> carDataList;
     private RaceStats raceStats;
@@ -44,14 +46,8 @@ public class RaceData {
     }
 
     private CarDataToCarStatsConverter buildConverter(ElapsedTime time) {
-        Comparator<CarData> comparator = buildComparator(time);
+        Comparator<CarData> comparator = comparatorBuilder.build(time);
         return new CarDataToCarStatsConverter(comparator);
-    }
-
-    private Comparator<CarData> buildComparator(ElapsedTime time) {
-        if (time.getTotalMillis() == 0)
-            return new CarIdComparator();
-        return new CarDistanceComparator();
     }
 
 }

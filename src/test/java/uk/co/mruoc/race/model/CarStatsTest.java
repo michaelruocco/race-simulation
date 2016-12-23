@@ -62,4 +62,12 @@ public class CarStatsTest {
         assertThat(carStats.getSpeed()).isEqualTo(speed);
     }
 
+    @Test
+    public void shouldReturnAverageLapSpeed() {
+        BigDecimal averageLapSpeed = BigDecimal.valueOf(250);
+        given(carData.getAverageLapSpeed()).willReturn(averageLapSpeed);
+
+        assertThat(carStats.getAverageLapSpeed()).isEqualTo(averageLapSpeed);
+    }
+
 }
