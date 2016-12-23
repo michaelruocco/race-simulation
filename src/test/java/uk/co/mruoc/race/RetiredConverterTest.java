@@ -29,6 +29,13 @@ public class RetiredConverterTest {
     }
 
     @Test
+    public void shouldConvertRetiredValue() {
+        assertThat(converter.isRetired(RETIRED_VALUE)).isTrue();
+        assertThat(converter.isRetired(0)).isFalse();
+        assertThat(converter.isRetired(-2)).isFalse();
+    }
+
+    @Test
     public void shouldThrowExceptionIfNotValue() {
         when(converter).toValue(INVALID_FLAG);
 
