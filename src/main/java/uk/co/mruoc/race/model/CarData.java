@@ -9,6 +9,7 @@ public class CarData {
 
     private final int carId;
     private final List<Lap> laps;
+    private final Lap lastLap;
 
     private Lap currentLap;
     private Split currentSplit;
@@ -18,6 +19,7 @@ public class CarData {
     public CarData(int carId, List<Lap> laps) {
         this.carId = carId;
         this.laps = laps;
+        this.lastLap = laps.get(laps.size() - 1);
     }
 
     public void setTime(ElapsedTime time) {
@@ -32,7 +34,7 @@ public class CarData {
     }
 
     public ElapsedTime getEndTime() {
-        return new ElapsedTime();
+        return lastLap.getEndTime();
     }
 
     public int getLapNumber() {

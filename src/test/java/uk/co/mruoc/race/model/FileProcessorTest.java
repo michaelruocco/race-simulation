@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.model;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.*;
 import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 
-public class FileLoaderTest {
+public class FileProcessorTest {
 
     private static final int CAR_ID = 0;
     private static final int RETIRED_CAR_ID = 2;
@@ -21,15 +20,16 @@ public class FileLoaderTest {
     private static final String START_TIME = "00:00:00.00";
     private static final String END_TIME = "00:50:48.85";
 
-    private final File file = new File("data/raceinfo.dat");
+    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
+    private final File file = fileLoader.load("/uk/co/mruoc/race/model/raceinfo.dat");
 
     private final DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
-    private final FileLoader loader = new FileLoader(distanceProvider);
+    private final FileProcessor loader = new FileProcessor(distanceProvider);
     private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartLapNumbers() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
@@ -39,7 +39,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndLapNumbers() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
@@ -49,7 +49,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnRetiredStatsWithCorrectStartLapNumbers() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -59,7 +59,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnRetiredStatsWithCorrectEndLapNumbers() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -69,7 +69,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartDistances() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
@@ -79,7 +79,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndDistances() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
@@ -89,7 +89,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectStartDistances() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -99,7 +99,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectEndDistances() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -109,7 +109,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartPositions() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
@@ -119,17 +119,17 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndPositions() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(CAR_ID);
 
-        assertThat(stats.getPosition()).isEqualTo(1);
+        assertThat(stats.getPosition()).isEqualTo(3);
     }
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectStartPositions() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -139,7 +139,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectEndPositions() {
-        RaceData raceData = loader.load(file);
+        RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
@@ -149,7 +149,7 @@ public class FileLoaderTest {
 
     @Test
     public void shouldThrowErrorIfFileDoesNotExist() {
-        when(loader).load(new File("nonExistent"));
+        when(loader).process(new File("nonExistent"));
 
         then(caughtException())
                 .isInstanceOf(UncheckedIOException.class)

@@ -14,11 +14,13 @@ public class RaceData {
 
     private final List<ElapsedTime> queryTimes;
     private final List<CarData> carDataList;
+    private final ElapsedTime endTime;
     private RaceStats raceStats;
 
     public RaceData(List<ElapsedTime> queryTimes, List<CarData> carsDataList) {
         this.queryTimes = queryTimes;
         this.carDataList = carsDataList;
+        this.endTime = getEndTime(carsDataList);
     }
 
     public Iterator<ElapsedTime> getQueryTimes() {
@@ -35,8 +37,23 @@ public class RaceData {
         return raceStats.getCarStats();
     }
 
+    public ElapsedTime getEndTime() {
+        return endTime;
+    }
+
     public CarStats getCarStats(int carId) {
         return raceStats.getCarStats(carId);
+    }
+
+    private ElapsedTime getEndTime(List<CarData> carDataList) {
+        ElapsedTime endTime = new ElapsedTime();
+        for (CarData carData : carDataList) {
+            ElapsedTime carRaceEndTime = carData.getEndTime();
+            if (carRaceEndTime.isAfter(endTime)) {
+                endTime = carData.getEndTime();
+            }
+        }
+        return endTime;
     }
 
     private RaceStats buildRaceStats(ElapsedTime time) {

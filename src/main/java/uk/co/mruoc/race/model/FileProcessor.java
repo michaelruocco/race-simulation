@@ -9,7 +9,7 @@ import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Map;
 
-public class FileLoader {
+public class FileProcessor {
 
     private static final String ENCODING = "utf-8";
 
@@ -18,11 +18,11 @@ public class FileLoader {
     private final FileLinesToQueryTimeConverter queryTimeConverter = new FileLinesToQueryTimeConverter();
     private final FileLinesToCarDataConverter carDataConverter;
 
-    public FileLoader(DistanceProvider distanceProvider) {
+    public FileProcessor(DistanceProvider distanceProvider) {
         this.carDataConverter = new FileLinesToCarDataConverter(distanceProvider);
     }
 
-    public RaceData load(File file) {
+    public RaceData process(File file) {
         try {
             List<String> inputs = FileUtils.readLines(file, ENCODING);
             List<FileLine> lines = parser.parse(inputs);

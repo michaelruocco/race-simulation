@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
-        FileLoader fileLoader = new FileLoader(distanceProvider);
-        RaceData raceData = fileLoader.load(new File("data/raceinfo.dat"));
+        FileProcessor fileProcessor = new FileProcessor(distanceProvider);
+        RaceData raceData = fileProcessor.process(new File("data/raceinfo.dat"));
         ConsoleReportBuilder builder = new ConsoleReportBuilder();
         String report = builder.build(raceData);
         System.out.println(report);
