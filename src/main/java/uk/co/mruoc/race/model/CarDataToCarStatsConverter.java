@@ -15,6 +15,7 @@ public class CarDataToCarStatsConverter {
     public CarDataToCarStatsConverter(Comparator<CarData> comparator) {
         this.comparator = comparator;
     }
+
     public List<CarStats> toCarStats(List<CarData> carDataList) {
         List<CarData> sortedCarDataList = sort(carDataList);
         List<CarStats> statsList = new ArrayList<>();
