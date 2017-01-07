@@ -12,9 +12,7 @@ public class CarData {
     private final Lap lastLap;
 
     private Lap currentLap;
-    private Split currentSplit;
-    private BigDecimal distance;
-    private BigDecimal averageLapSpeed;
+    private LapStats lapStats;
 
     public CarData(int carId, List<Lap> laps) {
         this.carId = carId;
@@ -24,13 +22,11 @@ public class CarData {
 
     public void setTime(ElapsedTime time) {
         currentLap = getCurrentLap(time);
-        currentSplit = currentLap.getSplit(time);
-        distance = currentSplit.getTotalDistanceAt(time);
-        averageLapSpeed = currentLap.getAverageLapSpeed(time);
+        lapStats = currentLap.getStatsAt(time);
     }
 
     public BigDecimal getDistance() {
-        return distance;
+        return lapStats.getDistance();
     }
 
     public ElapsedTime getEndTime() {
@@ -46,11 +42,11 @@ public class CarData {
     }
 
     public BigDecimal getSpeed() {
-        return currentSplit.getSpeed();
+        return lapStats.getSpeed();
     }
 
     public BigDecimal getAverageLapSpeed() {
-        return averageLapSpeed;
+        return lapStats.getAverageLapSpeed();
     }
 
     private Lap getCurrentLap(ElapsedTime time) {

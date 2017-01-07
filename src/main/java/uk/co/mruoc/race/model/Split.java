@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 import static java.math.RoundingMode.*;
+import static uk.co.mruoc.race.model.SplitStats.*;
 
 public class Split {
 
@@ -17,6 +18,7 @@ public class Split {
     private final ElapsedTime splitTime;
     private final BigDecimal startDistance;
     private final BigDecimal splitDistance;
+    private final BigDecimal speed;
 
     private Split(SplitBuilder builder) {
         this.carId = builder.carId;
@@ -24,9 +26,10 @@ public class Split {
         this.retired = builder.retired;
         this.startTime = builder.startTime;
         this.endTime = builder.endTime;
-        this.splitTime = endTime.subtract(startTime);
+        this.splitTime = calculateSplitTime();
         this.startDistance = builder.startDistance;
         this.splitDistance = builder.splitDistance;
+        this.speed = calculateSpeed();
     }
 
     public ElapsedTime getStartTime() {
@@ -49,22 +52,27 @@ public class Split {
         return splitDistance;
     }
 
-    public BigDecimal getTotalDistanceAt(ElapsedTime time) {
-        return startDistance.add(getSplitDistanceAt(time));
+    public SplitStats getStatsAt(ElapsedTime time) {
+        BigDecimal progress = calculateProgressAt(time);
+        BigDecimal distance = calculateSplitDistance(progress);
+        BigDecimal totalDistance = calculateTotalDistance(distance);
+        return new SplitStatsBuilder()
+                .setProgress(progress)
+                .setDistance(distance)
+                .setTotalDistance(totalDistance)
+                .setSpeed(speed)
+                .build();
     }
 
-    public BigDecimal getSplitDistanceAt(ElapsedTime time) {
-        BigDecimal progress = getProgressAt(time);
+    private BigDecimal calculateSplitDistance(BigDecimal progress) {
         return progress.multiply(splitDistance);
     }
 
-    public BigDecimal getSpeed() {
-        if (retired)
-            return BigDecimal.ZERO;
-        return SpeedCalculator.calculate(splitDistance, splitTime);
+    private BigDecimal calculateTotalDistance(BigDecimal splitDistance) {
+        return startDistance.add(splitDistance);
     }
 
-    private BigDecimal getProgressAt(ElapsedTime time) {
+    private BigDecimal calculateProgressAt(ElapsedTime time) {
         BigDecimal timeIntoSplitMillis = getTimeIntoSplitMillis(time);
         BigDecimal splitTimeMillis = BigDecimal.valueOf(splitTime.getTotalMillis());
         BigDecimal progress = timeIntoSplitMillis.divide(splitTimeMillis, MathContext.DECIMAL32);
@@ -72,6 +80,10 @@ public class Split {
         if (retired)
             progress = adjust(progress);
         return progress;
+    }
+
+    private BigDecimal getTimeIntoSplitMillis(ElapsedTime time) {
+        return BigDecimal.valueOf(time.subtract(startTime).getTotalMillis());
     }
 
     private BigDecimal adjust(BigDecimal progress) {
@@ -83,8 +95,14 @@ public class Split {
         return BigDecimal.valueOf(((carId + 1) % 10.0) / 10);
     }
 
-    private BigDecimal getTimeIntoSplitMillis(ElapsedTime time) {
-        return BigDecimal.valueOf(time.subtract(startTime).getTotalMillis());
+    private ElapsedTime calculateSplitTime() {
+        return endTime.subtract(startTime);
+    }
+
+    private BigDecimal calculateSpeed() {
+        if (retired)
+            return BigDecimal.ZERO;
+        return SpeedCalculator.calculate(splitDistance, splitTime);
     }
 
     public static class SplitBuilder {

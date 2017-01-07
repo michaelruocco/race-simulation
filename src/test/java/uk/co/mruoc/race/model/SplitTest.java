@@ -19,6 +19,7 @@ public class SplitTest {
     private static final boolean RETIRED = false;
     private static final ElapsedTime START_TIME = new ElapsedTime("00:00:00.000");
     private static final ElapsedTime END_TIME = new ElapsedTime("00:01:00.000");
+    private static final ElapsedTime HALF_TIME = new ElapsedTime("00:00:30.000");
     private static final BigDecimal START_DISTANCE = valueOf(200);
     private static final BigDecimal SPLIT_DISTANCE = valueOf(300);
 
@@ -84,34 +85,36 @@ public class SplitTest {
 
     @Test
     public void shouldReturnSplitDistanceAtGivenTime() {
-        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
+        SplitStats stats = split.getStatsAt(HALF_TIME);
 
-        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(valueOf(150.0));
+        assertThat(stats.getDistance()).isEqualTo(valueOf(150.0));
     }
 
     @Test
     public void shouldReturnTotalDistanceAtGivenTime() {
-        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
+        SplitStats stats = split.getStatsAt(HALF_TIME);
 
-        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(valueOf(350.0));
+        assertThat(stats.getTotalDistance()).isEqualTo(valueOf(350.0));
     }
 
     @Test
     public void shouldReturnAdjustedSplitDistanceAtGivenTimeIfRetired() {
-        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
         Split split = builder.setRetired(true).build();
         BigDecimal expectedDistance = BigDecimal.valueOf(30.0).setScale(2, HALF_UP);
 
-        assertThat(split.getSplitDistanceAt(halfTime)).isEqualTo(expectedDistance);
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getDistance()).isEqualTo(expectedDistance);
     }
 
     @Test
     public void shouldReturnAdjustedTotalDistanceAtGivenTimeIfRetired() {
-        ElapsedTime halfTime = new ElapsedTime("00:00:30.000");
         Split split = builder.setRetired(true).build();
         BigDecimal expectedDistance = BigDecimal.valueOf(230.0).setScale(2, HALF_UP);
 
-        assertThat(split.getTotalDistanceAt(halfTime)).isEqualTo(expectedDistance);
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getTotalDistance()).isEqualTo(expectedDistance);
     }
 
     @Test
@@ -119,7 +122,9 @@ public class SplitTest {
         ElapsedTime splitTime = END_TIME.subtract(START_TIME);
         BigDecimal speedInMetersPerMillisecond = SPLIT_DISTANCE.divide(valueOf(splitTime.getTotalMillis()), DECIMAL32);
 
-        assertThat(split.getSpeed()).isEqualTo(speedInMetersPerMillisecond);
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getSpeed()).isEqualTo(speedInMetersPerMillisecond);
     }
 
     @Test
@@ -127,7 +132,9 @@ public class SplitTest {
         builder.setRetired(true);
         Split split = builder.build();
 
-        assertThat(split.getSpeed()).isEqualTo(BigDecimal.ZERO);
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getSpeed()).isEqualTo(BigDecimal.ZERO);
     }
 
 }
