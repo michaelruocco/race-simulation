@@ -20,7 +20,7 @@ public class RaceData {
     public RaceData(List<ElapsedTime> queryTimes, List<CarData> carsDataList) {
         this.queryTimes = queryTimes;
         this.carDataList = carsDataList;
-        this.endTime = getEndTime(carsDataList);
+        this.endTime = extractEndTime(carsDataList);
     }
 
     public Iterator<ElapsedTime> getQueryTimes() {
@@ -45,7 +45,7 @@ public class RaceData {
         return raceStats.getCarStats(carId);
     }
 
-    private ElapsedTime getEndTime(List<CarData> carDataList) {
+    private ElapsedTime extractEndTime(List<CarData> carDataList) {
         ElapsedTime endTime = new ElapsedTime();
         for (CarData carData : carDataList) {
             ElapsedTime carRaceEndTime = carData.getEndTime();
