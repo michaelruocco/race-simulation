@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.model;
 
+import uk.co.mruoc.race.model.LapStats.LapStatsBuilder;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
@@ -47,7 +48,13 @@ public class Lap {
         Split split = getSplit(time);
         SplitStats splitStats = split.getStatsAt(time);
         BigDecimal averageLapSpeed = calculateAverageLapSpeed(time, splitStats);
-        return new LapStats(splitStats, averageLapSpeed);
+        return new LapStatsBuilder()
+                .setTotalDistance(splitStats.getTotalDistance())
+                .setDistance(splitStats.getDistance())
+                .setSpeed(splitStats.getSpeed())
+                .setProgress(splitStats.getProgress())
+                .setAverageLapSpeed(averageLapSpeed)
+                .build();
     }
 
     private Split getSplit(ElapsedTime time) {

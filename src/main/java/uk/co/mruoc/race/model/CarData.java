@@ -26,7 +26,7 @@ public class CarData {
     }
 
     public BigDecimal getDistance() {
-        return lapStats.getDistance();
+        return lapStats.getTotalDistance();
     }
 
     public ElapsedTime getEndTime() {
