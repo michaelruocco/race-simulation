@@ -21,6 +21,16 @@ public class TestFileLineBuilder {
                 .setQueried(queried);
     }
 
+    public TestFileLineBuilder setTime(ElapsedTime time) {
+        builder.setTime(time);
+        return this;
+    }
+
+    public TestFileLineBuilder setQueried(boolean queried) {
+        builder.setQueried(queried);
+        return this;
+    }
+
     public TestFileLineBuilder setCheckpointId(int checkpointId) {
         builder.setCheckpointId(checkpointId);
         return this;
