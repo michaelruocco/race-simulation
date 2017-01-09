@@ -30,7 +30,12 @@ public class DefaultDistanceProvider implements DistanceProvider {
     }
 
     @Override
-    public int getNextCheckpointId(int checkpointId) {
+    public BigDecimal getDistanceToNextCheckpoint(int checkpointId) {
+        int nextCheckpointId = getNextCheckpointId(checkpointId);
+        return getDistanceBetweenCheckpoints(checkpointId, nextCheckpointId);
+    }
+
+    private int getNextCheckpointId(int checkpointId) {
         for (String key : distances.keySet())
             if (extractFirstCheckpointId(key) == checkpointId)
                 return extractSecondCheckpointId(key);

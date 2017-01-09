@@ -8,6 +8,6 @@ public interface DistanceProvider {
 
     BigDecimal getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId);
 
-    int getNextCheckpointId(int checkpointId);
+    BigDecimal getDistanceToNextCheckpoint(int checkpointId);
 
 }

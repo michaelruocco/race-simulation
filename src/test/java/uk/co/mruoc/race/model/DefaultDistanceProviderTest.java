@@ -1,9 +1,6 @@
 package uk.co.mruoc.race.model;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.DefaultDistanceProvider;
-import uk.co.mruoc.race.model.DistanceProvider;
-import uk.co.mruoc.race.model.NextCheckpointIdNotFoundException;
 
 import java.math.BigDecimal;
 
@@ -25,15 +22,16 @@ public class DefaultDistanceProviderTest {
     }
 
     @Test
-    public void shouldReturnNextCheckpointIdForNormalLap() {
-        provider.add("0-1", BigDecimal.ZERO);
+    public void shouldReturnDistanceToNextCheckpointForNormalLap() {
+        BigDecimal distance = BigDecimal.valueOf(500);
+        provider.add("0-1", distance);
 
-        assertThat(provider.getNextCheckpointId(0)).isEqualTo(1);
+        assertThat(provider.getDistanceToNextCheckpoint(0)).isEqualTo(distance);
     }
 
     @Test
     public void shouldThrowExceptionIfNextCheckpointIdNotFound() {
-        when(provider).getNextCheckpointId(0);
+        when(provider).getDistanceToNextCheckpoint(0);
 
         then(caughtException())
                 .isInstanceOf(NextCheckpointIdNotFoundException.class)

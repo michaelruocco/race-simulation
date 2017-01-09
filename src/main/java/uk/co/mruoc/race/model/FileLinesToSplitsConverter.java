@@ -44,7 +44,7 @@ public class FileLinesToSplitsConverter {
         int checkpointId1 = line1.getCheckpointId();
         int checkpointId2 = line2.getCheckpointId();
         if (line2.isRetired())
-            checkpointId2 = distanceProvider.getNextCheckpointId(checkpointId1);
+            return distanceProvider.getDistanceToNextCheckpoint(checkpointId1);
         return distanceProvider.getDistanceBetweenCheckpoints(checkpointId1, checkpointId2);
     }
 

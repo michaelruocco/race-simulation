@@ -35,21 +35,21 @@ public class DefaultTrackDistanceProviderTest {
 
     @Test
     public void shouldReturnNextCheckpointIdForNormalLap() {
-        assertThat(provider.getNextCheckpointId(0)).isEqualTo(1);
-        assertThat(provider.getNextCheckpointId(1)).isEqualTo(2);
-        assertThat(provider.getNextCheckpointId(2)).isEqualTo(3);
-        assertThat(provider.getNextCheckpointId(3)).isEqualTo(6);
-        assertThat(provider.getNextCheckpointId(4)).isEqualTo(5);
-        assertThat(provider.getNextCheckpointId(5)).isEqualTo(6);
-        assertThat(provider.getNextCheckpointId(6)).isEqualTo(7);
-        assertThat(provider.getNextCheckpointId(7)).isEqualTo(8);
-        assertThat(provider.getNextCheckpointId(8)).isEqualTo(9);
-        assertThat(provider.getNextCheckpointId(9)).isEqualTo(0);
+        assertThat(provider.getDistanceToNextCheckpoint(0)).isEqualTo(BigDecimal.valueOf(800));
+        assertThat(provider.getDistanceToNextCheckpoint(1)).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(provider.getDistanceToNextCheckpoint(2)).isEqualTo(BigDecimal.valueOf(300));
+        assertThat(provider.getDistanceToNextCheckpoint(3)).isEqualTo(BigDecimal.valueOf(700));
+        assertThat(provider.getDistanceToNextCheckpoint(4)).isEqualTo(BigDecimal.valueOf(200));
+        assertThat(provider.getDistanceToNextCheckpoint(5)).isEqualTo(BigDecimal.valueOf(500));
+        assertThat(provider.getDistanceToNextCheckpoint(6)).isEqualTo(BigDecimal.valueOf(800));
+        assertThat(provider.getDistanceToNextCheckpoint(7)).isEqualTo(BigDecimal.valueOf(1200));
+        assertThat(provider.getDistanceToNextCheckpoint(8)).isEqualTo(BigDecimal.valueOf(400));
+        assertThat(provider.getDistanceToNextCheckpoint(9)).isEqualTo(BigDecimal.valueOf(600));
     }
 
     @Test
     public void shouldThrowExceptionIfNextCheckpointIdNotFound() {
-        when(provider).getNextCheckpointId(10);
+        when(provider).getDistanceToNextCheckpoint(10);
 
         then(caughtException())
                 .isInstanceOf(NextCheckpointIdNotFoundException.class)
