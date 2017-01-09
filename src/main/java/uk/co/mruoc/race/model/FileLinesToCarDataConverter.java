@@ -15,11 +15,15 @@ public class FileLinesToCarDataConverter {
 
     public List<CarData> toCarData(Map<Integer, List<FileLine>> carLines) {
         List<CarData> carDataList = new ArrayList<>();
-        for (int carId : carLines.keySet()) {
-            List<Split> splits = splitsConverter.toSplits(carLines.get(carId));
-            List<Lap> laps = lapsConverter.toLaps(splits);
-            carDataList.add(new CarData(carId, laps));
-        }
+        for (int carId : carLines.keySet())
+            carDataList.add(toCarData(carId, carLines.get(carId)));
         return carDataList;
     }
+
+    public CarData toCarData(int carId, List<FileLine> lines) {
+        List<Split> splits = splitsConverter.toSplits(lines);
+        List<Lap> laps = lapsConverter.toLaps(splits);
+        return new CarData(carId, laps);
+    }
+
 }
