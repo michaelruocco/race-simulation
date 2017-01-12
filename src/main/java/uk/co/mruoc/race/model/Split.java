@@ -32,6 +32,10 @@ public class Split {
         this.speed = calculateSpeed();
     }
 
+    public int getCarId() {
+        return carId;
+    }
+
     public ElapsedTime getStartTime() {
         return startTime;
     }
@@ -44,8 +48,16 @@ public class Split {
         return endCheckpointId;
     }
 
+    public boolean isRetired() {
+        return retired;
+    }
+
     public boolean contains(ElapsedTime time) {
         return time.equals(startTime) || time.equals(endTime) || (time.isAfter(startTime) && time.isBefore(endTime));
+    }
+
+    public BigDecimal getStartDistance() {
+        return startDistance;
     }
 
     public BigDecimal getDistance() {

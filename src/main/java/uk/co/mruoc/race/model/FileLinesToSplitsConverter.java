@@ -23,6 +23,7 @@ public class FileLinesToSplitsConverter {
             Split split = buildSplit(line1, line2, startDistance);
             splits.add(split);
             startDistance = startDistance.add(split.getDistance());
+
         }
         return splits;
     }

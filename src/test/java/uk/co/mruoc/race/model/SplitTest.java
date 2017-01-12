@@ -35,6 +35,11 @@ public class SplitTest {
     private final Split split = builder.build();
 
     @Test
+    public void shouldReturnCarId() {
+        assertThat(split.getCarId()).isEqualTo(CAR_ID);
+    }
+
+    @Test
     public void shouldReturnStartTime() {
         assertThat(split.getStartTime()).isEqualTo(START_TIME);
     }
@@ -45,12 +50,17 @@ public class SplitTest {
     }
 
     @Test
+    public void shouldReturnIsRetired() {
+        assertThat(split.isRetired()).isFalse();
+    }
+
+    @Test
     public void shouldReturnEndCheckpointId() {
         assertThat(split.getEndCheckpointId()).isEqualTo(END_CHECKPOINT_ID);
     }
 
     @Test
-    public void shouldContaiStartTime() {
+    public void shouldContainStartTime() {
         assertThat(split.contains(START_TIME)).isTrue();
     }
 
@@ -76,6 +86,11 @@ public class SplitTest {
     @Test
     public void shouldNotContainTimeAfterEndTime() {
         assertThat(split.contains(END_TIME.add(1))).isFalse();
+    }
+
+    @Test
+    public void shouldReturnStartDistance() {
+        assertThat(split.getStartDistance()).isEqualTo(START_DISTANCE);
     }
 
     @Test
