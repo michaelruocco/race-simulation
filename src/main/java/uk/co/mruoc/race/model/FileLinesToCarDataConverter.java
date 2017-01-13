@@ -20,7 +20,7 @@ public class FileLinesToCarDataConverter {
         return carDataList;
     }
 
-    public CarData toCarData(int carId, List<FileLine> lines) {
+    private CarData toCarData(int carId, List<FileLine> lines) {
         List<Split> splits = splitsConverter.toSplits(lines);
         List<Lap> laps = lapsConverter.toLaps(splits);
         return new CarData(carId, laps);
