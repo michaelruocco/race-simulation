@@ -40,6 +40,8 @@ public class CarDataToCarStatsConverter {
     private ElapsedTime toTimeDifference(CarData carData1, CarData carData2) {
         if (carData1 == null)
             return new ElapsedTime();
+        if (carData1.getSpeed().equals(BigDecimal.ZERO))
+            return new ElapsedTime();
         BigDecimal distanceDifference = carData1.getDistance().subtract(carData2.getDistance());
         BigDecimal timeDifferenceInMillis = distanceDifference.divide(carData1.getSpeed(), MathContext.DECIMAL32);
         return new ElapsedTime(timeDifferenceInMillis.longValue());

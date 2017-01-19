@@ -26,6 +26,8 @@ public class CarData {
     }
 
     public BigDecimal getDistance() {
+        if (lapStats == null)
+            return BigDecimal.ZERO;
         return lapStats.getTotalDistance();
     }
 
@@ -42,6 +44,8 @@ public class CarData {
     }
 
     public BigDecimal getSpeed() {
+        if (lapStats == null)
+            return BigDecimal.ZERO;
         return lapStats.getSpeed();
     }
 

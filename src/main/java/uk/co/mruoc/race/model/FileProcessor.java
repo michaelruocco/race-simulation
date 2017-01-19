@@ -29,7 +29,10 @@ public class FileProcessor {
             List<ElapsedTime> queryTimes = queryTimeConverter.toQueryTimes(lines);
             Map<Integer, List<FileLine>> carLines = fileLineGrouper.groupByCarId(lines);
             List<CarData> carData = carDataConverter.toCarData(carLines);
-            return new RaceData(queryTimes, carData);
+            return new RaceData.RaceDataBuilder()
+                    .setQueryTimes(queryTimes)
+                    .setCarDataList(carData)
+                    .build();
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

@@ -17,14 +17,19 @@ public class RaceData {
     private final ElapsedTime endTime;
     private RaceStats raceStats;
 
-    public RaceData(List<ElapsedTime> queryTimes, List<CarData> carsDataList) {
-        this.queryTimes = queryTimes;
-        this.carDataList = carsDataList;
-        this.endTime = extractEndTime(carsDataList);
+    private RaceData(RaceDataBuilder builder) {
+        this.queryTimes = builder.queryTimes;
+        this.carDataList = builder.carDataList;
+        this.endTime = extractEndTime(this.carDataList);
+        this.setTime(new ElapsedTime());
     }
 
     public Iterator<ElapsedTime> getQueryTimes() {
         return queryTimes.iterator();
+    }
+
+    public ElapsedTime getEndTime() {
+        return endTime;
     }
 
     public void setTime(ElapsedTime time) {
@@ -35,10 +40,6 @@ public class RaceData {
 
     public Iterator<CarStats> getCarStats() {
         return raceStats.getCarStats();
-    }
-
-    public ElapsedTime getEndTime() {
-        return endTime;
     }
 
     public CarStats getCarStats(int carId) {
@@ -65,6 +66,27 @@ public class RaceData {
     private CarDataToCarStatsConverter buildConverter(ElapsedTime time) {
         Comparator<CarData> comparator = comparatorBuilder.build(time);
         return new CarDataToCarStatsConverter(comparator);
+    }
+
+    public static class RaceDataBuilder {
+
+        private List<ElapsedTime> queryTimes;
+        private List<CarData> carDataList;
+
+        public RaceDataBuilder setQueryTimes(List<ElapsedTime> queryTimes) {
+            this.queryTimes = queryTimes;
+            return this;
+        }
+
+        public RaceDataBuilder setCarDataList(List<CarData> carDataList) {
+            this.carDataList = carDataList;
+            return this;
+        }
+
+        public RaceData build() {
+            return new RaceData(this);
+        }
+
     }
 
 }

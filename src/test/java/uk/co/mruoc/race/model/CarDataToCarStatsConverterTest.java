@@ -70,6 +70,28 @@ public class CarDataToCarStatsConverterTest {
     }
 
     @Test
+    public void shouldReturnZeroTimeDifferenceIfCarDataSpeedIsZero() {
+        given(carData1.getDistance()).willReturn(BigDecimal.valueOf(100));
+        given(carData1.getSpeed()).willReturn(BigDecimal.ZERO);
+
+        given(carData2.getDistance()).willReturn(BigDecimal.valueOf(200));
+        given(carData2.getSpeed()).willReturn(BigDecimal.ZERO);
+        List<CarData> carDataList = Arrays.asList(carData1, carData2);
+
+        List<CarStats> carStatsList = converter.toCarStats(carDataList);
+
+        assertThat(carStatsList.size()).isEqualTo(2);
+
+        CarStats carStats = carStatsList.get(0);
+        assertThat(carStats.getCarId()).isEqualTo(2);
+        assertThat(carStats.getTimeDifference()).isEqualTo(new ElapsedTime());
+
+        carStats = carStatsList.get(1);
+        assertThat(carStats.getCarId()).isEqualTo(1);
+        assertThat(carStats.getTimeDifference()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
     public void shouldCalculateTimeDifference() {
         given(carData1.getDistance()).willReturn(BigDecimal.valueOf(100));
         given(carData2.getDistance()).willReturn(BigDecimal.valueOf(200));
