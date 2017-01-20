@@ -10,6 +10,8 @@ import static uk.co.mruoc.race.model.SplitStats.*;
 
 public class Split {
 
+    private final SpeedCalculator speedCalculator = new SpeedCalculator();
+
     private final int carId;
     private final int endCheckpointId;
     private final boolean retired;
@@ -114,7 +116,7 @@ public class Split {
     private BigDecimal calculateSpeed() {
         if (retired)
             return BigDecimal.ZERO;
-        return SpeedCalculator.calculate(splitDistance, splitTime);
+        return speedCalculator.calculate(splitDistance, splitTime);
     }
 
     public static class SplitBuilder {

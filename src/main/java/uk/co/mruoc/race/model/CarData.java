@@ -20,15 +20,13 @@ public class CarData {
         this.lastLap = laps.get(laps.size() - 1);
     }
 
+    public int getCarId() {
+        return carId;
+    }
+
     public void setTime(ElapsedTime time) {
         currentLap = getCurrentLap(time);
         lapStats = currentLap.getStatsAt(time);
-    }
-
-    public BigDecimal getDistance() {
-        if (lapStats == null)
-            return BigDecimal.ZERO;
-        return lapStats.getTotalDistance();
     }
 
     public ElapsedTime getEndTime() {
@@ -36,20 +34,26 @@ public class CarData {
     }
 
     public int getLapNumber() {
+        if (!hasCurrentLap())
+            return 0;
         return currentLap.getLapNumber();
     }
 
-    public int getCarId() {
-        return carId;
+    public BigDecimal getDistance() {
+        if (!hasLapStats())
+            return BigDecimal.ZERO;
+        return lapStats.getTotalDistance();
     }
 
     public BigDecimal getSpeed() {
-        if (lapStats == null)
+        if (!hasLapStats())
             return BigDecimal.ZERO;
         return lapStats.getSpeed();
     }
 
     public BigDecimal getAverageLapSpeed() {
+        if (!hasLapStats())
+            return BigDecimal.ZERO;
         return lapStats.getAverageLapSpeed();
     }
 
@@ -59,6 +63,14 @@ public class CarData {
                 return lap;
 
         return laps.get(laps.size() - 1);
+    }
+
+    private boolean hasLapStats() {
+        return lapStats != null;
+    }
+
+    private boolean hasCurrentLap() {
+        return currentLap != null;
     }
 
 }

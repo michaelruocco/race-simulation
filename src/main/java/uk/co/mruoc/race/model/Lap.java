@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Lap {
 
+    private final SpeedCalculator speedCalculator = new SpeedCalculator();
+
     private final int lapNumber;
     private final List<Split> splits;
     private final ElapsedTime startTime;
@@ -70,11 +72,11 @@ public class Lap {
             if (split.contains(time)) {
                 lapDistance = lapDistance.add(splitStats.getDistance());
                 ElapsedTime lapTime = time.subtract(startTime);
-                return SpeedCalculator.calculate(lapDistance, lapTime);
+                return speedCalculator.calculate(lapDistance, lapTime);
             }
             lapDistance = lapDistance.add(split.getDistance());
         }
-        return SpeedCalculator.calculate(lapDistance, lapTime);
+        return speedCalculator.calculate(lapDistance, lapTime);
     }
 
     private static List<Split> toList(Split... splits) {

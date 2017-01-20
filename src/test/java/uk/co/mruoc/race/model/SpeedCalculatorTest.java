@@ -10,13 +10,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SpeedCalculatorTest {
 
+    private final SpeedCalculator speedCalculator = new SpeedCalculator();
+
     @Test
     public void shouldCalculateSpeedInMetersPerMillisecond1() {
         BigDecimal oneHundredMeters = BigDecimal.valueOf(100);
         ElapsedTime thirtySeconds = new ElapsedTime("00:00:30.000");
         BigDecimal expectedSpeed = BigDecimal.valueOf(0.003333333);
 
-        BigDecimal speed = SpeedCalculator.calculate(oneHundredMeters, thirtySeconds);
+        BigDecimal speed = speedCalculator.calculate(oneHundredMeters, thirtySeconds);
 
         assertThat(speed).isEqualTo(expectedSpeed);
     }
@@ -27,7 +29,7 @@ public class SpeedCalculatorTest {
         ElapsedTime thirtySeconds = new ElapsedTime("00:01:00.000");
         BigDecimal expectedSpeed = BigDecimal.valueOf(0.008333333);
 
-        BigDecimal speed = SpeedCalculator.calculate(oneHundredMeters, thirtySeconds);
+        BigDecimal speed = speedCalculator.calculate(oneHundredMeters, thirtySeconds);
 
         assertThat(speed).isEqualTo(expectedSpeed);
     }

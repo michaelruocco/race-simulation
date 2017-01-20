@@ -9,7 +9,7 @@ import static java.math.MathContext.*;
 
 public class SpeedCalculator {
 
-    public static BigDecimal calculate(BigDecimal distance, ElapsedTime time) {
+    public BigDecimal calculate(BigDecimal distance, ElapsedTime time) {
         BigDecimal totalMillis = valueOf(time.getTotalMillis());
         if (totalMillis.equals(ZERO))
             return ZERO;
