@@ -19,10 +19,16 @@ public class CarStatsToLineConverterTest {
 
         String line = converter.toLine(stats);
 
-        assertThat(line).isEqualTo("|         0|   0|   0.00|           0|" +
-                "     00:00:00.000|               0.00|" +
-                "                       |          |" +
-                "         |");
+        assertThat(line).isEqualTo("|         0" +
+                "|   0" +
+                "|   0.00" +
+                "|           0" +
+                "|     00:00:00.000" +
+                "|               0.00" +
+                "|                   0.00" +
+                "|          " +
+                "|         " +
+                "|");
     }
 
 }

@@ -20,7 +20,7 @@ public class CarStatsFormatter {
         values.add(formatLapNumber(stats));
         values.add(formatTimeDifference(stats));
         values.add(formatAverageLapSpeed(stats));
-        values.add("");
+        values.add(formaxMaximumAverageLapSpeed(stats));
         values.add("");
         values.add("");
         return values;
@@ -40,6 +40,10 @@ public class CarStatsFormatter {
 
     private String formatAverageLapSpeed(CarStats stats) {
         return formatSpeed(stats.getAverageLapSpeed());
+    }
+
+    private String formaxMaximumAverageLapSpeed(CarStats stats) {
+        return formatSpeed(stats.getMaximumAverageLapSpeed());
     }
 
     private String formatLapNumber(CarStats stats) {

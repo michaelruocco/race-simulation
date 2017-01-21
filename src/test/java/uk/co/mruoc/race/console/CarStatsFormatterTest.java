@@ -103,10 +103,14 @@ public class CarStatsFormatterTest {
     }
 
     @Test
-    public void shouldConvertMaxAverageLapSpeedToEmptyString() {
+    public void shouldConvertMaxAverageLapSpeed() {
+        BigDecimal speedInMetersPerMillisecond = BigDecimal.valueOf(0.03);
+        given(stats.getMaximumAverageLapSpeed()).willReturn(speedInMetersPerMillisecond);
+
         List<String> values = converter.format(stats);
 
-        assertThat(values.get(MAX_AVERAGE_LAP_SPEED_INDEX)).isEqualTo("");
+        String expectedSpeedInKmPerHour = "108.00";
+        assertThat(values.get(MAX_AVERAGE_LAP_SPEED_INDEX)).isEqualTo(expectedSpeedInKmPerHour);
     }
 
     @Test

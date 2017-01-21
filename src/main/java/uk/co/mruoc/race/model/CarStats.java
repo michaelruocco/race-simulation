@@ -47,5 +47,5 @@ public class CarStats {
     public BigDecimal getMaximumAverageLapSpeed() {
         return carData.getMaximumAverageLapSpeed();
     }
-    
+
 }
