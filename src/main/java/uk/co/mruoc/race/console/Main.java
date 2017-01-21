@@ -10,7 +10,7 @@ public class Main {
         DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
         FileProcessor fileProcessor = new FileProcessor(distanceProvider);
         RaceData raceData = fileProcessor.process(new File("data/raceinfo.dat"));
-        ConsoleReportBuilder builder = new ConsoleReportBuilder();
+        ReportsBuilder builder = new ReportsBuilder();
         String report = builder.build(raceData);
         System.out.println(report);
     }

@@ -6,7 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ColumnsTest {
 
-    private final Columns columns = new Columns();
+    private final Columns columns = new Columns("-");
 
     @Test
     public void shouldReturnSize() {

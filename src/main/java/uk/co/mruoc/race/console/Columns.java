@@ -11,7 +11,12 @@ public class Columns implements Iterable<String> {
     private static final List<String> HEADERS = buildHeaders();
     private static final int TOTAL_WIDTH = calculateTotalWidth();
     private static final String COLUMN_SEPARATOR = "|";
-    private static final String ROW_SEPARATOR = "-";
+
+    private final String rowSeparator;
+
+    public Columns(String rowSeparator) {
+        this.rowSeparator = rowSeparator;
+    }
 
     public int size() {
         return HEADERS.size();
@@ -36,7 +41,7 @@ public class Columns implements Iterable<String> {
         StringBuilder row = new StringBuilder();
         row.append(COLUMN_SEPARATOR);
         for (String header : HEADERS) {
-            row.append(StringUtils.repeat(ROW_SEPARATOR, header.length()));
+            row.append(StringUtils.repeat(rowSeparator, header.length()));
             row.append(COLUMN_SEPARATOR);
         }
         return row.toString();
