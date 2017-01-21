@@ -14,6 +14,7 @@ public class ConsoleReportBuilder {
 
     private final Columns columns = new Columns();
     private final CarStatsToLineConverter statsToLineConverter = new CarStatsToLineConverter(columns);
+    private final SingleReportBuilder singleReportBuilder = new SingleReportBuilder(columns);
     private StringBuilder report;
 
     public String build(RaceData raceData) {
@@ -28,14 +29,17 @@ public class ConsoleReportBuilder {
     }
 
     private void appendReport(Iterator<CarStats> stats) {
+        report.append(singleReportBuilder.build(stats));
         appendNewLine();
+        appendNewLine();
+        /*appendNewLine();
         appendRowLine();
         appendHeader();
         appendHeaderSeparator();
         appendLines(stats);
         appendRowLine();
         appendNewLine();
-        appendNewLine();
+        appendNewLine();*/
     }
 
     private void appendRowLine() {
@@ -52,12 +56,7 @@ public class ConsoleReportBuilder {
     }
 
     private void appendHeader() {
-        appendNewLine();
-        appendColumnSeparator();
-        for (String header : columns) {
-            report.append(header);
-            appendColumnSeparator();
-        }
+        report.append(columns.getHeaderRow());
     }
 
     private void appendHeaderSeparator() {

@@ -9,94 +9,31 @@ public class ColumnsTest {
     private final Columns columns = new Columns();
 
     @Test
-    public void shouldReturnSize8() {
+    public void shouldReturnSize() {
         assertThat(columns.size()).isEqualTo(9);
     }
 
     @Test
     public void separatorShouldBePipe() {
-        assertThat(columns.getSeparator()).isEqualTo('|');
+        assertThat(columns.getSeparator()).isEqualTo("|");
     }
 
     @Test
-    public void header0ShouldBePosition() {
-        int index = 0;
-        String expected = " Position ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
+    public void shouldReturnHeaderWidth() {
+        assertThat(columns.getWidth(0)).isEqualTo(10);
+        assertThat(columns.getWidth(1)).isEqualTo(4);
+        assertThat(columns.getWidth(2)).isEqualTo(7);
+        assertThat(columns.getWidth(3)).isEqualTo(12);
+        assertThat(columns.getWidth(4)).isEqualTo(17);
+        assertThat(columns.getWidth(5)).isEqualTo(19);
+        assertThat(columns.getWidth(6)).isEqualTo(23);
+        assertThat(columns.getWidth(7)).isEqualTo(10);
+        assertThat(columns.getWidth(8)).isEqualTo(9);
     }
 
     @Test
-    public void header1ShouldBeId() {
-        int index = 1;
-        String expected = " ID ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header2ShouldBeSpeed() {
-        int index = 2;
-        String expected = " Speed ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header3ShouldBeLapNumber() {
-        int index = 3;
-        String expected = " Lap Number ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header4ShouldBeTimeDifference() {
-        int index = 4;
-        String expected = " Time Difference ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header5ShouldBeAverageLapSpeed() {
-        int index = 5;
-        String expected = " Average Lap Speed ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header6ShouldBeMaxAverageLapSpeed() {
-        int index = 6;
-        String expected = " Max Average Lap Speed ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header7ShouldBePitTime() {
-        int index = 7;
-        String expected = " Pit Time ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
-    }
-
-    @Test
-    public void header8ShouldBePitTime() {
-        int index = 8;
-        String expected = " Pit Lap ";
-
-        assertThat(columns.getHeader(index)).isEqualTo(expected);
-        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
+    public void shouldReturnTotalWidth() {
+        assertThat(columns.getTotalWidth()).isEqualTo(121);
     }
 
     @Test
@@ -106,6 +43,34 @@ public class ColumnsTest {
             count++;
 
         assertThat(count).isEqualTo(columns.size());
+    }
+
+    @Test
+    public void shouldReturnHeaderRow() {
+        assertThat(columns.getHeaderRow()).isEqualTo("| Position " +
+                "| ID " +
+                "| Speed " +
+                "| Lap Number " +
+                "| Time Difference " +
+                "| Average Lap Speed " +
+                "| Max Average Lap Speed " +
+                "| Pit Time " +
+                "| Pit Lap " +
+                "|");
+    }
+
+    @Test
+    public void shouldReturnHeaderRowSeparator() {
+        assertThat(columns.getHeaderSeparatorRow()).isEqualTo("|----------" +
+                "|----" +
+                "|-------" +
+                "|------------" +
+                "|-----------------" +
+                "|-------------------" +
+                "|-----------------------" +
+                "|----------" +
+                "|---------" +
+                "|");
     }
 
 }

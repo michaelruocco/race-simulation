@@ -21,8 +21,7 @@ public class CarStatsToLineConverter {
         List<String> values = statsToValuesConverter.format(stats);
         for (int c = 0; c < columns.size(); c++) {
             String value = values.get(c);
-            String header = columns.getHeader(c);
-            line.append(pad(value, header.length()));
+            line.append(pad(value, columns.getWidth(c)));
             line.append(columns.getSeparator());
         }
         return line.toString();
