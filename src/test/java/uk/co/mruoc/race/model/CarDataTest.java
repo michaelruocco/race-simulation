@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.model;
 
+import org.junit.Before;
 import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTime;
 
@@ -20,6 +21,12 @@ public class CarDataTest {
     private final List<Lap> laps = Arrays.asList(lap1, lap2);
 
     private final CarData carData = new CarData(CAR_ID, laps);
+
+    @Before
+    public void setUp() {
+        given(lap1.getEndTime()).willReturn(new ElapsedTime());
+        given(lap2.getEndTime()).willReturn(new ElapsedTime());
+    }
 
     @Test
     public void shouldReturnCarId() {
@@ -117,6 +124,29 @@ public class CarDataTest {
         carData.setTime(time);
 
         assertThat(carData.getAverageLapSpeed()).isEqualTo(averageLapSpeed);
+    }
+
+    @Test
+    public void shouldReturnMaxmimumAverageLapSpeedAtGivenTime() {
+        BigDecimal maximumAverageLapSpeed = BigDecimal.valueOf(0.6);
+        ElapsedTime time = new ElapsedTime("00:30:30.000");
+        given(lap1.getWholeAverageLapSpeed()).willReturn(maximumAverageLapSpeed);
+        given(lap2.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.5));
+
+        carData.setTime(time);
+
+        assertThat(carData.getMaximumAverageLapSpeed()).isEqualTo(maximumAverageLapSpeed);
+    }
+
+    @Test
+    public void shouldReturnZeroMaxmimumAverageLapSpeedIfNoLapsCompleted() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        given(lap1.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.5));
+        given(lap2.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.6));
+
+        carData.setTime(time);
+
+        assertThat(carData.getMaximumAverageLapSpeed()).isEqualTo(BigDecimal.ZERO);
     }
 
 }

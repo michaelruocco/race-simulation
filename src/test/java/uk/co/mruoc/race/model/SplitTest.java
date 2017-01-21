@@ -99,6 +99,15 @@ public class SplitTest {
     }
 
     @Test
+    public void shouldReturnZeroSplitDistanceIfNotSet() {
+        builder.setSplitDistance(null);
+
+        Split noDistanceSplit = builder.build();
+
+        assertThat(noDistanceSplit.getDistance()).isEqualTo(BigDecimal.ZERO);
+    }
+
+    @Test
     public void shouldReturnSplitDistanceAtGivenTime() {
         SplitStats stats = split.getStatsAt(HALF_TIME);
 

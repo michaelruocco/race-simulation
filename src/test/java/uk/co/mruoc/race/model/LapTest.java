@@ -148,5 +148,26 @@ public class LapTest {
         assertThat(lapStats.getAverageLapSpeed()).isEqualTo(BigDecimal.valueOf(0.015));
     }
 
+    @Test
+    public void shouldReturnAverageLapSpeedForWholeLap() {
+        Split split1 = new SplitBuilder()
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .setStartDistance(BigDecimal.ZERO)
+                .setSplitDistance(BigDecimal.valueOf(200))
+                .build();
+
+        Split split2 = new SplitBuilder()
+                .setStartTime(new ElapsedTime("00:00:30.001"))
+                .setEndTime(new ElapsedTime("00:00:50.000"))
+                .setStartDistance(BigDecimal.valueOf(200))
+                .setSplitDistance(BigDecimal.valueOf(400))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1, split2);
+
+        assertThat(lap.getWholeAverageLapSpeed()).isEqualTo(BigDecimal.valueOf(0.015));
+    }
+
 
 }

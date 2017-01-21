@@ -165,6 +165,8 @@ public class Split {
         }
 
         public Split build() {
+            if (splitDistance == null)
+                splitDistance = BigDecimal.ZERO;
             return new Split(this);
         }
 

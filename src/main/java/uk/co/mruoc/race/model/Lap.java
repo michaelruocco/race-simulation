@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.math.MathContext.DECIMAL32;
+
 public class Lap {
 
     private final SpeedCalculator speedCalculator = new SpeedCalculator();
@@ -17,6 +19,7 @@ public class Lap {
     private final ElapsedTime startTime;
     private final ElapsedTime endTime;
     private final ElapsedTime lapTime;
+    private final BigDecimal wholeAverageLapSpeed;
 
     public Lap(int lapNumber, Split... splits) {
         this(lapNumber, toList(splits));
@@ -28,6 +31,7 @@ public class Lap {
         this.startTime = extractStartTime();
         this.endTime = extractEndTime();
         this.lapTime = endTime.subtract(startTime);
+        this.wholeAverageLapSpeed = calculateWholeAverageLapSpeed();
     }
 
     public int getLapNumber() {
@@ -59,6 +63,24 @@ public class Lap {
                 .build();
     }
 
+    public BigDecimal getWholeAverageLapSpeed() {
+        return wholeAverageLapSpeed;
+    }
+
+    private BigDecimal calculateWholeAverageLapSpeed() {
+        BigDecimal totalDistance = calculateTotalDistance();
+        if (totalDistance.equals(BigDecimal.ZERO))
+            return BigDecimal.ZERO;
+        return totalDistance.divide(BigDecimal.valueOf(lapTime.getTotalMillis()), DECIMAL32);
+    }
+
+    private BigDecimal calculateTotalDistance() {
+        BigDecimal totalDistance = BigDecimal.ZERO;
+        for (Split split : splits)
+            totalDistance = totalDistance.add(split.getDistance());
+        return totalDistance;
+    }
+
     private Split getSplit(ElapsedTime time) {
         for (Split split : splits)
             if (split.contains(time))
@@ -66,7 +88,7 @@ public class Lap {
         return splits.get(splits.size() - 1);
     }
 
-    public BigDecimal calculateAverageLapSpeed(ElapsedTime time, SplitStats splitStats) {
+    private BigDecimal calculateAverageLapSpeed(ElapsedTime time, SplitStats splitStats) {
         BigDecimal lapDistance = BigDecimal.ZERO;
         for (Split split : splits) {
             if (split.contains(time)) {
