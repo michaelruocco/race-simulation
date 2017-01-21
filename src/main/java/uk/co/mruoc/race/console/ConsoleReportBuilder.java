@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.console;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang3.StringUtils;
 import uk.co.mruoc.race.model.CarStats;
 import uk.co.mruoc.race.model.RaceData;
@@ -15,7 +16,8 @@ public class ConsoleReportBuilder {
     private static final char ROW_SEPARATOR = '-';
     private static final String NEW_LINE = System.lineSeparator();
 
-    private final CarStatsFormatter statsToValuesConverter = new CarStatsFormatter();
+    private final Columns columns = new Columns();
+    private final CarStatsToLineConverter statsToLineConverter = new CarStatsToLineConverter(columns);
     private StringBuilder report;
 
     private static final List<String> COLUMN_HEADERS = Arrays.asList(
@@ -99,18 +101,9 @@ public class ConsoleReportBuilder {
     }
 
     private void appendLine(CarStats stats) {
-        List<String> values = statsToValuesConverter.format(stats);
-        appendNewLine();
-        appendColumnSeparator();
-        for (int c = 0; c < COLUMN_HEADERS.size(); c++) {
-            String value = values.get(c);
-            String header = COLUMN_HEADERS.get(c);
-            report.append(pad(value, header.length()));
-            appendColumnSeparator();
-        }
+        report.append(NEW_LINE);
+        report.append(statsToLineConverter.toLine(stats));
     }
-
-
 
     private void appendNewLine() {
         report.append(NEW_LINE);
@@ -118,13 +111,6 @@ public class ConsoleReportBuilder {
 
     private void appendColumnSeparator() {
         report.append(COLUMN_SEPARATOR);
-    }
-
-
-
-
-    private String pad(String value, int size) {
-        return StringUtils.leftPad(value, size, ' ');
     }
 
 }
