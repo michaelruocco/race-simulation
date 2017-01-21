@@ -70,4 +70,12 @@ public class CarStatsTest {
         assertThat(carStats.getAverageLapSpeed()).isEqualTo(averageLapSpeed);
     }
 
+    @Test
+    public void shouldReturnMaximumAverageLapSpeed() {
+        BigDecimal maximumAverageLapSpeed = BigDecimal.valueOf(250);
+        given(carData.getMaximumAverageLapSpeed()).willReturn(maximumAverageLapSpeed);
+
+        assertThat(carStats.getMaximumAverageLapSpeed()).isEqualTo(maximumAverageLapSpeed);
+    }
+
 }
