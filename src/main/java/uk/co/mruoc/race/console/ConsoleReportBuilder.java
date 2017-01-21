@@ -15,7 +15,7 @@ public class ConsoleReportBuilder {
     private static final char ROW_SEPARATOR = '-';
     private static final String NEW_LINE = System.lineSeparator();
 
-    private final CarStatsToValuesConverter statsToValuesConverter = new CarStatsToValuesConverter();
+    private final CarStatsFormatter statsToValuesConverter = new CarStatsFormatter();
     private StringBuilder report;
 
     private static final List<String> COLUMN_HEADERS = Arrays.asList(
@@ -99,7 +99,7 @@ public class ConsoleReportBuilder {
     }
 
     private void appendLine(CarStats stats) {
-        List<String> values = statsToValuesConverter.toValues(stats);
+        List<String> values = statsToValuesConverter.format(stats);
         appendNewLine();
         appendColumnSeparator();
         for (int c = 0; c < COLUMN_HEADERS.size(); c++) {

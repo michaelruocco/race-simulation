@@ -8,11 +8,11 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarStatsToValuesConverter {
+public class CarStatsFormatter {
 
     private final SpeedConverter speedConverter = new SpeedConverter();
 
-    public List<String> toValues(CarStats stats) {
+    public List<String> format(CarStats stats) {
         List<String> values = new ArrayList<>();
         values.add(formatPosition(stats));
         values.add(formatCarId(stats));

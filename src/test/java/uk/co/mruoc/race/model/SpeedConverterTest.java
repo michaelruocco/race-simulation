@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.model;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.SpeedConverter;
 
 import java.math.BigDecimal;
 
@@ -14,14 +13,27 @@ public class SpeedConverterTest {
 
     @Test
     public void shouldConvertSpeedFromMetersPerMillisecondToKmPerHour1() {
-        BigDecimal expectedSpeed = BigDecimal.valueOf(100.8).setScale(3, HALF_UP);
-        assertThat(converter.metersPerMilliToKmPerHour(BigDecimal.valueOf(0.028))).isEqualTo(expectedSpeed);
+        BigDecimal speedInMetersPerMillisecond = BigDecimal.valueOf(0.028);
+        BigDecimal expectedSpeedInKmPerHour = BigDecimal.valueOf(100.8).setScale(3, HALF_UP);
+
+        BigDecimal result = converter.metersPerMilliToKmPerHour(speedInMetersPerMillisecond);
+
+        assertThat(result).isEqualTo(expectedSpeedInKmPerHour);
     }
 
     @Test
     public void shouldConvertSpeedFromMetersPerMillisecondToKmPerHour2() {
-        BigDecimal expectedSpeed = BigDecimal.valueOf(50.00400).setScale(5, HALF_UP);
-        assertThat(converter.metersPerMilliToKmPerHour(BigDecimal.valueOf(0.01389))).isEqualTo(expectedSpeed);
+        BigDecimal speedInMetersPerMillisecond = BigDecimal.valueOf(0.01389);
+        BigDecimal expectedSpeedInKmPerHour = BigDecimal.valueOf(50.00400).setScale(5, HALF_UP);
+
+        BigDecimal result = converter.metersPerMilliToKmPerHour(speedInMetersPerMillisecond);
+
+        assertThat(result).isEqualTo(expectedSpeedInKmPerHour);
+    }
+
+    @Test
+    public void shouldConvertSpeedToZeroIfValueIsNull() {
+        assertThat(converter.metersPerMilliToKmPerHour(null)).isEqualTo(BigDecimal.ZERO);
     }
 
 }

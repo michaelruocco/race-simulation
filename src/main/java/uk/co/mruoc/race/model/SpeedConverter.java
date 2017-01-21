@@ -9,6 +9,8 @@ public class SpeedConverter {
     private static final BigDecimal METERS_IN_KM = BigDecimal.valueOf(1000);
 
     public BigDecimal metersPerMilliToKmPerHour(BigDecimal speedInMetersPerMilli) {
+        if (speedInMetersPerMilli == null)
+            return BigDecimal.ZERO;
         BigDecimal speedInMetersPerHour = speedInMetersPerMilli.multiply(MILLIS_IN_HOUR);
         return speedInMetersPerHour.divide(METERS_IN_KM, MathContext.DECIMAL32);
     }
