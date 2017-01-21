@@ -47,7 +47,7 @@ public class Columns implements Iterable<String> {
         return header.length();
     }
 
-    public String getSeparator() {
+    public String getColumnSeparator() {
         return COLUMN_SEPARATOR;
     }
 

@@ -15,7 +15,7 @@ public class ColumnsTest {
 
     @Test
     public void separatorShouldBePipe() {
-        assertThat(columns.getSeparator()).isEqualTo("|");
+        assertThat(columns.getColumnSeparator()).isEqualTo("|");
     }
 
     @Test

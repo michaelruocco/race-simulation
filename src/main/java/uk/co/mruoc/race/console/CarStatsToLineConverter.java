@@ -17,12 +17,12 @@ public class CarStatsToLineConverter {
 
     public String toLine(CarStats stats) {
         StringBuilder line = new StringBuilder();
-        line.append(columns.getSeparator());
+        line.append(columns.getColumnSeparator());
         List<String> values = statsToValuesConverter.format(stats);
         for (int c = 0; c < columns.size(); c++) {
             String value = values.get(c);
             line.append(pad(value, columns.getWidth(c)));
-            line.append(columns.getSeparator());
+            line.append(columns.getColumnSeparator());
         }
         return line.toString();
     }
