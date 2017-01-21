@@ -21,11 +21,13 @@ public class DefaultDistanceProvider implements DistanceProvider {
     @Override
     public BigDecimal getDistanceBetweenCheckpoints(int startCheckpointId, int endCheckpointId) {
         String key = toKey(startCheckpointId, endCheckpointId);
-        LOG.info("returning distance between checkpoints " + key);
-        if (distances.containsKey(key))
-            return distances.get(key);
+        if (distances.containsKey(key)) {
+            BigDecimal distance = distances.get(key);
+            LOG.debug("returning distance " + distance + " between checkpoints " + key);
+            return distance;
+        }
 
-        LOG.info("no distance found returning 0 ");
+        LOG.info("no distance found between checkpoints " + key + " returning 0 ");
         return BigDecimal.ZERO;
     }
 
