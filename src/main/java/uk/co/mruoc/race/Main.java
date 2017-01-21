@@ -1,5 +1,6 @@
-package uk.co.mruoc.race.console;
+package uk.co.mruoc.race;
 
+import uk.co.mruoc.race.console.ReportsBuilder;
 import uk.co.mruoc.race.model.*;
 
 import java.io.File;
