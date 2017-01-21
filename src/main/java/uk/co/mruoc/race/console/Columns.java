@@ -1,9 +1,10 @@
 package uk.co.mruoc.race.console;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Columns {
+public class Columns implements Iterable<String> {
 
     private static final List<String> headers = buildHeaders();
     private final char separator = '|';
@@ -12,8 +13,18 @@ public class Columns {
         return headers.size();
     }
 
+    @Override
+    public Iterator<String> iterator() {
+        return headers.iterator();
+    }
+
     public String getHeader(int index) {
         return headers.get(index);
+    }
+
+    public int getWidth(int index) {
+        String header = getHeader(index);
+        return header.length();
     }
 
     public char getSeparator() {

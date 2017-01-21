@@ -9,53 +9,103 @@ public class ColumnsTest {
     private final Columns columns = new Columns();
 
     @Test
+    public void shouldReturnSize8() {
+        assertThat(columns.size()).isEqualTo(9);
+    }
+
+    @Test
     public void separatorShouldBePipe() {
         assertThat(columns.getSeparator()).isEqualTo('|');
     }
 
     @Test
     public void header0ShouldBePosition() {
-        assertThat(columns.getHeader(0)).isEqualTo(" Position ");
+        int index = 0;
+        String expected = " Position ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header1ShouldBeId() {
-        assertThat(columns.getHeader(1)).isEqualTo(" ID ");
+        int index = 1;
+        String expected = " ID ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header2ShouldBeSpeed() {
-        assertThat(columns.getHeader(2)).isEqualTo(" Speed ");
+        int index = 2;
+        String expected = " Speed ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header3ShouldBeLapNumber() {
-        assertThat(columns.getHeader(3)).isEqualTo(" Lap Number ");
+        int index = 3;
+        String expected = " Lap Number ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header4ShouldBeTimeDifference() {
-        assertThat(columns.getHeader(4)).isEqualTo(" Time Difference ");
+        int index = 4;
+        String expected = " Time Difference ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header5ShouldBeAverageLapSpeed() {
-        assertThat(columns.getHeader(5)).isEqualTo(" Average Lap Speed ");
+        int index = 5;
+        String expected = " Average Lap Speed ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header6ShouldBeMaxAverageLapSpeed() {
-        assertThat(columns.getHeader(6)).isEqualTo(" Max Average Lap Speed ");
+        int index = 6;
+        String expected = " Max Average Lap Speed ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header7ShouldBePitTime() {
-        assertThat(columns.getHeader(7)).isEqualTo(" Pit Time ");
+        int index = 7;
+        String expected = " Pit Time ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
     }
 
     @Test
     public void header8ShouldBePitTime() {
-        assertThat(columns.getHeader(8)).isEqualTo(" Pit Lap ");
+        int index = 8;
+        String expected = " Pit Lap ";
+
+        assertThat(columns.getHeader(index)).isEqualTo(expected);
+        assertThat(columns.getWidth(index)).isEqualTo(expected.length());
+    }
+
+    @Test
+    public void shouldBeIterable() {
+        int count = 0;
+        for (String header : columns)
+            count++;
+
+        assertThat(count).isEqualTo(columns.size());
     }
 
 }
