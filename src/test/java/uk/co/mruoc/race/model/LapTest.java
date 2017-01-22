@@ -212,4 +212,24 @@ public class LapTest {
         assertThat(lap.isRetired()).isTrue();
     }
 
+    @Test
+    public void shouldReturnFalseIfNotPit() {
+        Lap lap = new Lap(LAP_NUMBER);
+
+        assertThat(lap.isPit()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnTrueIfPit() {
+        Split split1 = new SplitBuilder()
+                .setPit(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.isPit()).isTrue();
+    }
+
 }
