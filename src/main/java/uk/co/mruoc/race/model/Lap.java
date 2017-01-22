@@ -67,6 +67,17 @@ public class Lap {
         return wholeAverageLapSpeed;
     }
 
+    public boolean isCompleteAt(ElapsedTime elapsedTime) {
+        return elapsedTime.isAfter(endTime) || elapsedTime.equals(endTime);
+    }
+
+    public boolean isRetired() {
+        for (Split split : splits)
+            if (split.isRetired())
+                return true;
+        return false;
+    }
+
     private BigDecimal calculateWholeAverageLapSpeed() {
         BigDecimal totalDistance = calculateTotalDistance();
         if (totalDistance.equals(BigDecimal.ZERO))

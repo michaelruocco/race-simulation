@@ -131,7 +131,9 @@ public class CarDataTest {
         BigDecimal maximumAverageLapSpeed = BigDecimal.valueOf(0.6);
         ElapsedTime time = new ElapsedTime("00:30:30.000");
         given(lap1.getWholeAverageLapSpeed()).willReturn(maximumAverageLapSpeed);
+        given(lap1.isCompleteAt(time)).willReturn(true);
         given(lap2.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.5));
+        given(lap2.isCompleteAt(time)).willReturn(true);
 
         carData.setTime(time);
 
@@ -139,10 +141,22 @@ public class CarDataTest {
     }
 
     @Test
-    public void shouldReturnZeroMaxmimumAverageLapSpeedIfNoLapsCompleted() {
+    public void shouldReturnZeroMaximumAverageLapSpeedIfNoLapsCompleted() {
         ElapsedTime time = new ElapsedTime("00:00:00.000");
         given(lap1.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.5));
         given(lap2.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.6));
+
+        carData.setTime(time);
+
+        assertThat(carData.getMaximumAverageLapSpeed()).isEqualTo(BigDecimal.ZERO);
+    }
+
+    @Test
+    public void shouldReturnZeroMaximumAverageLapSpeedIfNoLapsCompletedBecauseRetired() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        given(lap1.getWholeAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.5));
+        given(lap1.isCompleteAt(time)).willReturn(true);
+        given(lap1.isRetired()).willReturn(true);
 
         carData.setTime(time);
 

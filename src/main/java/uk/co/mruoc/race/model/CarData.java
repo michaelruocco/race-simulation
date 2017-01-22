@@ -87,7 +87,7 @@ public class CarData {
     private List<Lap> getCompletedLapsAt(ElapsedTime time) {
         List<Lap> completed = new ArrayList<>();
         for (Lap lap : laps)
-            if (lap.getEndTime().isBefore(time))
+            if (lap.isCompleteAt(time) && !lap.isRetired())
                 completed.add(lap);
         return completed;
     }

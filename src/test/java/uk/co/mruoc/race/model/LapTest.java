@@ -169,5 +169,47 @@ public class LapTest {
         assertThat(lap.getWholeAverageLapSpeed()).isEqualTo(BigDecimal.valueOf(0.015));
     }
 
+    @Test
+    public void shouldReturnCompleteIfAfterEndTime() {
+        Split split1 = new SplitBuilder()
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .setStartDistance(BigDecimal.ZERO)
+                .setSplitDistance(BigDecimal.valueOf(200))
+                .build();
+
+        Split split2 = new SplitBuilder()
+                .setStartTime(new ElapsedTime("00:00:30.001"))
+                .setEndTime(new ElapsedTime("00:00:50.000"))
+                .setStartDistance(BigDecimal.valueOf(200))
+                .setSplitDistance(BigDecimal.valueOf(400))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1, split2);
+
+        assertThat(lap.isCompleteAt(new ElapsedTime("00:00:50.001"))).isTrue();
+        assertThat(lap.isCompleteAt(new ElapsedTime("00:00:50.000"))).isTrue();
+        assertThat(lap.isCompleteAt(new ElapsedTime("00:00:49.999"))).isFalse();
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotRetired() {
+        Lap lap = new Lap(LAP_NUMBER);
+
+        assertThat(lap.isRetired()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnTrueIfRetired() {
+        Split split1 = new SplitBuilder()
+                .setRetired(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.isRetired()).isTrue();
+    }
 
 }
