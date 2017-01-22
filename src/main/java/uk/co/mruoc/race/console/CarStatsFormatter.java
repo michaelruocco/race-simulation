@@ -44,6 +44,8 @@ public class CarStatsFormatter {
     }
 
     private String formaxMaximumAverageLapSpeed(CarStats stats) {
+        if (stats.getLapNumber() <= 1)
+            return "-";
         return formatSpeed(stats.getMaximumAverageLapSpeed());
     }
 

@@ -25,7 +25,7 @@ public class CarStatsToLineConverterTest {
                 "|           0" +
                 "|     00:00:00.000" +
                 "|               0.00" +
-                "|                   0.00" +
+                "|                      -" +
                 "|             -" +
                 "|        -" +
                 "|");

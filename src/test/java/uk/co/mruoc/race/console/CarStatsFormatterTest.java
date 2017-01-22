@@ -103,8 +103,18 @@ public class CarStatsFormatterTest {
     }
 
     @Test
+    public void shouldNotConvertMaxAverageLapSpeedIfNoLapsCompleted() {
+        given(stats.getLapNumber()).willReturn(1);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(MAX_AVERAGE_LAP_SPEED_INDEX)).isEqualTo("-");
+    }
+
+    @Test
     public void shouldConvertMaxAverageLapSpeed() {
         BigDecimal speedInMetersPerMillisecond = BigDecimal.valueOf(0.03);
+        given(stats.getLapNumber()).willReturn(2);
         given(stats.getMaximumAverageLapSpeed()).willReturn(speedInMetersPerMillisecond);
 
         List<String> values = converter.format(stats);
