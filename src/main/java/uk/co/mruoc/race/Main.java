@@ -8,7 +8,7 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
-        DistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
+        DistanceProvider distanceProvider = new DefaultTrack();
         FileProcessor fileProcessor = new FileProcessor(distanceProvider);
         RaceData raceData = fileProcessor.process(new File("data/raceinfo.dat"));
         ReportsBuilder builder = new ReportsBuilder();

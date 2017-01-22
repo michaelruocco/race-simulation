@@ -1,10 +1,14 @@
 package uk.co.mruoc.race.model;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
-public class DefaultTrackDistanceProvider extends DefaultDistanceProvider {
+public class DefaultTrack extends DefaultDistanceProvider implements PitProvider {
 
-    public DefaultTrackDistanceProvider() {
+    private final List<Integer> pitCheckpoints = Arrays.asList(4, 5);
+
+    public DefaultTrack() {
         add("0-1", BigDecimal.valueOf(800));
         add("1-2", BigDecimal.valueOf(1200));
         add("2-3", BigDecimal.valueOf(300));
@@ -17,6 +21,11 @@ public class DefaultTrackDistanceProvider extends DefaultDistanceProvider {
         add("3-4", BigDecimal.valueOf(200));
         add("4-5", BigDecimal.valueOf(200));
         add("5-6", BigDecimal.valueOf(500));
+    }
+
+    @Override
+    public boolean isPit(int startCheckpointId, int endCheckpointId) {
+        return pitCheckpoints.contains(startCheckpointId) && pitCheckpoints.contains(endCheckpointId);
     }
 
 }

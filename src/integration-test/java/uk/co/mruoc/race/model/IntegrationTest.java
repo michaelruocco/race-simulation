@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class IntegrationTest {
 
-    private final DefaultTrackDistanceProvider distanceProvider = new DefaultTrackDistanceProvider();
+    private final DefaultTrack distanceProvider = new DefaultTrack();
     private final FileProcessor fileProcessor = new FileProcessor(distanceProvider);
     private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
     private final File file = fileLoader.load("/uk/co/mruoc/race/model/raceinfo.dat");
