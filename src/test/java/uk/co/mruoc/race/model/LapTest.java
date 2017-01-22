@@ -232,4 +232,54 @@ public class LapTest {
         assertThat(lap.isPit()).isTrue();
     }
 
+    @Test
+    public void shouldReturnFalseIfNotPittedYet() {
+        Lap lap = new Lap(LAP_NUMBER);
+
+        assertThat(lap.isPittedAt(new ElapsedTime())).isFalse();
+    }
+
+    @Test
+    public void shouldReturnTrueIfPitted() {
+        Split split1 = new SplitBuilder()
+                .setPit(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.isPittedAt(new ElapsedTime("00:00:30.000"))).isTrue();
+    }
+
+    @Test
+    public void shouldReturnPitTimeIfPitted() {
+        ElapsedTime startTime = new ElapsedTime("00:00:10.000");
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setPit(true)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getPitTime()).isEqualTo(endTime.subtract(startTime));
+    }
+
+    @Test
+    public void shouldReturnZeroPitTimeIfNotPitted() {
+        ElapsedTime startTime = new ElapsedTime("00:00:10.000");
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setPit(false)
+                .setStartTime(startTime)
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getPitTime()).isEqualTo(new ElapsedTime());
+    }
+
 }

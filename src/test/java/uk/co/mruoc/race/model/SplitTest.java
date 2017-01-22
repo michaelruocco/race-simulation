@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.model;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.Split;
 import uk.co.mruoc.race.model.Split.SplitBuilder;
 import uk.co.mruoc.time.ElapsedTime;
 
@@ -52,6 +51,11 @@ public class SplitTest {
     }
 
     @Test
+    public void shouldReturnTime() {
+        assertThat(split.getTime()).isEqualTo(END_TIME.subtract(START_TIME));
+    }
+
+    @Test
     public void shouldReturnIsRetired() {
         assertThat(split.isRetired()).isEqualTo(RETIRED);
     }
@@ -88,6 +92,33 @@ public class SplitTest {
         Split split = builder.build();
 
         assertThat(split.contains(startTime.subtract(1))).isFalse();
+    }
+
+    @Test
+    public void isCompleteAtShouldReturnTrueIfTimeEqualsEndTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:00.001");
+        builder.setEndTime(endTime);
+        Split split = builder.build();
+
+        assertThat(split.isCompleteAt(endTime)).isTrue();
+    }
+
+    @Test
+    public void isCompleteAtShouldReturnTrueIfTimeAfterEndTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:00.001");
+        builder.setEndTime(endTime);
+        Split split = builder.build();
+
+        assertThat(split.isCompleteAt(endTime.add(1))).isTrue();
+    }
+
+    @Test
+    public void isCompleteAtShouldReturnFalseIfTimeBeforeEndTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:00.001");
+        builder.setEndTime(endTime);
+        Split split = builder.build();
+
+        assertThat(split.isCompleteAt(endTime.subtract(1))).isFalse();
     }
 
     @Test

@@ -21,6 +21,7 @@ public class Split {
     private final BigDecimal startDistance;
     private final BigDecimal splitDistance;
     private final BigDecimal speed;
+    private ElapsedTime time;
 
     private Split(SplitBuilder builder) {
         this.carId = builder.carId;
@@ -81,6 +82,14 @@ public class Split {
                 .setTotalDistance(totalDistance)
                 .setSpeed(speed)
                 .build();
+    }
+
+    public boolean isCompleteAt(ElapsedTime time) {
+        return endTime.isBefore(time) || endTime.equals(time);
+    }
+
+    public ElapsedTime getTime() {
+        return splitTime;
     }
 
     private BigDecimal calculateSplitDistance(BigDecimal progress) {

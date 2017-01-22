@@ -21,6 +21,7 @@ public class Lap {
     private final ElapsedTime lapTime;
     private final BigDecimal wholeAverageLapSpeed;
     private boolean pit;
+    private boolean pitTime;
 
     public Lap(int lapNumber, Split... splits) {
         this(lapNumber, toList(splits));
@@ -84,6 +85,20 @@ public class Lap {
             if (split.isPit())
                 return true;
         return false;
+    }
+
+    public boolean isPittedAt(ElapsedTime time) {
+        for (Split split : splits)
+            if (split.isPit() && split.isCompleteAt(time))
+                return true;
+        return false;
+    }
+
+    public ElapsedTime getPitTime() {
+        for (Split split : splits)
+            if (split.isPit())
+                return split.getTime();
+        return new ElapsedTime();
     }
 
     private BigDecimal calculateWholeAverageLapSpeed() {
