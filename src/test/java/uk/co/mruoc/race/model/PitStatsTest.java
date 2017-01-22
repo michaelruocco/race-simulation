@@ -11,6 +11,27 @@ public class PitStatsTest {
     private final PitStatsBuilder builder = new PitStatsBuilder();
 
     @Test
+    public void pittedShouldDefaultToFalse() {
+        PitStats stats = builder.build();
+
+        assertThat(stats.hasPitted()).isFalse();
+    }
+
+    @Test
+    public void timeShouldDefaultToZeroTime() {
+        PitStats stats = builder.build();
+
+        assertThat(stats.getTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void lapNumberShouldDefaultToZero() {
+        PitStats stats = builder.build();
+
+        assertThat(stats.getLapNumber()).isEqualTo(0);
+    }
+
+    @Test
     public void shouldReturnPitted() {
         boolean pitted = true;
 

@@ -29,7 +29,7 @@ public class PitStats {
     public static class PitStatsBuilder {
 
         private boolean pitted;
-        private ElapsedTime time;
+        private ElapsedTime time = new ElapsedTime();
         private int lapNumber;
 
         public PitStatsBuilder setPitted(boolean pitted) {

@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.model;
 
+import uk.co.mruoc.race.model.PitStats.PitStatsBuilder;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ public class CarData {
     private Lap currentLap;
     private LapStats lapStats;
     private List<Lap> completedLaps;
+    private PitStats pitStats;
 
     public CarData(int carId, List<Lap> laps) {
         this.carId = carId;
@@ -33,6 +35,7 @@ public class CarData {
         currentLap = getCurrentLap(time);
         lapStats = currentLap.getStatsAt(time);
         completedLaps = getCompletedLapsAt(time);
+        pitStats = getPitStatsAt(time);
     }
 
     public ElapsedTime getEndTime() {
@@ -70,6 +73,10 @@ public class CarData {
         return Collections.max(averageLapSpeeds);
     }
 
+    public PitStats getPitStats() {
+        return pitStats;
+    }
+
     private Collection<BigDecimal> getCompletedAverageLapSpeeds() {
         Collection<BigDecimal> averageLapSpeeds = new ArrayList<>();
         completedLaps.forEach(l -> averageLapSpeeds.add(l.getWholeAverageLapSpeed()));
@@ -90,6 +97,25 @@ public class CarData {
             if (lap.isCompleteAt(time) && !lap.isRetired())
                 completed.add(lap);
         return completed;
+    }
+
+    private PitStats getPitStatsAt(ElapsedTime time) {
+        for (Lap completedLap : completedLaps)
+            if (completedLap.isPit())
+                return toPitStats(completedLap);
+
+        if (currentLap.isPittedAt(time))
+            return toPitStats(currentLap);
+
+        return new PitStatsBuilder().build();
+    }
+
+    private PitStats toPitStats(Lap lap) {
+        return new PitStatsBuilder()
+                .setPitted(true)
+                .setTime(lap.getPitTime())
+                .setLapNumber(lap.getLapNumber())
+                .build();
     }
 
     private boolean hasLapStats() {
