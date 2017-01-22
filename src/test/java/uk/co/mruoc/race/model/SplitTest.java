@@ -17,6 +17,7 @@ public class SplitTest {
     private static final int CAR_ID = 1;
     private static final int END_CHECKPOINT_ID = 2;
     private static final boolean RETIRED = false;
+    private static final boolean PIT = true;
     private static final ElapsedTime START_TIME = new ElapsedTime("00:00:00.000");
     private static final ElapsedTime END_TIME = new ElapsedTime("00:01:00.000");
     private static final ElapsedTime HALF_TIME = new ElapsedTime("00:00:30.000");
@@ -27,6 +28,7 @@ public class SplitTest {
             .setCarId(CAR_ID)
             .setEndCheckpointId(END_CHECKPOINT_ID)
             .setRetired(RETIRED)
+            .setPit(PIT)
             .setStartTime(START_TIME)
             .setEndTime(END_TIME)
             .setStartDistance(START_DISTANCE)
@@ -51,7 +53,12 @@ public class SplitTest {
 
     @Test
     public void shouldReturnIsRetired() {
-        assertThat(split.isRetired()).isFalse();
+        assertThat(split.isRetired()).isEqualTo(RETIRED);
+    }
+
+    @Test
+    public void shouldReturnIsPit() {
+        assertThat(split.isPit()).isEqualTo(PIT);
     }
 
     @Test

@@ -5,7 +5,6 @@ import uk.co.mruoc.time.ElapsedTime;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static java.math.RoundingMode.*;
 import static uk.co.mruoc.race.model.SplitStats.*;
 
 public class Split {
@@ -15,6 +14,7 @@ public class Split {
     private final int carId;
     private final int endCheckpointId;
     private final boolean retired;
+    private final boolean pit;
     private final ElapsedTime startTime;
     private final ElapsedTime endTime;
     private final ElapsedTime splitTime;
@@ -26,6 +26,7 @@ public class Split {
         this.carId = builder.carId;
         this.endCheckpointId = builder.endCheckpointId;
         this.retired = builder.retired;
+        this.pit = builder.pit;
         this.startTime = builder.startTime;
         this.endTime = builder.endTime;
         this.splitTime = calculateSplitTime();
@@ -52,6 +53,10 @@ public class Split {
 
     public boolean isRetired() {
         return retired;
+    }
+
+    public boolean isPit() {
+        return pit;
     }
 
     public boolean contains(ElapsedTime time) {
@@ -124,6 +129,7 @@ public class Split {
         private int carId;
         private int endCheckpointId;
         private boolean retired;
+        private boolean pit;
         private ElapsedTime startTime;
         private ElapsedTime endTime;
         private BigDecimal startDistance;
@@ -141,6 +147,11 @@ public class Split {
 
         public SplitBuilder setRetired(boolean retired) {
             this.retired = retired;
+            return this;
+        }
+
+        public SplitBuilder setPit(boolean pit) {
+            this.pit = pit;
             return this;
         }
 

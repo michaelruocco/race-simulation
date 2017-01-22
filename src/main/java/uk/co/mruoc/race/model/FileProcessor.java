@@ -18,8 +18,8 @@ public class FileProcessor {
     private final FileLinesToQueryTimeConverter queryTimeConverter = new FileLinesToQueryTimeConverter();
     private final FileLinesToCarDataConverter carDataConverter;
 
-    public FileProcessor(DistanceProvider distanceProvider) {
-        this.carDataConverter = new FileLinesToCarDataConverter(distanceProvider);
+    public FileProcessor(FileLinesToCarDataConverter carDataConverter) {
+        this.carDataConverter = carDataConverter;
     }
 
     public RaceData process(File file) {

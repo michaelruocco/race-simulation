@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefaultTrack extends DefaultDistanceProvider implements PitProvider {
+public class DefaultTrack extends DefaultDistanceProvider implements Track {
 
     private final List<Integer> pitCheckpoints = Arrays.asList(4, 5);
 

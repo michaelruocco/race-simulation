@@ -9,13 +9,15 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class FileLinesToSplitsConverterTest {
 
     private final TestFileLineBuilder builder = new TestFileLineBuilder();
 
     private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
-    private final FileLinesToSplitsConverter converter = new FileLinesToSplitsConverter(distanceProvider);
+    private final FakePitProvider pitProvider = new FakePitProvider();
+    private final FileLinesToSplitsConverter converter = new FileLinesToSplitsConverter(distanceProvider, pitProvider);
 
     @Test
     public void shouldConvertOneLineToZeroSplits() {
@@ -176,6 +178,30 @@ public class FileLinesToSplitsConverterTest {
         assertThat(splits.get(0).getStartDistance()).isEqualTo(BigDecimal.ZERO);
         assertThat(splits.get(1).getStartDistance()).isEqualTo(distance1);
         assertThat(splits.get(2).getStartDistance()).isEqualTo(distance1.add(distance2));
+    }
+
+    @Test
+    public void shouldNotBePitIfDoesNotContainPitCheckpoints() {
+        List<FileLine> lines = new ArrayList<>();
+        lines.add(builder.setCheckpointId(0).build());
+        lines.add(builder.setCheckpointId(1).build());
+        pitProvider.setPit(false);
+
+        List<Split> splits = converter.toSplits(lines);
+
+        assertThat(splits.get(0).isPit()).isFalse();
+    }
+
+    @Test
+    public void shouldBePitIfContainsPitCheckpoints() {
+        List<FileLine> lines = new ArrayList<>();
+        lines.add(builder.setCheckpointId(4).build());
+        lines.add(builder.setCheckpointId(5).build());
+        pitProvider.setPit(true);
+
+        List<Split> splits = converter.toSplits(lines);
+
+        assertThat(splits.get(0).isPit()).isTrue();
     }
 
 }

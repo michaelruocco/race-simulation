@@ -23,8 +23,8 @@ public class FileProcessorTest {
     private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
     private final File file = fileLoader.load("/uk/co/mruoc/race/model/raceinfo.dat");
 
-    private final DistanceProvider distanceProvider = new DefaultTrack();
-    private final FileProcessor loader = new FileProcessor(distanceProvider);
+    private final Track track = new DefaultTrack();
+    private final FileProcessor loader = new FileProcessor(new FileLinesToCarDataConverter(new FileLinesToSplitsConverter(track)));
     private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
 
     @Test

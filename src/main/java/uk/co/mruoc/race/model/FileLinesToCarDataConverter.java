@@ -9,8 +9,8 @@ public class FileLinesToCarDataConverter {
     private final SplitsToLapsConverter lapsConverter = new SplitsToLapsConverter();
     private final FileLinesToSplitsConverter splitsConverter;
 
-    public FileLinesToCarDataConverter(DistanceProvider distanceProvider) {
-        this.splitsConverter = new FileLinesToSplitsConverter(distanceProvider);
+    public FileLinesToCarDataConverter(FileLinesToSplitsConverter splitsConverter) {
+        this.splitsConverter = splitsConverter;
     }
 
     public List<CarData> toCarData(Map<Integer, List<FileLine>> carLines) {

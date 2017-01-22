@@ -10,8 +10,10 @@ public class FileLinesToCarDataConverterTest {
 
     private final TestFileLineBuilder builder = new TestFileLineBuilder();
     private final DistanceProvider distanceProvider = new DefaultDistanceProvider();
+    private final FakePitProvider pitProvider = new FakePitProvider();
+    private final FileLinesToSplitsConverter splitsConverter = new FileLinesToSplitsConverter(distanceProvider, pitProvider);
 
-    private final FileLinesToCarDataConverter converter = new FileLinesToCarDataConverter(distanceProvider);
+    private final FileLinesToCarDataConverter converter = new FileLinesToCarDataConverter(splitsConverter);
 
     @Test
     public void shouldConvertToCarData() {
