@@ -164,19 +164,34 @@ public class CarDataTest {
     }
 
     @Test
-    public void shouldReturnNoPitDataIfNoPitStopTaken() {
+    public void shouldReturnPittedFalseIfNoPitStopTaken() {
         ElapsedTime time = new ElapsedTime("00:00:00.000");
 
         carData.setTime(time);
 
-        PitStats pitStats = carData.getPitStats();
-        assertThat(pitStats.hasPitted()).isFalse();
-        assertThat(pitStats.getTime()).isEqualTo(new ElapsedTime());
-        assertThat(pitStats.getLapNumber()).isEqualTo(0);
+        assertThat(carData.hasPitted()).isFalse();
     }
 
     @Test
-    public void shouldReturnNoPitDataIfBeforePitOnCurrentLap() {
+    public void shouldReturnZeroPitTimeIfNoPitStopTaken() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void shouldReturnZeroPitLapNumberIfNoPitStopTaken() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitLapNumber()).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldReturnHasPittedFalseIfBeforePitOnCurrentLap() {
         ElapsedTime time = new ElapsedTime("00:00:00.000");
 
         given(lap1.contains(time)).willReturn(true);
@@ -184,14 +199,35 @@ public class CarDataTest {
 
         carData.setTime(time);
 
-        PitStats pitStats = carData.getPitStats();
-        assertThat(pitStats.hasPitted()).isFalse();
-        assertThat(pitStats.getTime()).isEqualTo(new ElapsedTime());
-        assertThat(pitStats.getLapNumber()).isEqualTo(0);
+        assertThat(carData.hasPitted()).isFalse();
     }
 
     @Test
-    public void shouldReturnCurrentLapPitDataIfAfterPitOnCurrentLap() {
+    public void shouldReturnZeroPitTimeIfBeforePitOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isPittedAt(time)).willReturn(false);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void shouldReturnZeroPitLapNumberIfBeforePitOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isPittedAt(time)).willReturn(false);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitLapNumber()).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldReturnHasPittedTrueIfAfterPitOnCurrentLap() {
         ElapsedTime time = new ElapsedTime("00:00:00.000");
         ElapsedTime pitTime = new ElapsedTime("00:00:10.000");
         int pitLapNumber = 1;
@@ -203,14 +239,43 @@ public class CarDataTest {
 
         carData.setTime(time);
 
-        PitStats pitStats = carData.getPitStats();
-        assertThat(pitStats.hasPitted()).isTrue();
-        assertThat(pitStats.getTime()).isEqualTo(pitTime);
-        assertThat(pitStats.getLapNumber()).isEqualTo(pitLapNumber);
+        assertThat(carData.hasPitted()).isTrue();
     }
 
     @Test
-    public void shouldReturnLapPitDataIfAfterPitLap() {
+    public void shouldReturnCurrentLapPitTimeIfAfterPitOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime pitTime = new ElapsedTime("00:00:10.000");
+        int pitLapNumber = 1;
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isPittedAt(time)).willReturn(true);
+        given(lap1.getLapNumber()).willReturn(pitLapNumber);
+        given(lap1.getPitTime()).willReturn(pitTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitTime()).isEqualTo(pitTime);
+    }
+
+    @Test
+    public void shouldReturnCurrentLapPitLapNumberIfAfterPitOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime pitTime = new ElapsedTime("00:00:10.000");
+        int pitLapNumber = 1;
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isPittedAt(time)).willReturn(true);
+        given(lap1.getLapNumber()).willReturn(pitLapNumber);
+        given(lap1.getPitTime()).willReturn(pitTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitLapNumber()).isEqualTo(pitLapNumber);
+    }
+
+    @Test
+    public void shouldReturnHasPittedTrueIfAfterPitLap() {
         ElapsedTime time = new ElapsedTime("00:00:00.000");
         ElapsedTime pitTime = new ElapsedTime("00:00:15.000");
         int pitLapNumber = 1;
@@ -222,10 +287,39 @@ public class CarDataTest {
 
         carData.setTime(time);
 
-        PitStats pitStats = carData.getPitStats();
-        assertThat(pitStats.hasPitted()).isTrue();
-        assertThat(pitStats.getTime()).isEqualTo(pitTime);
-        assertThat(pitStats.getLapNumber()).isEqualTo(pitLapNumber);
+        assertThat(carData.hasPitted()).isTrue();
+    }
+
+    @Test
+    public void shouldReturnPitTimeIfAfterPitLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime pitTime = new ElapsedTime("00:00:15.000");
+        int pitLapNumber = 1;
+
+        given(lap1.isCompleteAt(time)).willReturn(true);
+        given(lap1.isPit()).willReturn(true);
+        given(lap1.getLapNumber()).willReturn(pitLapNumber);
+        given(lap1.getPitTime()).willReturn(pitTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitTime()).isEqualTo(pitTime);
+    }
+
+    @Test
+    public void shouldReturnLapPitNumberIfAfterPitLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime pitTime = new ElapsedTime("00:00:15.000");
+        int pitLapNumber = 1;
+
+        given(lap1.isCompleteAt(time)).willReturn(true);
+        given(lap1.isPit()).willReturn(true);
+        given(lap1.getLapNumber()).willReturn(pitLapNumber);
+        given(lap1.getPitTime()).willReturn(pitTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getPitLapNumber()).isEqualTo(pitLapNumber);
     }
 
 }

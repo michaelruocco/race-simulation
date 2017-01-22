@@ -2,6 +2,7 @@ package uk.co.mruoc.race.console;
 
 import org.apache.commons.lang3.StringUtils;
 import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.model.PitStats;
 
 import java.util.List;
 
@@ -15,10 +16,10 @@ public class CarStatsToLineConverter {
         this.columns = columns;
     }
 
-    public String toLine(CarStats stats) {
+    public String toLine(CarStats carStats) {
         StringBuilder line = new StringBuilder();
         line.append(columns.getColumnSeparator());
-        List<String> values = statsToValuesConverter.format(stats);
+        List<String> values = statsToValuesConverter.format(carStats);
         for (int c = 0; c < columns.size(); c++) {
             String value = values.get(c);
             line.append(pad(value, columns.getWidth(c)));

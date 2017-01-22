@@ -1,6 +1,7 @@
 package uk.co.mruoc.race.console;
 
 import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.model.PitStats;
 import uk.co.mruoc.race.model.SpeedConverter;
 
 import java.math.BigDecimal;
@@ -12,15 +13,15 @@ public class CarStatsFormatter {
 
     private final SpeedConverter speedConverter = new SpeedConverter();
 
-    public List<String> format(CarStats stats) {
+    public List<String> format(CarStats carStats) {
         List<String> values = new ArrayList<>();
-        values.add(formatPosition(stats));
-        values.add(formatCarId(stats));
-        values.add(formatSpeed(stats));
-        values.add(formatLapNumber(stats));
-        values.add(formatTimeDifference(stats));
-        values.add(formatAverageLapSpeed(stats));
-        values.add(formaxMaximumAverageLapSpeed(stats));
+        values.add(formatPosition(carStats));
+        values.add(formatCarId(carStats));
+        values.add(formatSpeed(carStats));
+        values.add(formatLapNumber(carStats));
+        values.add(formatTimeDifference(carStats));
+        values.add(formatAverageLapSpeed(carStats));
+        values.add(formaxMaximumAverageLapSpeed(carStats));
         values.add("");
         values.add("");
         return values;
@@ -54,6 +55,18 @@ public class CarStatsFormatter {
         if (stats.getPosition() == 1)
             return "Leader";
         return stats.getTimeDifference().toString();
+    }
+
+    private String formatPitTime(PitStats stats) {
+        if (stats.hasPitted())
+            return stats.getTime().toString();
+        return "-";
+    }
+
+    private String formatPitLapNumber(PitStats stats) {
+        if (stats.hasPitted())
+            return Integer.toString(stats.getLapNumber());
+        return "-";
     }
 
     private String formatSpeed(BigDecimal speed) {

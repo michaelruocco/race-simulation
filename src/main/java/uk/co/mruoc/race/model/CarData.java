@@ -73,8 +73,16 @@ public class CarData {
         return Collections.max(averageLapSpeeds);
     }
 
-    public PitStats getPitStats() {
-        return pitStats;
+    public boolean hasPitted() {
+        return pitStats.hasPitted();
+    }
+
+    public ElapsedTime getPitTime() {
+        return pitStats.getTime();
+    }
+
+    public int getPitLapNumber() {
+        return pitStats.getLapNumber();
     }
 
     private Collection<BigDecimal> getCompletedAverageLapSpeeds() {
