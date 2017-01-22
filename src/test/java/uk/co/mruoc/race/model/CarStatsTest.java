@@ -78,4 +78,27 @@ public class CarStatsTest {
         assertThat(carStats.getMaximumAverageLapSpeed()).isEqualTo(maximumAverageLapSpeed);
     }
 
+    @Test
+    public void shouldReturnHasPitted() {
+        boolean pitted = true;
+        given(carData.hasPitted()).willReturn(pitted);
+
+        assertThat(carStats.hasPitted()).isEqualTo(pitted);
+    }
+
+    @Test
+    public void shouldReturnPitTime() {
+        ElapsedTime pitTime = new ElapsedTime();
+        given(carData.getPitTime()).willReturn(pitTime);
+
+        assertThat(carStats.getPitTime()).isEqualTo(pitTime);
+    }
+
+    @Test
+    public void shouldReturnPitLapNumber() {
+        int pitLapNumber = 4;
+        given(carData.getPitLapNumber()).willReturn(pitLapNumber);
+
+        assertThat(carStats.getPitLapNumber()).isEqualTo(pitLapNumber);
+    }
 }

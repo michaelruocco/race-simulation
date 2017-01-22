@@ -48,4 +48,16 @@ public class CarStats {
         return carData.getMaximumAverageLapSpeed();
     }
 
+    public boolean hasPitted() {
+        return carData.hasPitted();
+    }
+
+    public ElapsedTime getPitTime() {
+        return carData.getPitTime();
+    }
+
+    public int getPitLapNumber() {
+        return carData.getPitLapNumber();
+    }
+    
 }
