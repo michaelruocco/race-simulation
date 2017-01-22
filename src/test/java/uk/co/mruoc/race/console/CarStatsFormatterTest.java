@@ -114,17 +114,40 @@ public class CarStatsFormatterTest {
     }
 
     @Test
-    public void shouldConvertPitTimeToEmptyString() {
+    public void shouldConvertPitTimeToHyphenIfNotPitted() {
         List<String> values = converter.format(stats);
 
-        assertThat(values.get(PIT_TIME_INDEX)).isEqualTo("");
+        assertThat(values.get(PIT_TIME_INDEX)).isEqualTo("-");
     }
 
     @Test
-    public void shouldConvertPitLapToEmptyString() {
+    public void shouldConvertPitLapHyphenIfNotPitted() {
         List<String> values = converter.format(stats);
 
-        assertThat(values.get(PIT_LAP_INDEX)).isEqualTo("");
+        assertThat(values.get(PIT_LAP_INDEX)).isEqualTo("-");
+    }
+
+    @Test
+    public void shouldConvertPitTime() {
+        ElapsedTime pitTime = new ElapsedTime();
+        given(stats.hasPitted()).willReturn(true);
+        given(stats.getPitTime()).willReturn(pitTime);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(PIT_TIME_INDEX)).isEqualTo(pitTime.toString());
+    }
+
+    @Test
+    public void shouldConvertPitLap() {
+        int pitLapNumber = 5;
+        given(stats.hasPitted()).willReturn(true);
+        given(stats.getPitTime()).willReturn(new ElapsedTime());
+        given(stats.getPitLapNumber()).willReturn(5);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(PIT_LAP_INDEX)).isEqualTo(Integer.toString(pitLapNumber));
     }
 
 }

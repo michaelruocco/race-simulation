@@ -59,5 +59,5 @@ public class CarStats {
     public int getPitLapNumber() {
         return carData.getPitLapNumber();
     }
-    
+
 }

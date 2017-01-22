@@ -27,13 +27,13 @@ public class ColumnsTest {
         assertThat(columns.getWidth(4)).isEqualTo(17);
         assertThat(columns.getWidth(5)).isEqualTo(19);
         assertThat(columns.getWidth(6)).isEqualTo(23);
-        assertThat(columns.getWidth(7)).isEqualTo(10);
+        assertThat(columns.getWidth(7)).isEqualTo(14);
         assertThat(columns.getWidth(8)).isEqualTo(9);
     }
 
     @Test
     public void shouldReturnTotalWidth() {
-        assertThat(columns.getTotalWidth()).isEqualTo(121);
+        assertThat(columns.getTotalWidth()).isEqualTo(125);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ColumnsTest {
                 "| Time Difference " +
                 "| Average Lap Speed " +
                 "| Max Average Lap Speed " +
-                "| Pit Time " +
+                "|   Pit Time   " +
                 "| Pit Lap " +
                 "|");
     }
@@ -68,7 +68,7 @@ public class ColumnsTest {
                 "|-----------------" +
                 "|-------------------" +
                 "|-----------------------" +
-                "|----------" +
+                "|--------------" +
                 "|---------" +
                 "|");
     }

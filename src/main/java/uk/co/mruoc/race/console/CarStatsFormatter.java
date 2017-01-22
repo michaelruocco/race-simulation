@@ -22,8 +22,8 @@ public class CarStatsFormatter {
         values.add(formatTimeDifference(carStats));
         values.add(formatAverageLapSpeed(carStats));
         values.add(formaxMaximumAverageLapSpeed(carStats));
-        values.add("");
-        values.add("");
+        values.add(formatPitTime(carStats));
+        values.add(formatPitLapNumber(carStats));
         return values;
     }
 
@@ -57,15 +57,15 @@ public class CarStatsFormatter {
         return stats.getTimeDifference().toString();
     }
 
-    private String formatPitTime(PitStats stats) {
+    private String formatPitTime(CarStats stats) {
         if (stats.hasPitted())
-            return stats.getTime().toString();
+            return stats.getPitTime().toString();
         return "-";
     }
 
-    private String formatPitLapNumber(PitStats stats) {
+    private String formatPitLapNumber(CarStats stats) {
         if (stats.hasPitted())
-            return Integer.toString(stats.getLapNumber());
+            return Integer.toString(stats.getPitLapNumber());
         return "-";
     }
 

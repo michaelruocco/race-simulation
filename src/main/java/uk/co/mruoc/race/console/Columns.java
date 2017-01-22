@@ -73,7 +73,7 @@ public class Columns implements Iterable<String> {
         headers.add(" Time Difference ");
         headers.add(" Average Lap Speed ");
         headers.add(" Max Average Lap Speed ");
-        headers.add(" Pit Time ");
+        headers.add("   Pit Time   ");
         headers.add(" Pit Lap ");
         return headers;
     }
