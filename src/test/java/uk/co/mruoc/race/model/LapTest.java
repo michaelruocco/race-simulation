@@ -282,4 +282,67 @@ public class LapTest {
         assertThat(lap.getPitTime()).isEqualTo(new ElapsedTime());
     }
 
+    @Test
+    public void shouldReturnZeroRetiredTimeIfNotRetired() {
+        Lap lap = new Lap(LAP_NUMBER);
+
+        assertThat(lap.getRetiredTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void shouldReturnRetiredTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setRetired(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getRetiredTime()).isEqualTo(endTime);
+    }
+
+    @Test
+    public void shouldReturnRetiredAtFalseIfBeforeRetiredTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setRetired(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:29.999"))).isFalse();
+    }
+
+    @Test
+    public void shouldReturnRetiredAtTrueIfEqualToRetiredTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setRetired(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:30.000"))).isTrue();
+    }
+
+    @Test
+    public void shouldReturnRetiredAtTrueIfAfterRetiredTime() {
+        ElapsedTime endTime = new ElapsedTime("00:00:30.000");
+        Split split1 = new SplitBuilder()
+                .setRetired(true)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(endTime)
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:30.001"))).isTrue();
+    }
+
 }

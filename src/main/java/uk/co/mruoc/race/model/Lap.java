@@ -20,8 +20,6 @@ public class Lap {
     private final ElapsedTime endTime;
     private final ElapsedTime lapTime;
     private final BigDecimal wholeAverageLapSpeed;
-    private boolean pit;
-    private boolean pitTime;
 
     public Lap(int lapNumber, Split... splits) {
         this(lapNumber, toList(splits));
@@ -78,6 +76,20 @@ public class Lap {
             if (split.isRetired())
                 return true;
         return false;
+    }
+
+    public ElapsedTime getRetiredTime() {
+        for (Split split : splits)
+            if (split.isRetired())
+                return split.getEndTime();
+        return new ElapsedTime();
+    }
+
+    public boolean getRetiredAt(ElapsedTime time) {
+        if (!isRetired())
+            return false;
+        ElapsedTime retiredTime = getRetiredTime();
+        return time.isAfter(retiredTime) || time.equals(retiredTime);
     }
 
     public boolean isPit() {
