@@ -279,7 +279,7 @@ public class LapTest {
 
         Lap lap = new Lap(LAP_NUMBER, split1);
 
-        assertThat(lap.getPitTime()).isEqualTo(new ElapsedTime());
+        assertThat(lap.getRetiredTime()).isEqualTo(new ElapsedTime());
     }
 
     @Test
@@ -314,7 +314,7 @@ public class LapTest {
 
         Lap lap = new Lap(LAP_NUMBER, split1);
 
-        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:29.999"))).isFalse();
+        assertThat(lap.isRetiredAt(new ElapsedTime("00:00:29.999"))).isFalse();
     }
 
     @Test
@@ -328,7 +328,7 @@ public class LapTest {
 
         Lap lap = new Lap(LAP_NUMBER, split1);
 
-        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:30.000"))).isTrue();
+        assertThat(lap.isRetiredAt(new ElapsedTime("00:00:30.000"))).isTrue();
     }
 
     @Test
@@ -342,7 +342,7 @@ public class LapTest {
 
         Lap lap = new Lap(LAP_NUMBER, split1);
 
-        assertThat(lap.getRetiredAt(new ElapsedTime("00:00:30.001"))).isTrue();
+        assertThat(lap.isRetiredAt(new ElapsedTime("00:00:30.001"))).isTrue();
     }
 
 }

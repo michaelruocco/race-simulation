@@ -85,7 +85,7 @@ public class Lap {
         return new ElapsedTime();
     }
 
-    public boolean getRetiredAt(ElapsedTime time) {
+    public boolean isRetiredAt(ElapsedTime time) {
         if (!isRetired())
             return false;
         ElapsedTime retiredTime = getRetiredTime();
