@@ -279,7 +279,7 @@ public class LapTest {
 
         Lap lap = new Lap(LAP_NUMBER, split1);
 
-        assertThat(lap.getRetiredTime()).isEqualTo(new ElapsedTime());
+        assertThat(lap.getPitTime()).isEqualTo(new ElapsedTime());
     }
 
     @Test
@@ -301,6 +301,19 @@ public class LapTest {
         Lap lap = new Lap(LAP_NUMBER, split1);
 
         assertThat(lap.getRetiredTime()).isEqualTo(endTime);
+    }
+
+    @Test
+    public void shouldReturnAtFalseIfNotRetired() {
+        Split split1 = new SplitBuilder()
+                .setRetired(false)
+                .setStartTime(new ElapsedTime("00:00:10.000"))
+                .setEndTime(new ElapsedTime("00:00:30.000"))
+                .build();
+
+        Lap lap = new Lap(LAP_NUMBER, split1);
+
+        assertThat(lap.isRetiredAt(new ElapsedTime())).isFalse();
     }
 
     @Test
