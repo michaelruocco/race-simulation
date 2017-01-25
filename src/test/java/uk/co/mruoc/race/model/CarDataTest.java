@@ -233,6 +233,7 @@ public class CarDataTest {
         int pitLapNumber = 1;
 
         given(lap1.contains(time)).willReturn(true);
+        given(lap1.isPit()).willReturn(true);
         given(lap1.isPittedAt(time)).willReturn(true);
         given(lap1.getLapNumber()).willReturn(pitLapNumber);
         given(lap1.getPitTime()).willReturn(pitTime);
@@ -320,6 +321,111 @@ public class CarDataTest {
         carData.setTime(time);
 
         assertThat(carData.getPitLapNumber()).isEqualTo(pitLapNumber);
+    }
+
+
+
+
+
+
+
+
+    @Test
+    public void shouldReturnRetiredFalseIfNotRetired() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        carData.setTime(time);
+
+        assertThat(carData.hasRetired()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnZeroRetiredTimeIfNotRetired() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        carData.setTime(time);
+
+        assertThat(carData.getRetiredTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void shouldReturnHasRetiredFalseIfBeforeRetiredOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isRetiredAt(time)).willReturn(false);
+
+        carData.setTime(time);
+
+        assertThat(carData.hasRetired()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnZeroRetiredTimeIfBeforeRetiredOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isRetiredAt(time)).willReturn(false);
+
+        carData.setTime(time);
+
+        assertThat(carData.getRetiredTime()).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
+    public void shouldReturnHasRetiredTrueIfAfterRetiredOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isRetired()).willReturn(true);
+        given(lap1.isRetiredAt(time)).willReturn(true);
+
+        carData.setTime(time);
+
+        assertThat(carData.hasRetired()).isTrue();
+    }
+
+    @Test
+    public void shouldReturnCurrentLapRetiredTimeIfAfterRetiredOnCurrentLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime retiredTime = new ElapsedTime("00:00:10.000");
+
+        given(lap1.contains(time)).willReturn(true);
+        given(lap1.isRetired()).willReturn(true);
+        given(lap1.isRetiredAt(time)).willReturn(true);
+        given(lap1.getRetiredTime()).willReturn(retiredTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getRetiredTime()).isEqualTo(retiredTime);
+    }
+
+    @Test
+    public void shouldReturnHasRetiredTrueIfAfterRetiredLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime retiredTime = new ElapsedTime("00:00:15.000");
+
+        given(lap1.isCompleteAt(time)).willReturn(true);
+        given(lap1.isRetired()).willReturn(true);
+        given(lap1.getRetiredTime()).willReturn(retiredTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.hasRetired()).isTrue();
+    }
+
+    @Test
+    public void shouldReturnRetiredTimeIfAfterRetiredLap() {
+        ElapsedTime time = new ElapsedTime("00:00:00.000");
+        ElapsedTime retiredTime = new ElapsedTime("00:00:15.000");
+
+        given(lap1.isCompleteAt(time)).willReturn(true);
+        given(lap1.isRetired()).willReturn(true);
+        given(lap1.getRetiredTime()).willReturn(retiredTime);
+
+        carData.setTime(time);
+
+        assertThat(carData.getRetiredTime()).isEqualTo(retiredTime);
     }
 
 }

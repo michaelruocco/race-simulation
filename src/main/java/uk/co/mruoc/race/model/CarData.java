@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static uk.co.mruoc.race.model.RetiredStats.*;
+
 public class CarData {
 
     private final int carId;
@@ -19,6 +21,7 @@ public class CarData {
     private LapStats lapStats;
     private List<Lap> completedLaps;
     private PitStats pitStats;
+    private RetiredStats retiredStats;
 
     public CarData(int carId, List<Lap> laps) {
         this.carId = carId;
@@ -36,6 +39,7 @@ public class CarData {
         lapStats = currentLap.getStatsAt(time);
         completedLaps = getCompletedLapsAt(time);
         pitStats = getPitStatsAt(time);
+        retiredStats = getRetiredStatsAt(time);
     }
 
     public ElapsedTime getEndTime() {
@@ -67,7 +71,7 @@ public class CarData {
     }
 
     public BigDecimal getMaximumAverageLapSpeed() {
-        if (completedLaps.isEmpty())
+        if (!hasCompletedAtLeastOneLap())
             return BigDecimal.ZERO;
         Collection<BigDecimal> averageLapSpeeds = getCompletedAverageLapSpeeds();
         return Collections.max(averageLapSpeeds);
@@ -83,6 +87,20 @@ public class CarData {
 
     public int getPitLapNumber() {
         return pitStats.getLapNumber();
+    }
+
+    public boolean hasRetired() {
+        return retiredStats.hasRetired();
+    }
+
+    public ElapsedTime getRetiredTime() {
+        return retiredStats.getTime();
+    }
+
+    private boolean hasCompletedAtLeastOneLap() {
+        if (completedLaps.isEmpty())
+            return false;
+        return completedLaps.size() != 1 || !retiredStats.hasRetired();
     }
 
     private Collection<BigDecimal> getCompletedAverageLapSpeeds() {
@@ -102,9 +120,27 @@ public class CarData {
     private List<Lap> getCompletedLapsAt(ElapsedTime time) {
         List<Lap> completed = new ArrayList<>();
         for (Lap lap : laps)
-            if (lap.isCompleteAt(time) && !lap.isRetired())
+            if (lap.isCompleteAt(time))
                 completed.add(lap);
         return completed;
+    }
+
+    private RetiredStats getRetiredStatsAt(ElapsedTime time) {
+        for (Lap completedLap : completedLaps)
+            if (completedLap.isRetired())
+                return toRetiredStats(completedLap);
+
+        if (currentLap.isRetiredAt(time))
+            return toRetiredStats(currentLap);
+
+        return new RetiredStatsBuilder().build();
+    }
+
+    private RetiredStats toRetiredStats(Lap lap) {
+        return new RetiredStatsBuilder()
+                .setRetired(lap.isRetired())
+                .setTime(lap.getRetiredTime())
+                .build();
     }
 
     private PitStats getPitStatsAt(ElapsedTime time) {
@@ -120,7 +156,7 @@ public class CarData {
 
     private PitStats toPitStats(Lap lap) {
         return new PitStatsBuilder()
-                .setPitted(true)
+                .setPitted(lap.isPit())
                 .setTime(lap.getPitTime())
                 .setLapNumber(lap.getLapNumber())
                 .build();
