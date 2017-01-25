@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ColumnsTest {
+public class RegularColumnsTest {
 
-    private final Columns columns = new Columns("-");
+    private final Columns columns = new RegularColumns("-");
 
     @Test
     public void shouldReturnSize() {

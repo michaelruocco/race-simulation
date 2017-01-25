@@ -2,35 +2,36 @@ package uk.co.mruoc.race.console;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Columns implements Iterable<String> {
+public abstract class Columns implements Iterable<String> {
 
-    private static final List<String> HEADERS = buildHeaders();
-    private static final int TOTAL_WIDTH = calculateTotalWidth();
     private static final String COLUMN_SEPARATOR = "|";
 
+    private final List<String> headers;
+    private final int totalWidth;
     private final String rowSeparator;
 
-    public Columns(String rowSeparator) {
+    public Columns(List<String> headers, String rowSeparator) {
+        this.headers = headers;
+        this.totalWidth = calculateTotalWidth(headers);
         this.rowSeparator = rowSeparator;
     }
 
     public int size() {
-        return HEADERS.size();
+        return headers.size();
     }
 
     @Override
     public Iterator<String> iterator() {
-        return HEADERS.iterator();
+        return headers.iterator();
     }
 
     public String getHeaderRow() {
         StringBuilder row = new StringBuilder();
         row.append(COLUMN_SEPARATOR);
-        for (String header : HEADERS) {
+        for (String header : headers) {
             row.append(header);
             row.append(COLUMN_SEPARATOR);
         }
@@ -40,7 +41,7 @@ public class Columns implements Iterable<String> {
     public String getHeaderSeparatorRow() {
         StringBuilder row = new StringBuilder();
         row.append(COLUMN_SEPARATOR);
-        for (String header : HEADERS) {
+        for (String header : headers) {
             row.append(StringUtils.repeat(rowSeparator, header.length()));
             row.append(COLUMN_SEPARATOR);
         }
@@ -57,30 +58,16 @@ public class Columns implements Iterable<String> {
     }
 
     public int getTotalWidth() {
-        return TOTAL_WIDTH;
+        return totalWidth;
     }
 
     private String getHeader(int index) {
-        return HEADERS.get(index);
+        return headers.get(index);
     }
 
-    private static List<String> buildHeaders() {
-        List<String> headers = new ArrayList<>();
-        headers.add(" Position ");
-        headers.add(" ID ");
-        headers.add(" Speed ");
-        headers.add(" Lap Number ");
-        headers.add(" Time Difference ");
-        headers.add(" Average Lap Speed ");
-        headers.add(" Max Average Lap Speed ");
-        headers.add("   Pit Time   ");
-        headers.add(" Pit Lap ");
-        return headers;
-    }
-
-    private static int calculateTotalWidth() {
+    private static int calculateTotalWidth(List<String> headers) {
         int width = 0;
-        for (String header : HEADERS)
+        for (String header : headers)
             width += header.length() + 1;
         return width + 1;
     }

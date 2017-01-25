@@ -21,7 +21,7 @@ public class ReportBuilder {
     private ReportBuilder(String newLine, String rowSeparator) {
         this.newLine = newLine;
         this.rowSeparator = rowSeparator;
-        this.columns = new Columns(rowSeparator);
+        this.columns = new RegularColumns(rowSeparator);
         this.statsToLineConverter = new CarStatsToLineConverter(columns);
     }
 

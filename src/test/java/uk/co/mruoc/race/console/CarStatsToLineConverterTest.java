@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 
 public class CarStatsToLineConverterTest {
 
-    private final CarStatsToLineConverter converter = new CarStatsToLineConverter(new Columns(""));
+    private final CarStatsToLineConverter converter = new CarStatsToLineConverter(new RegularColumns(""));
 
     @Test
     public void shouldReturnFormattedStatsLine() {
