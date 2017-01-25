@@ -60,4 +60,12 @@ public class CarStats {
         return carData.getPitLapNumber();
     }
 
+    public boolean hasRetired() {
+        return carData.hasRetired();
+    }
+
+    public ElapsedTime getRetiredTime() {
+        return carData.getRetiredTime();
+    }
+
 }

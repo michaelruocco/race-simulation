@@ -101,4 +101,21 @@ public class CarStatsTest {
 
         assertThat(carStats.getPitLapNumber()).isEqualTo(pitLapNumber);
     }
+
+    @Test
+    public void shouldReturnRetired() {
+        boolean retired = true;
+        given(carData.hasRetired()).willReturn(retired);
+
+        assertThat(carStats.hasRetired()).isEqualTo(retired);
+    }
+
+    @Test
+    public void shouldReturnRetiredTime() {
+        ElapsedTime retiredTime = new ElapsedTime();
+        given(carData.getRetiredTime()).willReturn(retiredTime);
+
+        assertThat(carStats.getRetiredTime()).isEqualTo(retiredTime);
+    }
+
 }
