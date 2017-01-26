@@ -1,26 +1,28 @@
 package uk.co.mruoc.race.console;
 
+import uk.co.mruoc.race.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class RegularColumns extends Columns {
 
     public RegularColumns(String rowSeparator) {
-        super(buildHeaders(), rowSeparator);
+        super(buildColumns(), rowSeparator);
     }
 
-    private static List<String> buildHeaders() {
-        List<String> headers = new ArrayList<>();
-        headers.add(" Position ");
-        headers.add(" ID ");
-        headers.add(" Speed ");
-        headers.add(" Lap Number ");
-        headers.add(" Time Difference ");
-        headers.add(" Average Lap Speed ");
-        headers.add(" Max Average Lap Speed ");
-        headers.add("   Pit Time   ");
-        headers.add(" Pit Lap ");
-        return headers;
+    private static List<Column> buildColumns() {
+        List<Column> columns = new ArrayList<>();
+        columns.add(new Column(" Position ", new PositionFormatter()));
+        columns.add(new Column(" ID ", new IdFormatter()));
+        columns.add(new Column(" Speed ", new SpeedFormatter()));
+        columns.add(new Column(" Lap Number ", new LapNumberFormatter()));
+        columns.add(new Column(" Time Difference ", new TimeDifferenceFormatter()));
+        columns.add(new Column(" Average Lap Speed ", new AverageLapSpeedFormatter()));
+        columns.add(new Column(" Max Average Lap Speed ", new MaxAverageLapSpeedFormatter()));
+        columns.add(new Column("   Pit Time   ", new PitTimeFormatter()));
+        columns.add(new Column(" Pit Lap ", new PitLapNumberFormatter()));
+        return columns;
     }
 
 }

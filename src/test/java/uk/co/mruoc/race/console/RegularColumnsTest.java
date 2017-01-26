@@ -39,7 +39,7 @@ public class RegularColumnsTest {
     @Test
     public void shouldBeIterable() {
         int count = 0;
-        for (String header : columns)
+        for (Column column : columns)
             count++;
 
         assertThat(count).isEqualTo(columns.size());
