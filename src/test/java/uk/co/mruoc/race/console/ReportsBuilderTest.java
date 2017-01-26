@@ -1,8 +1,8 @@
 package uk.co.mruoc.race.console;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.CarStats;
-import uk.co.mruoc.race.model.RaceData;
+import uk.co.mruoc.race.core.CarStats;
+import uk.co.mruoc.race.core.RaceData;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.util.Arrays;

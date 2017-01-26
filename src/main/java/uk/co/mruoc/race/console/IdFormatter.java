@@ -1,7 +1,7 @@
 package uk.co.mruoc.race.console;
 
-import uk.co.mruoc.race.model.CarStatFormatter;
-import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.core.CarStatFormatter;
+import uk.co.mruoc.race.core.CarStats;
 
 public class IdFormatter implements CarStatFormatter {
 

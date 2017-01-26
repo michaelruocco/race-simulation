@@ -1,6 +1,6 @@
 package uk.co.mruoc.race.console;
 
-import uk.co.mruoc.race.model.*;
+import uk.co.mruoc.race.core.*;
 
 import java.util.ArrayList;
 import java.util.List;

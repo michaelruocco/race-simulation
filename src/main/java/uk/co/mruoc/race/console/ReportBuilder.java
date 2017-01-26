@@ -1,7 +1,7 @@
 package uk.co.mruoc.race.console;
 
 import org.apache.commons.lang3.StringUtils;
-import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.core.CarStats;
 
 import java.util.Iterator;
 

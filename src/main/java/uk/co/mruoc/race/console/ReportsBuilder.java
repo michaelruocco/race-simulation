@@ -1,6 +1,6 @@
 package uk.co.mruoc.race.console;
 
-import uk.co.mruoc.race.model.RaceData;
+import uk.co.mruoc.race.core.RaceData;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.util.Iterator;

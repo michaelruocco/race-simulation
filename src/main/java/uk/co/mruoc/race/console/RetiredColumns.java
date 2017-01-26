@@ -1,8 +1,8 @@
 package uk.co.mruoc.race.console;
 
-import uk.co.mruoc.race.model.RetiredDistanceFormatter;
-import uk.co.mruoc.race.model.RetiredLapNumberFormatter;
-import uk.co.mruoc.race.model.RetiredTimeFormatter;
+import uk.co.mruoc.race.core.RetiredDistanceFormatter;
+import uk.co.mruoc.race.core.RetiredLapNumberFormatter;
+import uk.co.mruoc.race.core.RetiredTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;

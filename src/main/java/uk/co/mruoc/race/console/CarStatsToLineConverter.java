@@ -1,6 +1,6 @@
 package uk.co.mruoc.race.console;
 
-import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.core.CarStats;
 
 public class CarStatsToLineConverter {
 

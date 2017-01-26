@@ -1,8 +1,8 @@
 package uk.co.mruoc.race.console;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.CarStatFormatter;
-import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.core.CarStatFormatter;
+import uk.co.mruoc.race.core.CarStats;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

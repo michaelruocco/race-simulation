@@ -1,7 +1,7 @@
 package uk.co.mruoc.race.console;
 
 import org.junit.Test;
-import uk.co.mruoc.race.model.CarStats;
+import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.time.ElapsedTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
