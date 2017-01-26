@@ -28,6 +28,7 @@ public class ReportsBuilder {
             report.append(NEW_LINE);
             report.append(retiredReportBuilder.build(raceData.getRetiredCarStats()));
             report.append(NEW_LINE);
+            report.append(NEW_LINE);
         }
         return report.toString();
     }

@@ -32,6 +32,7 @@ public class ReportsBuilderTest {
             "|   0|             -|            -|                 -|" + NEW_LINE +
             "------------------------------------------------------" + NEW_LINE +
             NEW_LINE +
+            NEW_LINE +
             "-----------------------------------------------------------------------------------------------------------------------------" + NEW_LINE +
             "| Position | ID | Speed | Lap Number | Time Difference | Average Lap Speed | Max Average Lap Speed |   Pit Time   | Pit Lap |" + NEW_LINE +
             "|----------|----|-------|------------|-----------------|-------------------|-----------------------|--------------|---------|" + NEW_LINE +
@@ -44,7 +45,8 @@ public class ReportsBuilderTest {
             "|----|--------------|-------------|------------------|" + NEW_LINE +
             "|   0|             -|            -|                 -|" + NEW_LINE +
             "|   0|             -|            -|                 -|" + NEW_LINE +
-            "------------------------------------------------------" + NEW_LINE;
+            "------------------------------------------------------" + NEW_LINE +
+             NEW_LINE;
 
     private final ReportsBuilder reportsBuilder = new ReportsBuilder();
 
