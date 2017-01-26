@@ -9,21 +9,27 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.math.RoundingMode.*;
+
 public class CarStatsFormatter {
 
+    private static final String NOT_APPLICABLE = "-";
     private final SpeedConverter speedConverter = new SpeedConverter();
 
-    public List<String> format(CarStats carStats) {
+    public List<String> format(CarStats stats) {
         List<String> values = new ArrayList<>();
-        values.add(formatPosition(carStats));
-        values.add(formatCarId(carStats));
-        values.add(formatSpeed(carStats));
-        values.add(formatLapNumber(carStats));
-        values.add(formatTimeDifference(carStats));
-        values.add(formatAverageLapSpeed(carStats));
-        values.add(formaxMaximumAverageLapSpeed(carStats));
-        values.add(formatPitTime(carStats));
-        values.add(formatPitLapNumber(carStats));
+        values.add(formatPosition(stats));
+        values.add(formatCarId(stats));
+        values.add(formatSpeed(stats));
+        values.add(formatLapNumber(stats));
+        values.add(formatTimeDifference(stats));
+        values.add(formatAverageLapSpeed(stats));
+        values.add(formaxMaximumAverageLapSpeed(stats));
+        values.add(formatPitTime(stats));
+        values.add(formatPitLapNumber(stats));
+        values.add(formatRetiredTime(stats));
+        values.add(formatRetiredLap(stats));
+        values.add(formatRetiredDistance(stats));
         return values;
     }
 
@@ -45,7 +51,7 @@ public class CarStatsFormatter {
 
     private String formaxMaximumAverageLapSpeed(CarStats stats) {
         if (stats.getLapNumber() <= 1)
-            return "-";
+            return NOT_APPLICABLE;
         return formatSpeed(stats.getMaximumAverageLapSpeed());
     }
 
@@ -62,17 +68,45 @@ public class CarStatsFormatter {
     private String formatPitTime(CarStats stats) {
         if (stats.hasPitted())
             return stats.getPitTime().toString();
-        return "-";
+        return NOT_APPLICABLE;
     }
 
     private String formatPitLapNumber(CarStats stats) {
         if (stats.hasPitted())
             return Integer.toString(stats.getPitLapNumber());
-        return "-";
+        return NOT_APPLICABLE;
+    }
+
+    private String formatRetiredTime(CarStats stats) {
+        if (stats.hasRetired())
+            return stats.getRetiredTime().toString();
+        return NOT_APPLICABLE;
+    }
+
+    private String formatRetiredLap(CarStats stats) {
+        if (stats.hasRetired())
+            return formatLapNumber(stats);
+        return NOT_APPLICABLE;
+    }
+
+    private String formatRetiredDistance(CarStats stats) {
+        if (stats.hasRetired())
+            return formatDistance(stats);
+        return NOT_APPLICABLE;
     }
 
     private String formatSpeed(BigDecimal speed) {
-        return speedConverter.metersPerMilliToKmPerHour(speed).setScale(2, RoundingMode.HALF_UP).toString();
+        return format(speedConverter.metersPerMilliToKmPerHour(speed));
+    }
+
+    private String formatDistance(CarStats stats) {
+        return format(stats.getDistance());
+    }
+
+    private String format(BigDecimal value) {
+        if (value == null)
+            value = BigDecimal.ZERO;
+        return value.setScale(2, HALF_UP).toString();
     }
 
 }

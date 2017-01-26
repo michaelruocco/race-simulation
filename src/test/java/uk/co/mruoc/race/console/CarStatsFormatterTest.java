@@ -6,6 +6,7 @@ import uk.co.mruoc.race.model.CarStats;
 import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,6 +24,9 @@ public class CarStatsFormatterTest {
     private static final int MAX_AVERAGE_LAP_SPEED_INDEX = 6;
     private static final int PIT_TIME_INDEX = 7;
     private static final int PIT_LAP_INDEX = 8;
+    private static final int RETIRED_TIME_INDEX = 9;
+    private static final int RETIRED_LAP_INDEX = 10;
+    private static final int RETIRED_DISTANCE_INDEX = 11;
 
     private final CarStats stats = mock(CarStats.class);
     private final ElapsedTime timeDifference = new ElapsedTime();
@@ -124,14 +128,14 @@ public class CarStatsFormatterTest {
     }
 
     @Test
-    public void shouldConvertPitTimeToHyphenIfNotPitted() {
+    public void shouldConvertPitTimeWhenNotPitted() {
         List<String> values = converter.format(stats);
 
         assertThat(values.get(PIT_TIME_INDEX)).isEqualTo("-");
     }
 
     @Test
-    public void shouldConvertPitLapHyphenIfNotPitted() {
+    public void shouldConvertPitLapWhenNotPitted() {
         List<String> values = converter.format(stats);
 
         assertThat(values.get(PIT_LAP_INDEX)).isEqualTo("-");
@@ -158,6 +162,62 @@ public class CarStatsFormatterTest {
         List<String> values = converter.format(stats);
 
         assertThat(values.get(PIT_LAP_INDEX)).isEqualTo(Integer.toString(pitLapNumber));
+    }
+
+    @Test
+    public void shouldConvertRetiredTimeWhenNotRetired() {
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_TIME_INDEX)).isEqualTo("-");
+    }
+
+    @Test
+    public void shouldConvertRetiredLapWhenNotRetired() {
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_LAP_INDEX)).isEqualTo("-");
+    }
+
+    @Test
+    public void shouldConvertRetiredDistanceWhenNotRetired() {
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_DISTANCE_INDEX)).isEqualTo("-");
+    }
+
+    @Test
+    public void shouldConvertRetiredTime() {
+        ElapsedTime retiredTime = new ElapsedTime();
+        given(stats.hasRetired()).willReturn(true);
+        given(stats.getRetiredTime()).willReturn(retiredTime);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_TIME_INDEX)).isEqualTo(retiredTime.toString());
+    }
+
+    @Test
+    public void shouldConvertRetiredLap() {
+        int lapNumber = 2;
+        given(stats.hasRetired()).willReturn(true);
+        given(stats.getRetiredTime()).willReturn(new ElapsedTime());
+        given(stats.getLapNumber()).willReturn(lapNumber);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_LAP_INDEX)).isEqualTo(Integer.toString(lapNumber));
+    }
+
+    @Test
+    public void shouldConvertRetiredDistance() {
+        BigDecimal distance = BigDecimal.valueOf(300.123);
+        given(stats.hasRetired()).willReturn(true);
+        given(stats.getRetiredTime()).willReturn(new ElapsedTime());
+        given(stats.getDistance()).willReturn(distance);
+
+        List<String> values = converter.format(stats);
+
+        assertThat(values.get(RETIRED_DISTANCE_INDEX)).isEqualTo(distance.setScale(2, RoundingMode.HALF_UP).toString());
     }
 
 }
