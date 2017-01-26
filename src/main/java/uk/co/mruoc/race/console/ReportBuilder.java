@@ -7,21 +7,15 @@ import java.util.Iterator;
 
 public class ReportBuilder {
 
-    private static final String ROW_SEPARATOR = "-";
-
     private final String newLine;
     private final String rowSeparator;
     private final Columns columns;
     private final CarStatsToLineConverter statsToLineConverter;
 
-    public ReportBuilder(String newLine) {
-        this(newLine, ROW_SEPARATOR);
-    }
-
-    private ReportBuilder(String newLine, String rowSeparator) {
+    public ReportBuilder(String newLine, String rowSeparator, Columns columns) {
         this.newLine = newLine;
         this.rowSeparator = rowSeparator;
-        this.columns = new RegularColumns(rowSeparator);
+        this.columns = columns;
         this.statsToLineConverter = new CarStatsToLineConverter(columns);
     }
 

@@ -22,10 +22,30 @@ public class RaceStatsTest {
     private final RaceStats raceStats = new RaceStats(carStatsList);
 
     @Test
-    public void shouldReturnIterator() {
-        Iterator<CarStats> iterator = raceStats.getCarStats();
+    public void shouldReturnAllCarsIterator() {
+        Iterator<CarStats> iterator = raceStats.getAllCarStats();
 
         assertThat(iterator.next()).isEqualTo(carStats1);
+        assertThat(iterator.next()).isEqualTo(carStats2);
+        assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnRegularCarsIterator() {
+        given(carStats2.hasRetired()).willReturn(true);
+
+        Iterator<CarStats> iterator = raceStats.getRegularCarStats();
+
+        assertThat(iterator.next()).isEqualTo(carStats1);
+        assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnRetiredCarsIterator() {
+        given(carStats2.hasRetired()).willReturn(true);
+
+        Iterator<CarStats> iterator = raceStats.getRetiredCarStats();
+
         assertThat(iterator.next()).isEqualTo(carStats2);
         assertThat(iterator.hasNext()).isFalse();
     }

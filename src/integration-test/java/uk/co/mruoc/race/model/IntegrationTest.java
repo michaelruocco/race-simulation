@@ -19,14 +19,14 @@ public class IntegrationTest {
         RaceData raceData = fileProcessor.process(file);
         raceData.setTime(new ElapsedTime());
 
-        assertThat(raceData.getCarStats(0).getPosition()).isEqualTo(1);
-        assertThat(raceData.getCarStats(1).getPosition()).isEqualTo(2);
-        assertThat(raceData.getCarStats(2).getPosition()).isEqualTo(3);
-        assertThat(raceData.getCarStats(3).getPosition()).isEqualTo(4);
-        assertThat(raceData.getCarStats(4).getPosition()).isEqualTo(5);
-        assertThat(raceData.getCarStats(5).getPosition()).isEqualTo(6);
-        assertThat(raceData.getCarStats(6).getPosition()).isEqualTo(7);
-        assertThat(raceData.getCarStats(7).getPosition()).isEqualTo(8);
+        assertThat(raceData.getAllCarStats(0).getPosition()).isEqualTo(1);
+        assertThat(raceData.getAllCarStats(1).getPosition()).isEqualTo(2);
+        assertThat(raceData.getAllCarStats(2).getPosition()).isEqualTo(3);
+        assertThat(raceData.getAllCarStats(3).getPosition()).isEqualTo(4);
+        assertThat(raceData.getAllCarStats(4).getPosition()).isEqualTo(5);
+        assertThat(raceData.getAllCarStats(5).getPosition()).isEqualTo(6);
+        assertThat(raceData.getAllCarStats(6).getPosition()).isEqualTo(7);
+        assertThat(raceData.getAllCarStats(7).getPosition()).isEqualTo(8);
     }
 
     @Test
@@ -34,14 +34,14 @@ public class IntegrationTest {
         RaceData raceData = fileProcessor.process(file);
         raceData.setTime(raceData.getEndTime());
 
-        assertThat(raceData.getCarStats(4).getPosition()).isEqualTo(1);
-        assertThat(raceData.getCarStats(1).getPosition()).isEqualTo(2);
-        assertThat(raceData.getCarStats(0).getPosition()).isEqualTo(3);
-        assertThat(raceData.getCarStats(5).getPosition()).isEqualTo(4);
-        assertThat(raceData.getCarStats(3).getPosition()).isEqualTo(5);
-        assertThat(raceData.getCarStats(7).getPosition()).isEqualTo(6);
-        assertThat(raceData.getCarStats(6).getPosition()).isEqualTo(7);
-        assertThat(raceData.getCarStats(2).getPosition()).isEqualTo(8);
+        assertThat(raceData.getAllCarStats(4).getPosition()).isEqualTo(1);
+        assertThat(raceData.getAllCarStats(1).getPosition()).isEqualTo(2);
+        assertThat(raceData.getAllCarStats(0).getPosition()).isEqualTo(3);
+        assertThat(raceData.getAllCarStats(5).getPosition()).isEqualTo(4);
+        assertThat(raceData.getAllCarStats(3).getPosition()).isEqualTo(5);
+        assertThat(raceData.getAllCarStats(7).getPosition()).isEqualTo(6);
+        assertThat(raceData.getAllCarStats(6).getPosition()).isEqualTo(7);
+        assertThat(raceData.getAllCarStats(2).getPosition()).isEqualTo(8);
     }
 
 }

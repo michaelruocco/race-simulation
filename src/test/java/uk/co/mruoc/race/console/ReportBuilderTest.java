@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
 public class ReportBuilderTest {
 
     private static final String NEW_LINE = System.lineSeparator();
+    private static final String ROW_SEPARATOR = "-";
 
     private static final String EXPECTED_REPORT =
             "-----------------------------------------------------------------------------------------------------------------------------" + NEW_LINE +
@@ -23,7 +24,7 @@ public class ReportBuilderTest {
             "|         0|   0|   0.00|           0|     00:00:00.000|               0.00|                      -|             -|        -|" + NEW_LINE +
             "-----------------------------------------------------------------------------------------------------------------------------";
 
-    private final ReportBuilder reportBuilder = new ReportBuilder(NEW_LINE);
+    private final ReportBuilder reportBuilder = new ReportBuilder(NEW_LINE, ROW_SEPARATOR, new RegularColumns(ROW_SEPARATOR));
 
     @Test
     public void shouldReturnReport() {

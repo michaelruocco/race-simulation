@@ -11,8 +11,16 @@ public class RaceStats {
         this.carStatsList = carStatsList;
     }
 
-    public Iterator<CarStats> getCarStats() {
+    public Iterator<CarStats> getAllCarStats() {
         return carStatsList.iterator();
+    }
+
+    public Iterator<CarStats> getRegularCarStats() {
+        return carStatsList.stream().filter(s -> !s.hasRetired()).iterator();
+    }
+
+    public Iterator<CarStats> getRetiredCarStats() {
+        return carStatsList.stream().filter(CarStats::hasRetired).iterator();
     }
 
     public CarStats getCarStats(int carId) {

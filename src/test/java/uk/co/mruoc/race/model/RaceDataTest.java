@@ -6,6 +6,8 @@ import uk.co.mruoc.time.ElapsedTime;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static uk.co.mruoc.race.model.RaceData.*;
 
 public class RaceDataTest {
@@ -70,13 +72,53 @@ public class RaceDataTest {
                 .setCarDataList(Arrays.asList(carData1, carData2))
                 .build();
 
-        Iterator<CarStats> iterator = raceData.getCarStats();
+        Iterator<CarStats> iterator = raceData.getAllCarStats();
 
         CarStats carStats1 = iterator.next();
         assertThat(carStats1.getCarId()).isEqualTo(1);
 
         CarStats carStats2 = iterator.next();
         assertThat(carStats2.getCarId()).isEqualTo(2);
+
+        assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnRegularCarStatsIterator() {
+        FakeCarData carData1 = new FakeCarData(1);
+        FakeCarData carData2 = new FakeCarData(2);
+
+        carData1.setRetired(false);
+        carData2.setRetired(true);
+
+        RaceData raceData = builder
+                .setCarDataList(Arrays.asList(carData1, carData2))
+                .build();
+
+        Iterator<CarStats> iterator = raceData.getRegularCarStats();
+
+        CarStats carStats1 = iterator.next();
+        assertThat(carStats1.getCarId()).isEqualTo(1);
+
+        assertThat(iterator.hasNext()).isFalse();
+    }
+
+    @Test
+    public void shouldReturnRetiredCarStatsIterator() {
+        FakeCarData carData1 = new FakeCarData(1);
+        FakeCarData carData2 = new FakeCarData(2);
+
+        carData1.setRetired(false);
+        carData2.setRetired(true);
+
+        RaceData raceData = builder
+                .setCarDataList(Arrays.asList(carData1, carData2))
+                .build();
+
+        Iterator<CarStats> iterator = raceData.getRetiredCarStats();
+
+        CarStats carStats1 = iterator.next();
+        assertThat(carStats1.getCarId()).isEqualTo(2);
 
         assertThat(iterator.hasNext()).isFalse();
     }
@@ -89,7 +131,7 @@ public class RaceDataTest {
                 .setCarDataList(Collections.singletonList(carData1))
                 .build();
 
-        CarStats carStats1 = raceData.getCarStats(carId);
+        CarStats carStats1 = raceData.getAllCarStats(carId);
 
         assertThat(carStats1.getCarId()).isEqualTo(carId);
     }
@@ -98,6 +140,7 @@ public class RaceDataTest {
 
         private ElapsedTime endTime = new ElapsedTime();
         private ElapsedTime time;
+        private boolean retired;
 
         public FakeCarData(int carId) {
             super(carId, Collections.singletonList(new Lap(1)));
@@ -117,6 +160,14 @@ public class RaceDataTest {
 
         public ElapsedTime getTime() {
             return time;
+        }
+
+        public void setRetired(boolean retired) {
+            this.retired = retired;
+        }
+
+        public boolean hasRetired() {
+            return retired;
         }
 
     }

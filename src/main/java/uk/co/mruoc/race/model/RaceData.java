@@ -38,11 +38,19 @@ public class RaceData {
         raceStats = buildRaceStats(time);
     }
 
-    public Iterator<CarStats> getCarStats() {
-        return raceStats.getCarStats();
+    public Iterator<CarStats> getAllCarStats() {
+        return raceStats.getAllCarStats();
     }
 
-    public CarStats getCarStats(int carId) {
+    public Iterator<CarStats> getRegularCarStats() {
+        return raceStats.getRegularCarStats();
+    }
+
+    public Iterator<CarStats> getRetiredCarStats() {
+        return raceStats.getRetiredCarStats();
+    }
+
+    public CarStats getAllCarStats(int carId) {
         return raceStats.getCarStats(carId);
     }
 
