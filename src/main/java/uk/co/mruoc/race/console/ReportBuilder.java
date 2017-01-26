@@ -27,18 +27,35 @@ public class ReportBuilder {
 
     public String build(Iterator<CarStats> stats) {
         StringBuilder report = new StringBuilder();
-        report.append(buildRowSeparator());
-        report.append(newLine);
-        report.append(columns.getHeaderRow());
-        report.append(newLine);
-        report.append(columns.getHeaderSeparatorRow());
-        while (stats.hasNext()) {
-            report.append(newLine);
-            report.append(statsToLineConverter.toLine(stats.next()));
-        }
-        report.append(newLine);
-        report.append(buildRowSeparator());
+        report.append(builderHeader(columns));
+        while (stats.hasNext())
+            report.append(buildLine(stats.next()));
+        report.append(buildFooter());
         return report.toString();
+    }
+
+    private String builderHeader(Columns columns) {
+        StringBuilder header = new StringBuilder();
+        header.append(buildRowSeparator());
+        header.append(newLine);
+        header.append(columns.getHeaderRow());
+        header.append(newLine);
+        header.append(columns.getHeaderSeparatorRow());
+        return header.toString();
+    }
+
+    private String buildLine(CarStats stats) {
+        StringBuilder line = new StringBuilder();
+        line.append(newLine);
+        line.append(statsToLineConverter.toLine(stats));
+        return line.toString();
+    }
+
+    private String buildFooter() {
+        StringBuilder footer = new StringBuilder();
+        footer.append(newLine);
+        footer.append(buildRowSeparator());
+        return footer.toString();
     }
 
     private String buildRowSeparator() {
