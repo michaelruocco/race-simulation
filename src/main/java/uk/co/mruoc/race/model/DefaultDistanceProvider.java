@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class DefaultDistanceProvider implements DistanceProvider {
 
-    private static final Logger LOG = LogManager.getLogger(FileLineParser.class);
+    private static final Logger LOG = LogManager.getLogger(DefaultDistanceProvider.class);
 
     private final Map<String, BigDecimal> distances = new LinkedHashMap<>();
 
@@ -27,7 +27,7 @@ public class DefaultDistanceProvider implements DistanceProvider {
             return distance;
         }
 
-        LOG.info("no distance found between checkpoints " + key + " returning 0 ");
+        LOG.debug("no distance found between checkpoints " + key + " returning 0 ");
         return BigDecimal.ZERO;
     }
 

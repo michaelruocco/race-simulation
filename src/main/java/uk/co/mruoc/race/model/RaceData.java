@@ -33,7 +33,7 @@ public class RaceData {
     }
 
     public void setTime(ElapsedTime time) {
-        LOG.info("set time " + time);
+        LOG.debug("set time " + time);
         carDataList.forEach(c -> c.setTime(time));
         raceStats = buildRaceStats(time);
     }
