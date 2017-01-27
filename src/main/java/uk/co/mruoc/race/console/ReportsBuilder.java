@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.console;
 
+import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.RaceData;
 import uk.co.mruoc.time.ElapsedTime;
 
@@ -22,12 +23,18 @@ public class ReportsBuilder {
         while (queryTimes.hasNext()) {
             ElapsedTime queryTime = queryTimes.next();
             raceData.setTime(queryTime);
+            report.append(buildReport(reportBuilder, raceData.getRegularCarStats()));
+            report.append(buildReport(retiredReportBuilder, raceData.getRetiredCarStats()));
             report.append(NEW_LINE);
-            report.append(reportBuilder.build(raceData.getRegularCarStats()));
+        }
+        return report.toString();
+    }
+
+    private String buildReport(ReportBuilder reportBuilder, Iterator<CarStats> stats) {
+        StringBuilder report = new StringBuilder();
+        if (stats.hasNext()) {
             report.append(NEW_LINE);
-            report.append(NEW_LINE);
-            report.append(retiredReportBuilder.build(raceData.getRetiredCarStats()));
-            report.append(NEW_LINE);
+            report.append(reportBuilder.build(stats));
             report.append(NEW_LINE);
         }
         return report.toString();
