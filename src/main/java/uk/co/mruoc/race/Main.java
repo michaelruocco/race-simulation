@@ -21,7 +21,8 @@ public class Main {
             Arguments arguments = parse(args);
             process(arguments);
         } catch (CommandLineException e) {
-            LOG.info(e.getMessage(), e);
+            LOG.debug(e.getMessage(), e);
+            System.err.println(e.getMessage());
             showHelp();
         }
     }
