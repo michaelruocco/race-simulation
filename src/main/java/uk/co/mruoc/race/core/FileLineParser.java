@@ -24,20 +24,20 @@ public class FileLineParser {
     private final FileLineValidator validator = new FileLineValidator();
     private final RetiredConverter retiredConverter = new RetiredConverter();
 
-    public List<FileLine> parse(List<String> inputs) {
+    public List<FileLine> parse(List<Line> inputs) {
         List<FileLine> lines = new ArrayList<>();
         inputs.forEach(i -> lines.add(parse(i)));
         return lines;
     }
 
-    public FileLine parse(String input) {
-        LOG.debug("parsing input line " + input);
+    public FileLine parse(Line input) {
+        LOG.debug("parsing input line " + input.debug());
         validate(input);
-        String[] args = input.split(" ");
+        String[] args = input.splitValue();
         return toLine(args);
     }
 
-    private void validate(String input) {
+    private void validate(Line input) {
         validator.validate(input);
     }
 

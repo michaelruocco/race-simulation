@@ -20,9 +20,9 @@ public class Main {
         try {
             Arguments arguments = parse(args);
             process(arguments);
-        } catch (CommandLineException e) {
+        } catch (RaceException e) {
             LOG.debug(e.getMessage(), e);
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
             showHelp();
         }
     }

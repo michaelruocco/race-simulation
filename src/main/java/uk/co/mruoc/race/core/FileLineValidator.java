@@ -20,23 +20,24 @@ public class FileLineValidator {
     private final ElapsedTimeValidator elapsedTimeValidator = new ElapsedTimeValidator();
     private final RetiredConverter retiredConverter = new RetiredConverter();
 
-    public boolean validate(String input) {
-        LOG.debug("validating input line " + input);
+    public boolean validate(Line input) {
+        LOG.debug("validating input line " + input.debug());
         validateLine(input);
-        String[] args = input.split(" ");
+        String[] args = input.splitValue();
         return validateArguments(args);
     }
 
-    private void validateLine(String input) {
-        int count = StringUtils.countMatches(input, ' ');
+    private void validateLine(Line input) {
+        int count = StringUtils.countMatches(input.getValue(), ' ');
         if (count != NUMBER_OF_ARGUMENTS - 1)
             throw new FileLineFormatException(buildNumberOfArgumentsErrorMessage(input));
     }
 
-    private String buildNumberOfArgumentsErrorMessage(String input) {
+    private String buildNumberOfArgumentsErrorMessage(Line input) {
         StringBuilder message = new StringBuilder();
         message.append("invalid data line ");
-        message.append(input);
+        message.append(input.getValue());
+        message.append(" at line " + input.getNumber());
         message.append(" it should contain ");
         message.append(NUMBER_OF_ARGUMENTS);
         message.append(" items separated by spaces");

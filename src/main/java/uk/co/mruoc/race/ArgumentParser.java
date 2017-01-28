@@ -22,7 +22,10 @@ public class ArgumentParser {
         try {
             CommandLine commandLine = parser.parse(options, args);
             return toArguments(commandLine);
-        } catch (ParseException | IllegalArgumentException e) {
+        } catch (UnrecognizedOptionException e) {
+            String message = buildInvalidOptionMessage(e.getOption());
+            throw new InvalidOptionException(message, e);
+        } catch (ParseException e) {
             throw new CommandLineException(e);
         }
     }
@@ -40,11 +43,24 @@ public class ArgumentParser {
 
     private Mode parseMode(CommandLine commandLine) {
         String modeString = commandLine.getOptionValue(options.getMode(), DEFAULT_GUI);
-        return Mode.valueOf(modeString.toUpperCase());
+        try {
+            return Mode.valueOf(modeString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            String message = buildInvalidModeMessage(modeString);
+            throw new InvalidModeException(message, e);
+        }
     }
 
     private String parseFilePath(CommandLine commandLine) {
         return commandLine.getOptionValue(options.getFilePath(), DEFAULT_FILE_PATH);
+    }
+
+    private String buildInvalidModeMessage(String mode) {
+        return "invalid mode: " + mode;
+    }
+
+    private String buildInvalidOptionMessage(String option) {
+        return "invalid option: " + option;
     }
 
 }

@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileLineParserTest {
 
-    private static final String DEFAULT_INPUT = "00:16:05.67 7 3 0";
+    private static final Line DEFAULT_INPUT = toLine("00:16:05.67 7 3 0");
 
     private final FileLineParser parser = new FileLineParser();
 
@@ -34,7 +34,7 @@ public class FileLineParserTest {
 
     @Test
     public void shouldParseCheckpointId() {
-        String retiredInput = "00:01:53.55 2 R 0";
+        Line retiredInput = toLine("00:01:53.55 2 R 0");
         FileLine line = parser.parse(DEFAULT_INPUT);
         FileLine retiredLine = parser.parse(retiredInput);
 
@@ -44,7 +44,7 @@ public class FileLineParserTest {
 
     @Test
     public void shouldParseQueriedFlag() {
-        String queriedInput = "00:12:46.05 3 3 1";
+        Line queriedInput = toLine("00:12:46.05 3 3 1");
         FileLine line = parser.parse(DEFAULT_INPUT);
         FileLine queriedLine = parser.parse(queriedInput);
 
@@ -54,12 +54,16 @@ public class FileLineParserTest {
 
     @Test
     public void shouldParseMultipleLines() {
-        String secondInput = "00:16:10.92 4 6 0";
-        List<String> inputs = Arrays.asList(DEFAULT_INPUT, secondInput);
+        Line secondInput = toLine("00:16:10.92 4 6 0");
+        List<Line> inputs = Arrays.asList(DEFAULT_INPUT, secondInput);
 
         List<FileLine> lines = parser.parse(inputs);
 
         assertThat(lines.size()).isEqualTo(2);
+    }
+
+    private static Line toLine(String value) {
+        return new Line(1, value);
     }
 
 }

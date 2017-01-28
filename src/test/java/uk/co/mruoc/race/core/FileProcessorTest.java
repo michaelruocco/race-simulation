@@ -4,7 +4,6 @@ import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
-import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
@@ -152,8 +151,8 @@ public class FileProcessorTest {
         when(loader).process(new File("nonExistent"));
 
         then(caughtException())
-                .isInstanceOf(UncheckedIOException.class)
-                .hasMessage("java.io.FileNotFoundException: File 'nonExistent' does not exist");
+                .isInstanceOf(FileProcessingException.class)
+                .hasMessage("file /Users/michaelruocco/git/github/race-simulation/nonExistent does not exist");
     }
 
 }

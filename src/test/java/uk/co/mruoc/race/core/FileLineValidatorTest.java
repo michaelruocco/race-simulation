@@ -14,7 +14,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldReturnTrueForValidInput() {
-        String validInput = "00:16:05.67 7 3 0";
+        Line validInput = toLine("00:16:05.67 7 3 0");
 
         boolean result = validator.validate(validInput);
 
@@ -23,7 +23,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldReturnTrueForValidRetiredInput() {
-        String validRetiredInput = "00:16:05.67 7 R 0";
+        Line validRetiredInput = toLine("00:16:05.67 7 R 0");
 
         boolean result = validator.validate(validRetiredInput);
 
@@ -32,18 +32,18 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfInputNotFormattedCorrectly() {
-        String invalidLine = "invalidLine";
+        Line invalidLine = toLine("invalidLine");
 
         when(validator).validate(invalidLine);
 
         then(caughtException())
                 .isInstanceOf(FileLineFormatException.class)
-                .hasMessage("invalid data line invalidLine it should contain 4 items separated by spaces");
+                .hasMessage("invalid data line invalidLine at line 1 it should contain 4 items separated by spaces");
     }
 
     @Test
     public void shouldThrowExceptionIfTimeNotFormattedCorrectly() {
-        String invalidTimeLine = "16:05.67 7 3 0";
+        Line invalidTimeLine = toLine("16:05.67 7 3 0");
 
         when(validator).validate(invalidTimeLine);
 
@@ -55,7 +55,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfCarIdIsNotInteger() {
-        String invalidCarIdLine = "00:16:05.67 1.1 3 0";
+        Line invalidCarIdLine = toLine("00:16:05.67 1.1 3 0");
 
         when(validator).validate(invalidCarIdLine);
 
@@ -66,7 +66,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfCheckpointIdIsNotAnIntegerOrRetired() {
-        String invalidCheckpointIdLine = "00:16:05.67 7 EA 0";
+        Line invalidCheckpointIdLine = toLine("00:16:05.67 7 EA 0");
 
         when(validator).validate(invalidCheckpointIdLine);
 
@@ -77,7 +77,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfCheckpointIdIsNotRetired() {
-        String invalidCheckpointIdLine = "00:16:05.67 7 E 0";
+        Line invalidCheckpointIdLine = toLine("00:16:05.67 7 E 0");
 
         when(validator).validate(invalidCheckpointIdLine);
 
@@ -88,7 +88,7 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfCheckpointIdIsNotInteger() {
-        String invalidCheckpointIdLine = "00:16:05.67 7 1.1 0";
+        Line invalidCheckpointIdLine = toLine("00:16:05.67 7 1.1 0");
 
         when(validator).validate(invalidCheckpointIdLine);
 
@@ -99,13 +99,17 @@ public class FileLineValidatorTest {
 
     @Test
     public void shouldThrowExceptionIfQueriedFlagIsNotInteger() {
-        String invalidCheckpointIdLine = "00:16:05.67 7 3 1.1";
+        Line invalidCheckpointIdLine = toLine("00:16:05.67 7 3 1.1");
 
         when(validator).validate(invalidCheckpointIdLine);
 
         then(caughtException())
                 .isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid queried flag 1.1 it must be an integer");
+    }
+
+    private static Line toLine(String value) {
+        return new Line(1, value);
     }
 
 }

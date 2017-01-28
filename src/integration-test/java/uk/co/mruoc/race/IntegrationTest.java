@@ -19,9 +19,6 @@ public class IntegrationTest {
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
-    @Rule
-    public final SystemErrRule systemErrRule = new SystemErrRule().enableLog();
-
     @Test
     public void shouldPrintRaceReportToStandardOut() {
         String[] args = new String[] { "-m", "console", "-f", "data/raceinfo.dat" };
@@ -49,8 +46,47 @@ public class IntegrationTest {
 
         Main.main(args);
 
-        assertThat(systemErrRule.getLog()).isEqualTo("org.apache.commons.cli.UnrecognizedOptionException: Unrecognized option: -b\n");
-        assertThat(systemOutRule.getLog()).isEqualTo("usage: race-simulation\n" +
+        assertThat(systemOutRule.getLog()).isEqualTo("invalid option: -b\n" +
+                "usage: race-simulation\n" +
+                " -f,--file-path <arg>   Race data file path\n" +
+                " -h,--help              Displays usage help\n" +
+                " -m,--mode <arg>        Either gui or console, defaults to gui\n");
+    }
+
+    @Test
+    public void shouldPrintErrorMessageAndHelpOnInvalidMode() {
+        String[] args = new String[] { "-m", "test" };
+
+        Main.main(args);
+
+        assertThat(systemOutRule.getLog()).isEqualTo("invalid mode: test\n" +
+                "usage: race-simulation\n" +
+                " -f,--file-path <arg>   Race data file path\n" +
+                " -h,--help              Displays usage help\n" +
+                " -m,--mode <arg>        Either gui or console, defaults to gui\n");
+    }
+
+    @Test
+    public void shouldPrintErrorMessageAndHelpIfFileDoesNotExist() {
+        String[] args = new String[] { "-m", "console", "-f", "/invalid/path" };
+
+        Main.main(args);
+
+        assertThat(systemOutRule.getLog()).isEqualTo("file /invalid/path does not exist\n" +
+                "usage: race-simulation\n" +
+                " -f,--file-path <arg>   Race data file path\n" +
+                " -h,--help              Displays usage help\n" +
+                " -m,--mode <arg>        Either gui or console, defaults to gui\n");
+    }
+
+    @Test
+    public void shouldPrintErrorMessageAndHelpIfFileIsInvalid() {
+        String[] args = new String[] { "-m", "console", "-f", "data/invalidformat.dat" };
+
+        Main.main(args);
+
+        assertThat(systemOutRule.getLog()).isEqualTo("invalid data line 00:08:22.84 3 at line 196 it should contain 4 items separated by spaces\n" +
+                "usage: race-simulation\n" +
                 " -f,--file-path <arg>   Race data file path\n" +
                 " -h,--help              Displays usage help\n" +
                 " -m,--mode <arg>        Either gui or console, defaults to gui\n");
