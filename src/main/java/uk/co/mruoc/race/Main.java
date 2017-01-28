@@ -5,8 +5,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.race.console.ReportsBuilder;
 import uk.co.mruoc.race.core.*;
+import uk.co.mruoc.race.gui.MainWindow;
 
 import java.io.File;
+
+import static javax.swing.SwingUtilities.invokeLater;
 
 public class Main {
 
@@ -51,18 +54,26 @@ public class Main {
     }
 
     private static void runGui(String filePath) {
-        System.out.println("will run gui here using file path " + filePath);
+        RaceData raceData = loadRaceData(filePath);
+        invokeLater(() -> {
+            MainWindow window = new MainWindow(raceData);
+            window.setVisible(true);
+        });
     }
 
     private static void runConsole(String filePath) {
+        RaceData raceData = loadRaceData(filePath);
+        ReportsBuilder builder = new ReportsBuilder();
+        String report = builder.build(raceData);
+        System.out.println(report);
+    }
+
+    private static RaceData loadRaceData(String filePath) {
         Track track = new DefaultTrack();
         FileLinesToSplitsConverter splitsConverter = new FileLinesToSplitsConverter(track);
         FileLinesToCarDataConverter carDataConverter = new FileLinesToCarDataConverter(splitsConverter);
         FileProcessor fileProcessor = new FileProcessor(carDataConverter);
-        RaceData raceData = fileProcessor.process(new File(filePath));
-        ReportsBuilder builder = new ReportsBuilder();
-        String report = builder.build(raceData);
-        System.out.println(report);
+        return fileProcessor.process(new File(filePath));
     }
 
 }

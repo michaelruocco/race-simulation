@@ -92,15 +92,6 @@ public class IntegrationTest {
                 " -m,--mode <arg>        Either gui or console, defaults to gui\n");
     }
 
-    @Test
-    public void shouldRunGui() {
-        String[] args = new String[] { "-m", "gui", "-f", "data/raceinfo.dat" };
-
-        Main.main(args);
-
-        assertThat(systemOutRule.getLog()).isEqualTo("will run gui here using file path data/raceinfo.dat\n");
-    }
-
     private String getExpectedReportContent() {
         try {
             URL url = IntegrationTest.class.getResource("/uk/co/mruoc/race/expectedReport");
