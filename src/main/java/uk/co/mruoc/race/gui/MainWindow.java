@@ -20,6 +20,7 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
         super("Race Simulation");
 
         JDesktopPane desktop = new JDesktopPane();
+        desktop.setDragMode(OUTLINE_DRAG_MODE);
 
         ControlActions controlActions = new ControlActions(engine, this);
         WindowActions windowActions = new WindowActions(engine, desktop);
@@ -27,11 +28,9 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
         MenuBar menuBar = new MenuBar(controlActions, windowActions);
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
 
-        setJMenuBar(menuBar);
-
-        desktop.setDragMode(OUTLINE_DRAG_MODE);
-
         this.statusPanel = new StatusPanel(controlActions);
+        
+        setJMenuBar(menuBar);
 
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
