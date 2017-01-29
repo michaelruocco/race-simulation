@@ -19,11 +19,13 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
     public MainWindow(Engine engine) {
         super("Race Simulation");
 
-        ControlActions controlActions = new ControlActions(engine, this);
-
-        ToolBar toolBar = new ToolBar(controlActions);
-
         JDesktopPane desktop = new JDesktopPane();
+
+        ControlActions controlActions = new ControlActions(engine, this);
+        WindowActions windowActions = new WindowActions(engine, desktop);
+
+        ToolBar toolBar = new ToolBar(controlActions, windowActions);
+
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
         this.statusPanel = new StatusPanel(controlActions);

@@ -54,8 +54,16 @@ public class RaceData {
         return raceStats.getRetiredCarStats();
     }
 
-    public CarStats getCarStats(int carId) {
-        return raceStats.getCarStats(carId);
+    public CarStats getCarStatsById(int carId) {
+        return raceStats.getCarStatsById(carId);
+    }
+
+    public CarStats getCarStatsByIndex(int index) {
+        return raceStats.getCarStatsByIndex(index);
+    }
+
+    public int getCarCount() {
+        return carDataList.size();
     }
 
     private ElapsedTime extractEndTime(List<CarData> carDataList) {

@@ -1,5 +1,7 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.IdFormatter;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -8,6 +10,7 @@ public class CssRules implements Iterable<String> {
 
     private final CarColorToConverter colorConverter = new CarColorToConverter();
     private final List<String> rules = new ArrayList<>();
+    private final IdFormatter idFormatter = new IdFormatter();
 
     public CssRules(List<Integer> ids) {
         rules.add("body { font-family:Arial; font-size:x-small; }");

@@ -23,11 +23,17 @@ public class RaceStats {
         return carStatsList.stream().filter(CarStats::hasRetired).iterator();
     }
 
-    public CarStats getCarStats(int carId) {
+    public CarStats getCarStatsByIndex(int index) {
+        if (index >= carStatsList.size())
+            throw new CarStatsNotFoundException("index " + Integer.toString(index));
+        return carStatsList.get(index);
+    }
+
+    public CarStats getCarStatsById(int carId) {
         for (CarStats stats : carStatsList)
             if (stats.getCarId() == carId)
                 return stats;
-        throw new CarStatsNotFoundException(Integer.toString(carId));
+        throw new CarStatsNotFoundException("car id " + Integer.toString(carId));
     }
 
 }

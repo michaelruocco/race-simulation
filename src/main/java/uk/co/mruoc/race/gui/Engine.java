@@ -33,7 +33,6 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     private ElapsedTime time = new ElapsedTime();
     private int speed = 1999;
 
-
     public Engine() {
         this.timer = new Timer(DEFAULT_REFRESH_DELAY, this);
         this.timer.addActionListener(this);

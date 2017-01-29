@@ -40,10 +40,10 @@ public class HtmlBuilder {
         return "<thead>" +
                 "<tr>" +
                 "<th>Pos</th>" +
+                "<th>Id</th>" +
                 "<th>Speed</th>" +
                 "<th>Lap</th>" +
                 "<th>Time Diff</th>" +
-                "<th>Car</th>" +
                 "</tr>" +
                 "</tead>";
     }
@@ -57,13 +57,12 @@ public class HtmlBuilder {
     }
 
     private String toTableRow(CarStats stats) {
-        String id = idFormatter.format(stats);
-        return "<tr class=\"car" + id + "\">" +
+        return "<tr class=\"car" + stats.getCarId() + "\">" +
                 "<td>" + positionFormatter.format(stats) + "</td>" +
+                "<td>" + idFormatter.format(stats) + "</td>" +
                 "<td class=\"wider\">" + speedFormatter.format(stats) + "</td>" +
                 "<td>" + lapNumberFormatter.format(stats) + "</td>" +
                 "<td class=\"wider\">" + timeDifferenceFormatter.format(stats) + "</td>" +
-                "<td>" + id + "</td>" +
                 "</tr>";
     }
 

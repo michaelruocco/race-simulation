@@ -52,25 +52,42 @@ public class RaceStatsTest {
 
     @Test
     public void shouldReturnCarStatsForCarId() {
+        assertThat(raceStats.getCarStatsByIndex(0)).isEqualTo(carStats1);
+        assertThat(raceStats.getCarStatsByIndex(1)).isEqualTo(carStats2);
+    }
+
+    @Test
+    public void shouldReturnCarStatsForIndex() {
         int carId1 = 1;
         int carId2 = 2;
 
         given(carStats1.getCarId()).willReturn(carId1);
         given(carStats2.getCarId()).willReturn(carId2);
 
-        assertThat(raceStats.getCarStats(carId1)).isEqualTo(carStats1);
-        assertThat(raceStats.getCarStats(carId2)).isEqualTo(carStats2);
+        assertThat(raceStats.getCarStatsById(carId1)).isEqualTo(carStats1);
+        assertThat(raceStats.getCarStatsById(carId2)).isEqualTo(carStats2);
     }
 
     @Test
-    public void shouldThrowExceptionIfCarStatsNotFound() {
+    public void shouldThrowExceptionIfCarStatsNotFoundById() {
         int carId = 1;
 
-        when(raceStats).getCarStats(carId);
+        when(raceStats).getCarStatsById(carId);
 
         then(caughtException())
                 .isInstanceOf(CarStatsNotFoundException.class)
-                .hasMessage(Integer.toString(carId));
+                .hasMessage("car id " + Integer.toString(carId));
+    }
+
+    @Test
+    public void shouldThrowExceptionIfCarStatsNotFoundByIndex() {
+        int index = 2;
+
+        when(raceStats).getCarStatsByIndex(index);
+
+        then(caughtException())
+                .isInstanceOf(CarStatsNotFoundException.class)
+                .hasMessage("index " + Integer.toString(index));
     }
 
 }

@@ -34,4 +34,5 @@ public class RefreshSlider extends JSlider implements ChangeListener, RefreshDel
     public void refreshDelayUpdated(int delay) {
         setValue(delay);
     }
+
 }

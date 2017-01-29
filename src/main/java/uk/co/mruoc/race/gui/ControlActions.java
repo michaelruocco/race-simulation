@@ -43,4 +43,5 @@ public class ControlActions {
     public JSlider getRefreshSlider() {
         return new RefreshSlider(engine);
     }
+
 }

@@ -150,10 +150,37 @@ public class RaceDataTest {
                 .setCarDataList(Collections.singletonList(carData1))
                 .build();
 
-        CarStats carStats1 = raceData.getCarStats(carId);
+        CarStats carStats1 = raceData.getCarStatsById(carId);
 
         assertThat(carStats1.getCarId()).isEqualTo(carId);
     }
+
+    @Test
+    public void shouldReturnCarStatsByIndex() {
+        int carId = 4;
+        int index = 0;
+        FakeCarData carData1 = new FakeCarData(carId);
+        RaceData raceData = builder
+                .setCarDataList(Collections.singletonList(carData1))
+                .build();
+
+        CarStats carStats1 = raceData.getCarStatsByIndex(index);
+
+        assertThat(carStats1.getCarId()).isEqualTo(carId);
+    }
+
+    @Test
+    public void shouldReturnCarCount() {
+        FakeCarData carData1 = new FakeCarData(1);
+        FakeCarData carData2 = new FakeCarData(2);
+
+        RaceData raceData = builder
+                .setCarDataList(Arrays.asList(carData1, carData2))
+                .build();
+
+        assertThat(raceData.getCarCount()).isEqualTo(2);
+    }
+
 
     private static class FakeCarData extends CarData {
 
