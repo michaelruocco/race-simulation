@@ -80,6 +80,7 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         LOG.debug("race reset");
         stop();
         updateTime(new ElapsedTime());
+        resetListeners.forEach(ResetListener::reset);
     }
 
     @Override
