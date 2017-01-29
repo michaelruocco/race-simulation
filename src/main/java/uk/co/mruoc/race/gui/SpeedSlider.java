@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class SpeedSlider extends JSlider implements ChangeListener {
+public class SpeedSlider extends JSlider implements ChangeListener, SpeedUpdateListener {
 
     private static final int MIN_SPEED = 1;
     private static final int MAX_SPEED = 16999;
@@ -13,8 +13,12 @@ public class SpeedSlider extends JSlider implements ChangeListener {
 
     public SpeedSlider(Engine engine) {
         super(MIN_SPEED, MAX_SPEED);
-        addChangeListener(this);
+
         this.engine = engine;
+        engine.addSpeedUpdateListener(this);
+
+        addChangeListener(this);
+        setValue(engine.getSpeed());
     }
 
     @Override
@@ -23,6 +27,11 @@ public class SpeedSlider extends JSlider implements ChangeListener {
             return;
         int speed = getValue();
         engine.setSpeed(speed);
+    }
+
+    @Override
+    public void speedUpdated(int speed) {
+        setValue(speed);
     }
 
 }

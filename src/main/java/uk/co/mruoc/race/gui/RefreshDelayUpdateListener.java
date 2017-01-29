@@ -1,6 +1,6 @@
 package uk.co.mruoc.race.gui;
 
-public interface RefreshDelayListener {
+public interface RefreshDelayUpdateListener {
 
     void refreshDelayUpdated(int delay);
 

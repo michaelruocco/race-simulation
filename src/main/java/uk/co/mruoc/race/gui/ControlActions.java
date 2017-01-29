@@ -2,19 +2,22 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 
-public class Controls {
+public class ControlActions {
+
+    private final Engine engine;
 
     private final RaceAction start;
     private final RaceAction stop;
     private final RaceAction reset;
+    private final RaceAction showControlDialog;
 
-    private final JSlider speedSlider;
+    public ControlActions(Engine engine, JFrame window) {
+        this.engine = engine;
 
-    public Controls(Engine engine) {
         start = new StartAction(engine);
         stop = new StopAction(engine);
         reset = new ResetAction(engine);
-        speedSlider = new SpeedSlider(engine);
+        showControlDialog = new ShowControlDialogAction(this, window);
     }
 
     public JButton getStartButton() {
@@ -29,8 +32,15 @@ public class Controls {
         return new RaceButton(reset);
     }
 
-    public JSlider getSpeedSlider() {
-        return speedSlider;
+    public JButton getShowControlDialogButton() {
+        return new RaceButton(showControlDialog);
     }
 
+    public JSlider getSpeedSlider() {
+        return new SpeedSlider(engine);
+    }
+
+    public JSlider getRefreshSlider() {
+        return new RefreshSlider(engine);
+    }
 }

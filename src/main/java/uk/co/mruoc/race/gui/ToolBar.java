@@ -4,10 +4,11 @@ import javax.swing.*;
 
 public class ToolBar extends JToolBar {
 
-    public ToolBar(Controls controls) {
-        add(controls.getStartButton());
-        add(controls.getStopButton());
-        add(controls.getResetButton());
+    public ToolBar(ControlActions controlActions) {
+        add(controlActions.getStartButton());
+        add(controlActions.getStopButton());
+        add(controlActions.getResetButton());
+        add(controlActions.getShowControlDialogButton());
     }
 
 }

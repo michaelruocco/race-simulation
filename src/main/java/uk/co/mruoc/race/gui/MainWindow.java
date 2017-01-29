@@ -16,15 +16,17 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
     private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
     private final StatusPanel statusPanel;
 
-    public MainWindow(Controls controls) {
+    public MainWindow(Engine engine) {
         super("Race Simulation");
 
-        ToolBar toolBar = new ToolBar(controls);
+        ControlActions controlActions = new ControlActions(engine, this);
+
+        ToolBar toolBar = new ToolBar(controlActions);
 
         JDesktopPane desktop = new JDesktopPane();
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
-        this.statusPanel = new StatusPanel(controls);
+        this.statusPanel = new StatusPanel(controlActions);
 
         Container container = getContentPane();
         container.setLayout(new BorderLayout());

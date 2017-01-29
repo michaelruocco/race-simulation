@@ -12,7 +12,7 @@ public class StatusPanel extends JPanel {
     private final ClockPanel clockPanel;
     private final StatusPane statusPane;
 
-    public StatusPanel(Controls controls) {
+    public StatusPanel(ControlActions controlActions) {
         this.statusPane = new StatusPane();
         this.clockPanel = new ClockPanel();
 
@@ -20,12 +20,12 @@ public class StatusPanel extends JPanel {
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(controls.getStartButton());
-        buttonPanel.add(controls.getStopButton());
-        buttonPanel.add(controls.getResetButton());
+        buttonPanel.add(controlActions.getStartButton());
+        buttonPanel.add(controlActions.getStopButton());
+        buttonPanel.add(controlActions.getResetButton());
 
         JPanel sliderPanel = new JPanel();
-        sliderPanel.add(controls.getSpeedSlider());
+        sliderPanel.add(controlActions.getSpeedSlider());
 
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BorderLayout());

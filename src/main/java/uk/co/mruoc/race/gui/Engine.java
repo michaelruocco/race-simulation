@@ -11,9 +11,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Engine implements ActionListener, StartListener, StopListener, ResetListener, FinishListener, RefreshDelayListener {
+public class Engine implements ActionListener, StartListener, StopListener, ResetListener, FinishListener {
 
     private static final Logger LOG = LogManager.getLogger(Engine.class);
+
+    private static final int DEFAULT_REFRESH_DELAY = 100;
 
     private final Collection<TimeChangeListener> timeChangeListeners = new ArrayList<>();
     private final Collection<StartListener> startListeners = new ArrayList<>();
@@ -22,16 +24,18 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     private final Collection<FinishListener> finishListeners = new ArrayList<>();
     private final Collection<LoadRaceListener> loadRaceListeners = new ArrayList<>();
     private final Collection<RaceUpdateListener> raceUpdateListeners = new ArrayList<>();
+    private final Collection<SpeedUpdateListener> speedUpdateListeners = new ArrayList<>();
+    private final Collection<RefreshDelayUpdateListener> refreshDelayUpdateListeners = new ArrayList<>();
 
     private final Timer timer;
 
     private RaceData raceData;
     private ElapsedTime time = new ElapsedTime();
     private int speed = 1999;
-    private int refreshDelay = 100;
+
 
     public Engine() {
-        this.timer = new Timer(refreshDelay, this);
+        this.timer = new Timer(DEFAULT_REFRESH_DELAY, this);
         this.timer.addActionListener(this);
     }
 
@@ -61,6 +65,14 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
 
     public void addLoadRaceListener(LoadRaceListener listener) {
         loadRaceListeners.add(listener);
+    }
+
+    public void addSpeedUpdateListener(SpeedUpdateListener listener) {
+        speedUpdateListeners.add(listener);
+    }
+
+    public void addRefreshDelayUpdateListener(RefreshDelayUpdateListener listener) {
+        refreshDelayUpdateListeners.add(listener);
     }
 
     @Override
@@ -99,11 +111,6 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         finishListeners.forEach(FinishListener::finish);
     }
 
-    @Override
-    public void refreshDelayUpdated(int delay) {
-        timer.setDelay(delay);
-    }
-
     public boolean isRunning() {
         return timer.isRunning();
     }
@@ -119,6 +126,20 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
 
     public void setSpeed(int speed) {
         this.speed = speed;
+        speedUpdateListeners.forEach(l -> l.speedUpdated(speed));
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setRefreshDelay(int delay) {
+        timer.setDelay(delay);
+        refreshDelayUpdateListeners.forEach(l -> l.refreshDelayUpdated(delay));
+    }
+
+    public int getRefreshDelay() {
+        return timer.getDelay();
     }
 
     private void updateTime() {
