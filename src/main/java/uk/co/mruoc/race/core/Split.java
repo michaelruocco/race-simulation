@@ -20,7 +20,7 @@ public class Split {
     private final ElapsedTime splitTime;
     private final BigDecimal startDistance;
     private final BigDecimal splitDistance;
-    private final BigDecimal speed;
+    private final BigDecimal splitSpeed;
     private ElapsedTime time;
 
     private Split(SplitBuilder builder) {
@@ -33,7 +33,7 @@ public class Split {
         this.splitTime = calculateSplitTime();
         this.startDistance = builder.startDistance;
         this.splitDistance = builder.splitDistance;
-        this.speed = calculateSpeed();
+        this.splitSpeed = calculateSplitSpeed();
     }
 
     public int getCarId() {
@@ -76,6 +76,7 @@ public class Split {
         BigDecimal progress = calculateProgressAt(time);
         BigDecimal distance = calculateSplitDistance(progress);
         BigDecimal totalDistance = calculateTotalDistance(distance);
+        BigDecimal speed = calculateSpeedAt(time);
         return new SplitStatsBuilder()
                 .setProgress(progress)
                 .setDistance(distance)
@@ -127,10 +128,16 @@ public class Split {
         return endTime.subtract(startTime);
     }
 
-    private BigDecimal calculateSpeed() {
+    private BigDecimal calculateSplitSpeed() {
         if (retired)
             return BigDecimal.ZERO;
         return speedCalculator.calculate(splitDistance, splitTime);
+    }
+
+    private BigDecimal calculateSpeedAt(ElapsedTime time) {
+        if (time.equals(new ElapsedTime()))
+            return BigDecimal.ZERO;
+        return splitSpeed;
     }
 
     public static class SplitBuilder {

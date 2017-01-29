@@ -6,6 +6,7 @@ import uk.co.mruoc.time.ElapsedTime;
 
 import java.math.BigDecimal;
 
+import static java.math.BigDecimal.ZERO;
 import static java.math.BigDecimal.valueOf;
 import static java.math.MathContext.*;
 import static java.math.RoundingMode.*;
@@ -142,7 +143,14 @@ public class SplitTest {
 
         Split noDistanceSplit = builder.build();
 
-        assertThat(noDistanceSplit.getDistance()).isEqualTo(BigDecimal.ZERO);
+        assertThat(noDistanceSplit.getDistance()).isEqualTo(ZERO);
+    }
+
+    @Test
+    public void shouldReturnZeroSpeedAtZeroTime() {
+        SplitStats stats = split.getStatsAt(new ElapsedTime());
+
+        assertThat(stats.getSpeed()).isEqualTo(ZERO);
     }
 
     @Test
@@ -196,7 +204,7 @@ public class SplitTest {
 
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
-        assertThat(stats.getSpeed()).isEqualTo(BigDecimal.ZERO);
+        assertThat(stats.getSpeed()).isEqualTo(ZERO);
     }
 
 }
