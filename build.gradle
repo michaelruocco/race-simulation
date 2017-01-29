@@ -36,6 +36,7 @@ dependencies {
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.0'
     testCompile group: 'eu.codearte.catch-exception', name: 'catch-exception', version: '1.4.4'
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+    testCompile group: 'com.github.stefanbirkner', name: 'system-rules', version: '1.16.0'
 }
 
 

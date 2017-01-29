@@ -19,6 +19,14 @@ public class TimeDifferenceFormatterTest {
 
         assertThat(formatter.format(stats)).isEqualTo("Leader");
     }
+
+    @Test
+    public void shouldReturnRetiredIfCarHasRetired() {
+        given(stats.hasRetired()).willReturn(true);
+
+        assertThat(formatter.format(stats)).isEqualTo("Retired");
+    }
+
     @Test
     public void shouldFormatTimeDifference() {
         ElapsedTime timeDifference = new ElapsedTime();
