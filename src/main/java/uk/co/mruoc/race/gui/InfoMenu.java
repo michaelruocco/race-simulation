@@ -10,6 +10,7 @@ public class InfoMenu extends JMenu {
         add(actions.getShowPositionWindowMenuItem());
         add(actions.getShowSpeedWindowMenuItem());
         add(actions.getShowLapNumberWindowMenuItem());
+        add(actions.getShowTimeDifferenceWindowMenuItem());
     }
 
 }

@@ -17,6 +17,7 @@ public class ToolBar extends JToolBar {
         add(windowActions.getShowPositionWindowButton());
         add(windowActions.getShowSpeedWindowButton());
         add(windowActions.getShowLapNumberWindowButton());
+        add(windowActions.getShowTimeDifferenceWindowButton());
     }
 
 }
