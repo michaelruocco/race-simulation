@@ -18,6 +18,7 @@ public class ToolBar extends JToolBar {
         add(windowActions.getShowSpeedWindowButton());
         add(windowActions.getShowLapNumberWindowButton());
         add(windowActions.getShowTimeDifferenceWindowButton());
+        add(windowActions.getShowAverageLapSpeedWindowButton());
     }
 
 }

@@ -8,12 +8,14 @@ public class WindowActions {
     private final RaceAction showSpeedWindow;
     private final RaceAction showLapNumberWindow;
     private final RaceAction showTimeDifferenceWindow;
+    private final RaceAction showAverageLapSpeedWindow;
 
     public WindowActions(Engine engine, JDesktopPane desktop) {
         showPositionWindow = new ShowPositionPopupWindowAction(engine, desktop);
         showSpeedWindow = new ShowSpeedPopupWindowAction(engine, desktop);
         showLapNumberWindow = new ShowLapNumberPopupWindowAction(engine, desktop);
         showTimeDifferenceWindow = new ShowTimeDifferencePopupWindowAction(engine, desktop);
+        showAverageLapSpeedWindow = new ShowAverageLapSpeedAction(engine, desktop);
     }
 
     public JButton getShowPositionWindowButton() {
@@ -32,6 +34,10 @@ public class WindowActions {
         return new RaceButton(showTimeDifferenceWindow);
     }
 
+    public JButton getShowAverageLapSpeedWindowButton() {
+        return new RaceButton(showAverageLapSpeedWindow);
+    }
+
     public JMenuItem getShowPositionWindowMenuItem() {
         return new JMenuItem(showPositionWindow);
     }
@@ -46,6 +52,10 @@ public class WindowActions {
 
     public JMenuItem getShowTimeDifferenceWindowMenuItem() {
         return new JMenuItem(showTimeDifferenceWindow);
+    }
+
+    public JMenuItem getShowAverageLapSpeedWindowMenuItem() {
+        return new JMenuItem(showAverageLapSpeedWindow);
     }
 
 }
