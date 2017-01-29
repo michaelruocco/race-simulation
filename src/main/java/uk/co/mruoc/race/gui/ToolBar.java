@@ -11,6 +11,7 @@ public class ToolBar extends JToolBar {
         add(controlActions.getShowControlDialogButton());
         addSeparator();
         add(windowActions.getShowPositionWindowButton());
+        add(windowActions.getShowSpeedWindowButton());
     }
 
 }
