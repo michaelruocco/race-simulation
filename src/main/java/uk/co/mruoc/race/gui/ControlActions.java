@@ -11,6 +11,7 @@ public class ControlActions {
     private final RaceAction stop;
     private final RaceAction reset;
     private final RaceAction showControlDialog;
+    private final RaceAction exit;
 
     public ControlActions(Engine engine, JFrame window) {
         this.engine = engine;
@@ -20,6 +21,7 @@ public class ControlActions {
         stop = new StopAction(engine);
         reset = new ResetAction(engine);
         showControlDialog = new ShowControlDialogAction(this, window);
+        exit = new ExitAction(window);
     }
 
     public JButton getShowOpenFileDialogButton() {
@@ -68,6 +70,10 @@ public class ControlActions {
 
     public JMenuItem getShowControlDialogMenuItem() {
         return new JMenuItem(showControlDialog);
+    }
+
+    public JMenuItem getExitDialogMenuItem() {
+        return new JMenuItem(exit);
     }
 
 }

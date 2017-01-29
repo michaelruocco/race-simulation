@@ -14,6 +14,9 @@ public class FileMenu extends JMenu {
         add(actions.getStopMenuItem());
         add(actions.getResetMenuItem());
         add(actions.getShowControlDialogMenuItem());
+        addSeparator();
+
+        add(actions.getExitDialogMenuItem());
     }
 
 }
