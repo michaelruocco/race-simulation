@@ -24,7 +24,10 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
         ControlActions controlActions = new ControlActions(engine, this);
         WindowActions windowActions = new WindowActions(engine, desktop);
 
+        MenuBar menuBar = new MenuBar(controlActions, windowActions);
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
+
+        setJMenuBar(menuBar);
 
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 

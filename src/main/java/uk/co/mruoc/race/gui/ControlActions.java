@@ -44,4 +44,20 @@ public class ControlActions {
         return new RefreshSlider(engine);
     }
 
+    public JMenuItem getStartMenuItem() {
+        return new JMenuItem(start);
+    }
+
+    public JMenuItem getStopMenuItem() {
+        return new JMenuItem(stop);
+    }
+
+    public JMenuItem getResetMenuItem() {
+        return new JMenuItem(reset);
+    }
+
+    public JMenuItem getShowControlDialogMenuItem() {
+        return new JMenuItem(showControlDialog);
+    }
+
 }

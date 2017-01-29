@@ -20,4 +20,12 @@ public class WindowActions {
         return new RaceButton(showSpeedWindow);
     }
 
+    public JMenuItem getShowPositionWindowMenuItem() {
+        return new JMenuItem(showPositionWindow);
+    }
+
+    public JMenuItem getShowSpeedWindowMenuItem() {
+        return new JMenuItem(showSpeedWindow);
+    }
+
 }
