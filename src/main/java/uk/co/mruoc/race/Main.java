@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.race.console.ReportsBuilder;
 import uk.co.mruoc.race.core.*;
+import uk.co.mruoc.race.gui.Controls;
+import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
 
 import java.io.File;
@@ -54,10 +56,18 @@ public class Main {
     }
 
     private static void runGui(String filePath) {
-        RaceData raceData = loadRaceData(filePath);
         invokeLater(() -> {
-            MainWindow window = new MainWindow(raceData);
+            Engine engine = new Engine();
+            Controls controls = new Controls(engine);
+            MainWindow window = new MainWindow(controls);
             window.setVisible(true);
+            engine.addTimeChangeListener(window);
+            engine.addLoadRaceListener(window);
+            engine.addRaceUpdateListener(window);
+
+            RaceData raceData = loadRaceData(filePath);
+            engine.loadRace(raceData);
+            engine.reset();
         });
     }
 

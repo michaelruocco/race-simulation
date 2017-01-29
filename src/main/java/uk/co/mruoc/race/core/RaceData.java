@@ -32,6 +32,10 @@ public class RaceData {
         return endTime;
     }
 
+    public boolean hasFinished(ElapsedTime time) {
+        return time.equals(endTime) || time.isAfter(endTime);
+    }
+
     public void setTime(ElapsedTime time) {
         LOG.debug("set time " + time);
         carDataList.forEach(c -> c.setTime(time));
@@ -50,7 +54,7 @@ public class RaceData {
         return raceStats.getRetiredCarStats();
     }
 
-    public CarStats getAllCarStats(int carId) {
+    public CarStats getCarStats(int carId) {
         return raceStats.getCarStats(carId);
     }
 

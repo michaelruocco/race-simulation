@@ -46,6 +46,26 @@ public class RaceDataTest {
     }
 
     @Test
+    public void shouldReturnHasFinished() {
+        ElapsedTime endTime1 = new ElapsedTime("00:02:30.000");
+        ElapsedTime endTime2 = new ElapsedTime("00:02:35.000");
+
+        FakeCarData carData1 = new FakeCarData(1);
+        FakeCarData carData2 = new FakeCarData(2);
+
+        carData1.setEndTime(endTime1);
+        carData2.setEndTime(endTime2);
+
+        RaceData raceData = builder
+                .setCarDataList(Arrays.asList(carData1, carData2))
+                .build();
+
+        assertThat(raceData.hasFinished(endTime2)).isTrue();
+        assertThat(raceData.hasFinished(endTime2.add(1))).isTrue();
+        assertThat(raceData.hasFinished(endTime2.subtract(1))).isFalse();
+    }
+
+    @Test
     public void shouldSetTime() {
         FakeCarData carData1 = new FakeCarData(1);
         FakeCarData carData2 = new FakeCarData(2);
@@ -130,7 +150,7 @@ public class RaceDataTest {
                 .setCarDataList(Collections.singletonList(carData1))
                 .build();
 
-        CarStats carStats1 = raceData.getAllCarStats(carId);
+        CarStats carStats1 = raceData.getCarStats(carId);
 
         assertThat(carStats1.getCarId()).isEqualTo(carId);
     }

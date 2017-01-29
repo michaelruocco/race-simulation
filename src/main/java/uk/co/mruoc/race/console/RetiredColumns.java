@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.console;
 
+import uk.co.mruoc.race.core.IdFormatter;
 import uk.co.mruoc.race.core.RetiredDistanceFormatter;
 import uk.co.mruoc.race.core.RetiredLapNumberFormatter;
 import uk.co.mruoc.race.core.RetiredTimeFormatter;

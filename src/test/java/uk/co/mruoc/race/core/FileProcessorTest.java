@@ -31,7 +31,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getLapNumber()).isEqualTo(1);
     }
@@ -41,7 +41,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getLapNumber()).isEqualTo(20);
     }
@@ -51,7 +51,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getLapNumber()).isEqualTo(1);
     }
@@ -61,7 +61,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getLapNumber()).isEqualTo(1);
     }
@@ -71,7 +71,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getDistance()).isEqualTo(BigDecimal.ZERO);
     }
@@ -81,7 +81,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getDistance()).isEqualTo(BigDecimal.valueOf(120200));
     }
@@ -91,7 +91,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getDistance()).isEqualTo(BigDecimal.ZERO);
     }
@@ -101,7 +101,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getDistance()).isEqualTo(BigDecimal.valueOf(3240.0));
     }
@@ -111,7 +111,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getPosition()).isEqualTo(1);
     }
@@ -121,7 +121,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(CAR_ID);
+        CarStats stats = raceData.getCarStats(CAR_ID);
 
         assertThat(stats.getPosition()).isEqualTo(3);
     }
@@ -131,7 +131,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(START_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getPosition()).isEqualTo(3);
     }
@@ -141,7 +141,7 @@ public class FileProcessorTest {
         RaceData raceData = loader.process(file);
         raceData.setTime(timeParser.parse(END_TIME));
 
-        CarStats stats = raceData.getAllCarStats(RETIRED_CAR_ID);
+        CarStats stats = raceData.getCarStats(RETIRED_CAR_ID);
 
         assertThat(stats.getPosition()).isEqualTo(8);
     }

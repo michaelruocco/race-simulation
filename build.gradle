@@ -24,6 +24,8 @@ repositories {
 }
 
 dependencies {
+    compile files('lib/jlfgr-1_0.jar')
+
     compile group: 'com.github.michaelruocco', name: 'elapsed-time', version: '1.0.4'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
