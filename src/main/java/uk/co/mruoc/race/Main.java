@@ -5,11 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.race.console.ReportsBuilder;
 import uk.co.mruoc.race.core.*;
-import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
-
-import java.io.File;
 
 import static javax.swing.SwingUtilities.invokeLater;
 
@@ -66,7 +63,6 @@ public class Main {
 
             RaceData raceData = loadRaceData(filePath);
             engine.loadRace(raceData);
-            engine.reset();
         });
     }
 
@@ -79,10 +75,8 @@ public class Main {
 
     private static RaceData loadRaceData(String filePath) {
         Track track = new DefaultTrack();
-        FileLinesToSplitsConverter splitsConverter = new FileLinesToSplitsConverter(track);
-        FileLinesToCarDataConverter carDataConverter = new FileLinesToCarDataConverter(splitsConverter);
-        FileProcessor fileProcessor = new FileProcessor(carDataConverter);
-        return fileProcessor.process(new File(filePath));
+        RaceDataLoader loader = new RaceDataLoader(track);
+        return loader.loadRaceData(filePath);
     }
 
 }

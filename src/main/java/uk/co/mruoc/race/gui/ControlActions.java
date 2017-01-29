@@ -6,6 +6,7 @@ public class ControlActions {
 
     private final Engine engine;
 
+    private final RaceAction showOpenFileDialog;
     private final RaceAction start;
     private final RaceAction stop;
     private final RaceAction reset;
@@ -14,10 +15,15 @@ public class ControlActions {
     public ControlActions(Engine engine, JFrame window) {
         this.engine = engine;
 
+        showOpenFileDialog = new ShowOpenFileDialogAction(engine, window);
         start = new StartAction(engine);
         stop = new StopAction(engine);
         reset = new ResetAction(engine);
         showControlDialog = new ShowControlDialogAction(this, window);
+    }
+
+    public JButton getShowOpenFileDialogButton() {
+        return new RaceButton(showOpenFileDialog);
     }
 
     public JButton getStartButton() {
@@ -42,6 +48,10 @@ public class ControlActions {
 
     public JSlider getRefreshSlider() {
         return new RefreshSlider(engine);
+    }
+
+    public JMenuItem getShowOpenFileDialogMenuItem() {
+        return new JMenuItem(showOpenFileDialog);
     }
 
     public JMenuItem getStartMenuItem() {

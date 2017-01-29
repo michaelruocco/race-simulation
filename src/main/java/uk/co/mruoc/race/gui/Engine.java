@@ -121,6 +121,7 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     public void loadRace(RaceData raceData) {
         this.raceData = raceData;
         loadRaceListeners.forEach(l -> l.raceLoaded(raceData));
+        reset();
     }
 
     public void setSpeed(int speed) {

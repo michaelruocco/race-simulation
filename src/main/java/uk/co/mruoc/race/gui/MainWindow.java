@@ -29,7 +29,7 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
 
         this.statusPanel = new StatusPanel(controlActions);
-        
+
         setJMenuBar(menuBar);
 
         Container container = getContentPane();
