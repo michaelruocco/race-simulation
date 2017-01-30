@@ -2,12 +2,12 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 
-public class StatPopupWindow extends JInternalFrame {
+public class PopupWindow extends JInternalFrame {
 
-    public StatPopupWindow(JTable table) {
+    public PopupWindow(JComponent component) {
         super("", false, true, false, true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
-        add(new JScrollPane(table));
+        add(new JScrollPane(component));
     }
 
 }

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class LapNumberPopupWindow extends StatPopupWindow {
+public class LapNumberPopupWindow extends PopupWindow {
 
     public LapNumberPopupWindow(Engine engine) {
         super(new LapTable(engine));

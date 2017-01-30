@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class TimeDifferencePopupWindow extends StatPopupWindow {
+public class TimeDifferencePopupWindow extends PopupWindow {
 
     public TimeDifferencePopupWindow(Engine engine) {
         super(new TimeDifferenceTable(engine));

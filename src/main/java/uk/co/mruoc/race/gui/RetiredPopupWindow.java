@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class RetiredPopupWindow extends StatPopupWindow {
+public class RetiredPopupWindow extends PopupWindow {
 
     public RetiredPopupWindow(Engine engine) {
         super(new Table(engine));

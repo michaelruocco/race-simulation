@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class PitStopPopupWindow extends StatPopupWindow {
+public class PitStopPopupWindow extends PopupWindow {
 
     public PitStopPopupWindow(Engine engine) {
         super(new Table(engine));

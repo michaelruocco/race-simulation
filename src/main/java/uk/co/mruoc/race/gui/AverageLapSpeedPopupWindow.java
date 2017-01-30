@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class AverageLapSpeedPopupWindow extends StatPopupWindow {
+public class AverageLapSpeedPopupWindow extends PopupWindow {
 
     public AverageLapSpeedPopupWindow(Engine engine) {
         super(new Table(engine));

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpeedPopupWindow extends StatPopupWindow {
+public class SpeedPopupWindow extends PopupWindow {
 
     public SpeedPopupWindow(Engine engine) {
         super(new SpeedTable(engine));
