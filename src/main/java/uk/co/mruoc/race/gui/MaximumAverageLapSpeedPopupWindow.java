@@ -13,7 +13,7 @@ public class MaximumAverageLapSpeedPopupWindow extends StatPopupWindow {
     public MaximumAverageLapSpeedPopupWindow(Engine engine) {
         super(new Table(engine));
         setTitle("Maximum Average Lap Speed");
-        setPreferredSize(new Dimension(300, 200));
+        setPreferredSize(new Dimension(350, 200));
         pack();
     }
 

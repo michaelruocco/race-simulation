@@ -11,6 +11,7 @@ public class WindowActions {
     private final RaceAction showAverageLapSpeedWindow;
     private final RaceAction showMaxAverageLapSpeedWindow;
     private final RaceAction showPitStopWindow;
+    private final RaceAction showRetiredWindow;
 
     public WindowActions(Engine engine, JDesktopPane desktop) {
         showPositionWindow = new ShowPositionPopupWindowAction(engine, desktop);
@@ -20,6 +21,7 @@ public class WindowActions {
         showAverageLapSpeedWindow = new ShowAverageLapSpeedAction(engine, desktop);
         showMaxAverageLapSpeedWindow = new ShowMaximumAverageLapSpeedAction(engine, desktop);
         showPitStopWindow = new ShowPitStopWindowAction(engine, desktop);
+        showRetiredWindow = new ShowRetiredPopupWindowAction(engine, desktop);
     }
 
     public JButton getShowPositionWindowButton() {
@@ -50,6 +52,10 @@ public class WindowActions {
         return new RaceButton(showPitStopWindow);
     }
 
+    public JButton getShowRetiredWindowButton() {
+        return new RaceButton(showRetiredWindow);
+    }
+
     public JMenuItem getShowPositionWindowMenuItem() {
         return new JMenuItem(showPositionWindow);
     }
@@ -76,6 +82,10 @@ public class WindowActions {
 
     public JMenuItem getShowPitStopWindowMenuItem() {
         return new JMenuItem(showPitStopWindow);
+    }
+
+    public JMenuItem getShowRetiredWindowMenuItem() {
+        return new JMenuItem(showRetiredWindow);
     }
 
 }
