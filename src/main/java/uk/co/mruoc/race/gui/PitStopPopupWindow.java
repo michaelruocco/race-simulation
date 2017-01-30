@@ -2,18 +2,19 @@ package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.IdFormatter;
-import uk.co.mruoc.race.core.MaxAverageLapSpeedFormatter;
+import uk.co.mruoc.race.core.PitLapNumberFormatter;
+import uk.co.mruoc.race.core.PitTimeFormatter;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class MaximumAverageLapSpeedPopupWindow extends StatPopupWindow {
+public class PitStopPopupWindow extends StatPopupWindow {
 
-    public MaximumAverageLapSpeedPopupWindow(Engine engine) {
+    public PitStopPopupWindow(Engine engine) {
         super(new Table(engine));
-        setTitle("Maximum Average Lap Speed");
-        setPreferredSize(new Dimension(300, 200));
+        setTitle("Pit Stop");
+        setPreferredSize(new Dimension(350, 200));
         pack();
     }
 
@@ -27,10 +28,11 @@ public class MaximumAverageLapSpeedPopupWindow extends StatPopupWindow {
 
     private static class TableModel extends AbstractCarStatTableModel {
 
-        private static final List<String> COLUMN_NAMES = Arrays.asList("Max Average Lap Speed", "Id");
+        private static final List<String> COLUMN_NAMES = Arrays.asList("Id", "Time", "Lap");
 
-        private final MaxAverageLapSpeedFormatter maxAverageLapSpeedFormatter = new MaxAverageLapSpeedFormatter();
         private final IdFormatter idFormatter = new IdFormatter();
+        private final PitTimeFormatter pitLapTimeFormatter = new PitTimeFormatter();
+        private final PitLapNumberFormatter pitLapNumberFormatter = new PitLapNumberFormatter();
 
         public TableModel(Engine engine) {
             super(COLUMN_NAMES, engine);
@@ -39,8 +41,9 @@ public class MaximumAverageLapSpeedPopupWindow extends StatPopupWindow {
         @Override
         public Object getValueAt(CarStats stats, int columnIndex) {
             switch(columnIndex) {
-                case 0: return maxAverageLapSpeedFormatter.format(stats);
-                default: return idFormatter.format(stats);
+                case 0: return idFormatter.format(stats);
+                case 1: return pitLapTimeFormatter.format(stats);
+                default: return pitLapNumberFormatter.format(stats);
             }
         }
 
