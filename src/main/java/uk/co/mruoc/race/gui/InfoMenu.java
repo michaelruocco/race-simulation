@@ -12,6 +12,7 @@ public class InfoMenu extends JMenu {
         add(actions.getShowLapNumberWindowMenuItem());
         add(actions.getShowTimeDifferenceWindowMenuItem());
         add(actions.getShowAverageLapSpeedWindowMenuItem());
+        add(actions.getShowMaxAverageLapSpeedWindowMenuItem());
     }
 
 }

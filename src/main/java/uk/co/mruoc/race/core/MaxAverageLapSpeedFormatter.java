@@ -8,9 +8,7 @@ public class MaxAverageLapSpeedFormatter implements CarStatFormatter {
 
     @Override
     public String format(CarStats stats) {
-        if (stats.getLapNumber() < 1)
-            return NOT_APPLICABLE;
-        if (stats.getLapNumber() == 1 && stats.hasRetired())
+        if (stats.getLapNumber() <= 1)
             return NOT_APPLICABLE;
         return formatSpeed(stats.getMaximumAverageLapSpeed());
     }

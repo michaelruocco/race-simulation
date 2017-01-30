@@ -23,8 +23,7 @@ public class MaxAverageLapSpeedFormatterTest {
     }
 
     @Test
-    public void shouldReturnNotApplicableIfRetiredOnFirstLap() {
-        given(stats.hasRetired()).willReturn(true);
+    public void shouldReturnNotApplicableIfOnFirstLap() {
         given(stats.getLapNumber()).willReturn(1);
 
         assertThat(formatter.format(stats)).isEqualTo(NOT_APPLICABLE);
@@ -33,7 +32,7 @@ public class MaxAverageLapSpeedFormatterTest {
     @Test
     public void shouldConvertFromMetersPerMilliToKmPerHourAndFormatMaxAverageLapSpeed() {
         BigDecimal maxAverageLapSpeed = BigDecimal.valueOf(0.05);
-        given(stats.getLapNumber()).willReturn(1);
+        given(stats.getLapNumber()).willReturn(2);
         given(stats.getMaximumAverageLapSpeed()).willReturn(maxAverageLapSpeed);
 
         assertThat(formatter.format(stats)).isEqualTo("180.00");
