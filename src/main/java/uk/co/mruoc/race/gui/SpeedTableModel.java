@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.CarStatFormatter;
 import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.IdFormatter;
 import uk.co.mruoc.race.core.SpeedFormatter;
@@ -11,8 +12,8 @@ public class SpeedTableModel extends AbstractCarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Speed", "Id");
 
-    private final SpeedFormatter speedFormatter = new SpeedFormatter();
-    private final IdFormatter idFormatter = new IdFormatter();
+    private final CarStatFormatter speedFormatter = new SpeedFormatter();
+    private final CarStatFormatter idFormatter = new IdFormatter();
 
     public SpeedTableModel() {
         super(COLUMN_NAMES);
