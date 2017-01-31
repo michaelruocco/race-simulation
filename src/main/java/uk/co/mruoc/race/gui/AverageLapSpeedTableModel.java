@@ -8,7 +8,7 @@ import uk.co.mruoc.race.core.IdFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class AverageLapSpeedTableModel extends AbstractCarStatTableModel {
+public class AverageLapSpeedTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Average Lap Speed", "Id");
 

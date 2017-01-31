@@ -8,7 +8,7 @@ import uk.co.mruoc.race.core.MaxAverageLapSpeedFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class MaximumAverageLapSpeedTableModel extends AbstractCarStatTableModel {
+public class MaximumAverageLapSpeedTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Max Average Lap Speed", "Id");
 

@@ -8,7 +8,7 @@ import uk.co.mruoc.race.core.TimeDifferenceFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class TimeDifferenceTableModel extends AbstractCarStatTableModel {
+public class TimeDifferenceTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Time Difference", "Id");
 

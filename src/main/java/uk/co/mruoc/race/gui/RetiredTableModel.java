@@ -5,7 +5,7 @@ import uk.co.mruoc.race.core.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class RetiredTableModel extends AbstractCarStatTableModel {
+public class RetiredTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Id", "Time", "Lap", "Distance");
 

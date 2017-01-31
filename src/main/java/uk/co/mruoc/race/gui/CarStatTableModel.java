@@ -7,12 +7,12 @@ import uk.co.mruoc.time.ElapsedTime;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public abstract class AbstractCarStatTableModel extends AbstractTableModel implements TimeChangeListener, LoadRaceListener {
+public abstract class CarStatTableModel extends AbstractTableModel implements TimeChangeListener, LoadRaceListener {
 
     private final List<String> columnNames;
     private RaceData raceData;
 
-    public AbstractCarStatTableModel(List<String> columnNames) {
+    public CarStatTableModel(List<String> columnNames) {
         this.columnNames = columnNames;
     }
 

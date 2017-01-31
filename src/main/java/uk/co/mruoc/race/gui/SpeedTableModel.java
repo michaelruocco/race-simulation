@@ -8,7 +8,7 @@ import uk.co.mruoc.race.core.SpeedFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class SpeedTableModel extends AbstractCarStatTableModel {
+public class SpeedTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Speed", "Id");
 

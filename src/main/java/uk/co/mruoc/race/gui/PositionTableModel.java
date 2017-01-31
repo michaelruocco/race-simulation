@@ -8,7 +8,7 @@ import uk.co.mruoc.race.core.PositionFormatter;
 import java.util.Arrays;
 import java.util.List;
 
-public class PositionTableModel extends AbstractCarStatTableModel {
+public class PositionTableModel extends CarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Position", "Id");
 
