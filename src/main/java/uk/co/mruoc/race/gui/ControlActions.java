@@ -18,7 +18,7 @@ public class ControlActions {
 
         showOpenFileDialog = new ShowOpenFileDialogAction(engine, window);
         start = new StartAction();
-        stop = new StopAction(engine);
+        stop = new StopAction();
         reset = new ResetAction();
         showControlDialog = new ShowControlDialogAction(this, window);
         exit = new ExitAction(window);
@@ -39,6 +39,9 @@ public class ControlActions {
         start.setEnabled(!engine.isRunning());
         stop.setEnabled(engine.isRunning());
         reset.setEnabled(engine.isStarted());
+
+        engine.addFinishListener(start);
+        engine.addFinishListener(stop);
     }
 
     public JButton getShowOpenFileDialogButton() {
