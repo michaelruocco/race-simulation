@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.CarStatFormatter;
 import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.IdFormatter;
 import uk.co.mruoc.race.core.LapNumberFormatter;
@@ -11,8 +12,8 @@ public class LapNumberTableModel extends AbstractCarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Lap", "Id");
 
-    private final LapNumberFormatter lapNumberFormatter = new LapNumberFormatter();
-    private final IdFormatter idFormatter = new IdFormatter();
+    private final CarStatFormatter lapNumberFormatter = new LapNumberFormatter();
+    private final CarStatFormatter idFormatter = new IdFormatter();
 
     public LapNumberTableModel() {
         super(COLUMN_NAMES);

@@ -1,5 +1,6 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.CarStatFormatter;
 import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.IdFormatter;
 import uk.co.mruoc.race.core.TimeDifferenceFormatter;
@@ -11,8 +12,8 @@ public class TimeDifferenceTableModel extends AbstractCarStatTableModel {
 
     private static final List<String> COLUMN_NAMES = Arrays.asList("Time Difference", "Id");
 
-    private final IdFormatter idFormatter = new IdFormatter();
-    private final TimeDifferenceFormatter timeDifferenceFormatter = new TimeDifferenceFormatter();
+    private final CarStatFormatter idFormatter = new IdFormatter();
+    private final CarStatFormatter timeDifferenceFormatter = new TimeDifferenceFormatter();
 
     public TimeDifferenceTableModel() {
         super(COLUMN_NAMES);
