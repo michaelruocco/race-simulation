@@ -7,9 +7,8 @@ public class ShowPopupWindowAction extends RaceAction {
 
     private final JInternalFrame window;
 
-    public ShowPopupWindowAction(JDesktopPane desktop, JInternalFrame window) {
+    public ShowPopupWindowAction(JInternalFrame window) {
         this.window = window;
-        desktop.add(window);
     }
 
     @Override

@@ -9,8 +9,8 @@ public class ShowTimeDifferencePopupWindowAction extends ShowPopupWindowAction {
     private final ImageIcon smallIcon = loadIcon("/gui/icons/timediff16.gif");
     private final ImageIcon largeIcon = loadIcon("/gui/icons/timediff24.gif");
 
-    public ShowTimeDifferencePopupWindowAction(Engine engine, JDesktopPane desktop) {
-        super(desktop, new TimeDifferencePopupWindow(engine));
+    public ShowTimeDifferencePopupWindowAction(JInternalFrame window) {
+        super(window);
         setSmallIcon(smallIcon);
         setLargeIcon(largeIcon);
         setText("Time Difference");

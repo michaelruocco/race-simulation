@@ -9,8 +9,8 @@ public class ShowAboutPopupWindowAction extends ShowPopupWindowAction {
     private final ImageIcon smallIcon = loadIcon("/toolbarButtonGraphics/general/About16.gif");
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/general/About24.gif");
 
-    public ShowAboutPopupWindowAction(JDesktopPane desktop) {
-        super(desktop, new AboutPopupWindow());
+    public ShowAboutPopupWindowAction() {
+        super(new AboutPopupWindow());
         setSmallIcon(smallIcon);
         setLargeIcon(largeIcon);
         setText("About");

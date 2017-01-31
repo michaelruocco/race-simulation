@@ -18,6 +18,7 @@ public class CarTableCellRenderer extends DefaultTableCellRenderer implements Lo
         CarStats stats = getCarStats(row);
         c.setFont(c.getFont().deriveFont(Font.BOLD));
         c.setForeground(CAR_COLOR_TO_CONVERTER.toColor(stats.getCarId()));
+        System.out.println(c.getForeground());
         return c;
     }
 

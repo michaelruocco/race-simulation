@@ -16,31 +16,20 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
 
     private static final Logger LOG = LogManager.getLogger(Engine.class);
 
-    private final Collection<TimeChangeListener> timeChangeListeners = new ArrayList<>();
-    private final Collection<FinishListener> finishListeners = new ArrayList<>();
-    private final List<RaceUpdateListener> raceUpdateListeners = new ArrayList<>();
-
     private final Timer timer;
 
     private RaceData raceData;
     private ElapsedTime time = new ElapsedTime();
     private int speed;
+    private ControlActions controlActions;
 
     public Engine() {
         this.timer = new Timer(0, this);
         this.timer.addActionListener(this);
     }
 
-    public void addFinishListener(FinishListener listener) {
-        finishListeners.add(listener);
-    }
-
-    public void addRaceUpdateListener(RaceUpdateListener listener) {
-        raceUpdateListeners.add(listener);
-    }
-
-    public void addTimeChangeListener(TimeChangeListener listener) {
-        timeChangeListeners.add(listener);
+    public void setControlActions(ControlActions controlActions) {
+        this.controlActions = controlActions;
     }
 
     @Override
@@ -73,7 +62,7 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         stop();
         ElapsedTime time = raceData.getEndTime();
         updateTime(time);
-        finishListeners.forEach(FinishListener::finish);
+        controlActions.finish();
     }
 
     @Override
@@ -113,8 +102,8 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         this.time = time;
         LOG.debug("time updated " + time);
         raceData.setTime(time);
-        timeChangeListeners.forEach(l -> l.timeUpdated(time));
-        raceUpdateListeners.forEach(l -> l.raceUpdated(raceData));
+        controlActions.timeUpdated(time);
+        controlActions.raceUpdated(raceData);
     }
 
 }

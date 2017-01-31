@@ -1,10 +1,18 @@
 package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.RaceData;
+import uk.co.mruoc.time.ElapsedTime;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class ControlActions {
+public class ControlActions implements TimeChangeListener, FinishListener, RaceUpdateListener {
+
+    private final Collection<TimeChangeListener> timeChangeListeners = new ArrayList<>();
+    private final Collection<FinishListener> finishListeners = new ArrayList<>();
+    private final List<RaceUpdateListener> raceUpdateListeners = new ArrayList<>();
 
     private final ShowOpenFileDialogAction showOpenFileDialog;
     private final ShowControlDialogAction showControlDialog;
@@ -72,12 +80,24 @@ public class ControlActions {
         statusSpeedSlider.addSpeedUpdateListener(engine);
         dialogSpeedSlider.addSpeedUpdateListener(engine);
 
-        engine.addFinishListener(start);
-        engine.addFinishListener(stop);
+        addFinishListener(start);
+        addFinishListener(stop);
     }
 
     public void addLoadRaceListener(LoadRaceListener listener) {
         showOpenFileDialog.addLoadRaceListener(listener);
+    }
+
+    public void addFinishListener(FinishListener listener) {
+        finishListeners.add(listener);
+    }
+
+    public void addRaceUpdateListener(RaceUpdateListener listener) {
+        raceUpdateListeners.add(listener);
+    }
+
+    public void addTimeChangeListener(TimeChangeListener listener) {
+        timeChangeListeners.add(listener);
     }
 
     public void loadRace(RaceData raceData) {
@@ -138,6 +158,21 @@ public class ControlActions {
 
     public JSlider getDialogSpeedSlider() {
         return dialogSpeedSlider;
+    }
+
+    @Override
+    public void finish() {
+        finishListeners.forEach(FinishListener::finish);
+    }
+
+    @Override
+    public void timeUpdated(ElapsedTime time) {
+        timeChangeListeners.forEach(l -> l.timeUpdated(time));
+    }
+
+    @Override
+    public void raceUpdated(RaceData raceData) {
+        raceUpdateListeners.forEach(l -> l.raceUpdated(raceData));
     }
 
 }
