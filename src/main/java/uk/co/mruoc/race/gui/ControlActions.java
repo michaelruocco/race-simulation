@@ -1,47 +1,87 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.RaceData;
+
 import javax.swing.*;
 
 public class ControlActions {
 
-    private final Engine engine;
+    private final ShowOpenFileDialogAction showOpenFileDialog;
+    private final ShowControlDialogAction showControlDialog;
+    private final ExitAction exit;
 
-    private final RaceAction showOpenFileDialog;
     private final StartAction start;
     private final StopAction stop;
     private final ResetAction reset;
-    private final RaceAction showControlDialog;
-    private final RaceAction exit;
 
-    public ControlActions(Engine engine, JFrame window) {
-        this.engine = engine;
+    private final RefreshSlider refreshSlider;
+    private final SpeedSlider statusSpeedSlider;
+    private final SpeedSlider dialogSpeedSlider;
 
-        showOpenFileDialog = new ShowOpenFileDialogAction(engine, window);
+    public ControlActions(Engine engine) {
+        showOpenFileDialog = new ShowOpenFileDialogAction();
+        showControlDialog = new ShowControlDialogAction(this);
+        exit = new ExitAction();
+
         start = new StartAction();
         stop = new StopAction();
         reset = new ResetAction();
-        showControlDialog = new ShowControlDialogAction(this, window);
-        exit = new ExitAction(window);
+
+        refreshSlider = new RefreshSlider();
+        statusSpeedSlider = new SpeedSlider();
+        dialogSpeedSlider = new SpeedSlider();
+
+        statusSpeedSlider.addSpeedUpdateListener(dialogSpeedSlider);
+        dialogSpeedSlider.addSpeedUpdateListener(statusSpeedSlider);
 
         start.addStartListener(start);
         start.addStartListener(stop);
         start.addStartListener(reset);
-        start.addStartListener(engine);
 
         stop.addListener(stop);
         stop.addListener(start);
-        stop.addListener(engine);
 
         reset.addListener(start);
         reset.addListener(reset);
+
+        showOpenFileDialog.addLoadRaceListener(start);
+        showOpenFileDialog.addLoadRaceListener(stop);
+        showOpenFileDialog.addLoadRaceListener(reset);
+
+        setEngine(engine);
+    }
+
+    public void setWindow(JFrame window) {
+        showOpenFileDialog.setWindow(window);
+        showControlDialog.setWindow(window);
+        exit.setWindow(window);
+    }
+
+    private void setEngine(Engine engine) {
+        start.addStartListener(engine);
+        stop.addListener(engine);
         reset.addListener(engine);
 
         start.setEnabled(!engine.isRunning());
         stop.setEnabled(engine.isRunning());
         reset.setEnabled(engine.isStarted());
 
+        showOpenFileDialog.addLoadRaceListener(engine);
+
+        refreshSlider.addRefreshDelayUpdateListener(engine);
+        statusSpeedSlider.addSpeedUpdateListener(engine);
+        dialogSpeedSlider.addSpeedUpdateListener(engine);
+
         engine.addFinishListener(start);
         engine.addFinishListener(stop);
+    }
+
+    public void addLoadRaceListener(LoadRaceListener listener) {
+        showOpenFileDialog.addLoadRaceListener(listener);
+    }
+
+    public void loadRace(RaceData raceData) {
+        showOpenFileDialog.fireRaceLoaded(raceData);
     }
 
     public JButton getShowOpenFileDialogButton() {
@@ -62,14 +102,6 @@ public class ControlActions {
 
     public JButton getShowControlDialogButton() {
         return new RaceButton(showControlDialog);
-    }
-
-    public JSlider getSpeedSlider() {
-        return new SpeedSlider(engine);
-    }
-
-    public JSlider getRefreshSlider() {
-        return new RefreshSlider(engine);
     }
 
     public JMenuItem getShowOpenFileDialogMenuItem() {
@@ -94,6 +126,18 @@ public class ControlActions {
 
     public JMenuItem getExitDialogMenuItem() {
         return new JMenuItem(exit);
+    }
+
+    public JSlider getRefreshSlider() {
+        return refreshSlider;
+    }
+
+    public JSlider getStatusSpeedSlider() {
+        return statusSpeedSlider;
+    }
+
+    public JSlider getDialogSpeedSlider() {
+        return dialogSpeedSlider;
     }
 
 }

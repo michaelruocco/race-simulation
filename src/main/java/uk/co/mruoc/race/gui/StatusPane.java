@@ -17,7 +17,6 @@ import static javax.swing.border.EtchedBorder.LOWERED;
 public class StatusPane extends JEditorPane {
 
     private final HtmlBuilder builder = new HtmlBuilder();
-    private final CarStatsToIdsConverter converter = new CarStatsToIdsConverter();
 
     public StatusPane() {
         setEditable(false);

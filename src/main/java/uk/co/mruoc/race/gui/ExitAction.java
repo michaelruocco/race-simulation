@@ -8,13 +8,16 @@ import static java.awt.event.WindowEvent.WINDOW_CLOSING;
 
 public class ExitAction extends RaceAction {
 
-    private final JFrame window;
+    private JFrame window;
 
-    public ExitAction(JFrame window) {
-        this.window = window;
+    public ExitAction() {
         setSmallIcon(EmptyIcon.getSmall());
         setLargeIcon(EmptyIcon.getLarge());
         setText("Exit");
+    }
+
+    public void setWindow(JFrame window) {
+        this.window = window;
     }
 
     @Override

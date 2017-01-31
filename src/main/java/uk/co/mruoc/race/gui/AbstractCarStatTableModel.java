@@ -15,7 +15,7 @@ public abstract class AbstractCarStatTableModel extends AbstractTableModel imple
     public AbstractCarStatTableModel(List<String> columnNames, Engine engine) {
         engine.addTimeChangeListener(this);
         //engine.addResetListener(this);
-        engine.addLoadRaceListener(this);
+        //engine.addLoadRaceListener(this);
         this.columnNames = columnNames;
     }
 
@@ -46,11 +46,6 @@ public abstract class AbstractCarStatTableModel extends AbstractTableModel imple
     public void timeUpdated(ElapsedTime time) {
         fireTableDataChanged();
     }
-
-    //@Override
-    //public void reset() {
-    //    fireTableDataChanged();
-    //}
 
     @Override
     public void raceLoaded(RaceData raceData) {

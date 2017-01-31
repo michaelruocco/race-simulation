@@ -15,16 +15,14 @@ public class ControlDialog {
     private final JSlider speedSlider;
     private final JSlider refreshSlider;
     private final List<JComponent> components;
-    private final JFrame window;
 
-    public ControlDialog(ControlActions controlActions, JFrame window) {
-        speedSlider = controlActions.getSpeedSlider();
+    public ControlDialog(ControlActions controlActions) {
+        speedSlider = controlActions.getDialogSpeedSlider();
         refreshSlider = controlActions.getRefreshSlider();
         components = Arrays.asList(speedLabel, speedSlider, refreshLabel, refreshSlider);
-        this.window = window;
     }
 
-    public void show() {
+    public void show(JFrame window) {
         showMessageDialog(window, components.toArray(), "Control", PLAIN_MESSAGE);
     }
 

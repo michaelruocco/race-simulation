@@ -11,21 +11,25 @@ public class ShowControlDialogAction extends RaceAction {
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/general/Preferences24.gif");
 
     private final ControlActions controlActions;
-    private final JFrame window;
 
-    public ShowControlDialogAction(ControlActions controlActions, JFrame window) {
+    private JFrame window;
+
+    public ShowControlDialogAction(ControlActions controlActions) {
         setSmallIcon(smallIcon);
         setLargeIcon(largeIcon);
         setText("Control");
 
         this.controlActions = controlActions;
+    }
+
+    public void setWindow(JFrame window) {
         this.window = window;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ControlDialog dialog = new ControlDialog(controlActions, window);
-        dialog.show();
+        ControlDialog dialog = new ControlDialog(controlActions);
+        dialog.show(window);
     }
 
 }

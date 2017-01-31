@@ -14,15 +14,15 @@ import static javax.swing.JDesktopPane.OUTLINE_DRAG_MODE;
 public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceListener, RaceUpdateListener {
 
     private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
+
     private final StatusPanel statusPanel;
 
-    public MainWindow(Engine engine) {
+    public MainWindow(ControlActions controlActions, Engine engine) {
         super("Race Simulation");
 
         JDesktopPane desktop = new JDesktopPane();
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
-        ControlActions controlActions = new ControlActions(engine, this);
         WindowActions windowActions = new WindowActions(engine, desktop);
 
         MenuBar menuBar = new MenuBar(controlActions, windowActions);
@@ -53,6 +53,7 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
     public void raceLoaded(RaceData raceData) {
         CssRules cssRules = carStatsToCssRulesConverter.toCssRules(raceData.getAllCarStats());
         statusPanel.setCssRules(cssRules);
+        raceUpdated(raceData);
     }
 
     @Override

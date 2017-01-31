@@ -3,23 +3,28 @@ package uk.co.mruoc.race.gui;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class RefreshSlider extends JSlider implements ChangeListener, RefreshDelayUpdateListener {
 
     private static final int MIN_DELAY = 50;
     private static final int MAX_DELAY = 250;
+    private static final int DEFAULT_REFRESH_DELAY = 100;
 
-    private final Engine engine;
+    private final Collection<RefreshDelayUpdateListener> listeners = new ArrayList<>();
 
-    public RefreshSlider(Engine engine) {
+    public RefreshSlider() {
         super(MIN_DELAY, MAX_DELAY);
-
-        this.engine = engine;
-        engine.addRefreshDelayUpdateListener(this);
 
         setInverted(true);
         addChangeListener(this);
-        setValue(engine.getRefreshDelay());
+        setValue(DEFAULT_REFRESH_DELAY);
+    }
+
+    public void addRefreshDelayUpdateListener(RefreshDelayUpdateListener listener) {
+        listener.refreshDelayUpdated(getValue());
+        listeners.add(listener);
     }
 
     @Override
@@ -27,7 +32,7 @@ public class RefreshSlider extends JSlider implements ChangeListener, RefreshDel
         if (getValueIsAdjusting())
             return;
         int delay = getValue();
-        engine.setRefreshDelay(delay);
+        listeners.forEach(l -> l.refreshDelayUpdated(delay));
     }
 
     @Override

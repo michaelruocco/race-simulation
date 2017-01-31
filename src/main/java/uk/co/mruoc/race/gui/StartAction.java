@@ -1,5 +1,7 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.RaceData;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.Collection;
 
 import static uk.co.mruoc.race.gui.IconLoader.loadIcon;
 
-public class StartAction extends RaceAction implements StartListener, StopListener, ResetListener, FinishListener {
+public class StartAction extends RaceAction implements StartListener, StopListener, ResetListener, FinishListener, LoadRaceListener {
 
     private final ImageIcon smallIcon = loadIcon("/toolbarButtonGraphics/media/Play16.gif");
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/media/Play24.gif");
@@ -47,6 +49,11 @@ public class StartAction extends RaceAction implements StartListener, StopListen
     @Override
     public void finish() {
         setEnabled(false);
+    }
+
+    @Override
+    public void raceLoaded(RaceData raceData) {
+        setEnabled(true);
     }
 
 }

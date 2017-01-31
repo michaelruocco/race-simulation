@@ -39,11 +39,11 @@ public class HtmlBuilder {
     private String tableHeader() {
         return "<thead>" +
                 "<tr>" +
-                "<th>Pos</th>" +
-                "<th>Id</th>" +
-                "<th>Speed</th>" +
-                "<th>Lap</th>" +
-                "<th>Time Diff</th>" +
+                "<th class=\"column\">Pos</th>" +
+                "<th class=\"column\">Id</th>" +
+                "<th class=\"speedColumn\">Speed</th>" +
+                "<th class=\"column\">Lap</th>" +
+                "<th class=\"timeDifferenceColumn\">Time Diff</th>" +
                 "</tr>" +
                 "</tead>";
     }
@@ -60,9 +60,9 @@ public class HtmlBuilder {
         return "<tr class=\"car" + stats.getCarId() + "\">" +
                 "<td>" + positionFormatter.format(stats) + "</td>" +
                 "<td>" + idFormatter.format(stats) + "</td>" +
-                "<td class=\"wider\">" + speedFormatter.format(stats) + "</td>" +
+                "<td>" + speedFormatter.format(stats) + "</td>" +
                 "<td>" + lapNumberFormatter.format(stats) + "</td>" +
-                "<td class=\"wider\">" + timeDifferenceFormatter.format(stats) + "</td>" +
+                "<td>" + timeDifferenceFormatter.format(stats) + "</td>" +
                 "</tr>";
     }
 

@@ -7,6 +7,8 @@ import uk.co.mruoc.race.core.Track;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static javax.swing.JFileChooser.APPROVE_OPTION;
 import static uk.co.mruoc.race.gui.IconLoader.loadIcon;
@@ -17,16 +19,22 @@ public class ShowOpenFileDialogAction extends RaceAction {
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/general/Open24.gif");
 
     private final JFileChooser fileChooser = new RaceFileChooser();
-    private final JFrame window;
-    private final Engine engine;
+    private final Collection<LoadRaceListener> listeners = new ArrayList<>();
 
-    public ShowOpenFileDialogAction(Engine engine, JFrame window) {
+    private JFrame window;
+
+    public ShowOpenFileDialogAction() {
         setLargeIcon(largeIcon);
         setSmallIcon(smallIcon);
         setText("Open");
+    }
 
-        this.engine = engine;
+    public void setWindow(JFrame window) {
         this.window = window;
+    }
+
+    public void addLoadRaceListener(LoadRaceListener listener) {
+        listeners.add(listener);
     }
 
     @Override
@@ -36,8 +44,12 @@ public class ShowOpenFileDialogAction extends RaceAction {
             Track track = new DefaultTrack();
             RaceDataLoader loader = new RaceDataLoader(track);
             RaceData raceData = loader.loadRaceData(fileChooser.getSelectedFile());
-            engine.loadRace(raceData);
+            fireRaceLoaded(raceData);
         }
+    }
+
+    public void fireRaceLoaded(RaceData raceData) {
+        listeners.forEach(l -> l.raceLoaded(raceData));
     }
 
 }

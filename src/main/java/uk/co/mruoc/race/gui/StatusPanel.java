@@ -25,7 +25,7 @@ public class StatusPanel extends JPanel {
         buttonPanel.add(controlActions.getResetButton());
 
         JPanel sliderPanel = new JPanel();
-        sliderPanel.add(controlActions.getSpeedSlider());
+        sliderPanel.add(controlActions.getStatusSpeedSlider());
 
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BorderLayout());

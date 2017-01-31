@@ -1,7 +1,5 @@
 package uk.co.mruoc.race.gui;
 
-import uk.co.mruoc.race.core.IdFormatter;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,15 +8,16 @@ public class CssRules implements Iterable<String> {
 
     private final CarColorToConverter colorConverter = new CarColorToConverter();
     private final List<String> rules = new ArrayList<>();
-    private final IdFormatter idFormatter = new IdFormatter();
 
     public CssRules(List<Integer> ids) {
         rules.add("body { font-family:Arial; font-size:x-small; }");
         rules.add("table, th, td { text-align:center;}");
-        rules.add("table { border-collapse:collapse; border-spacing:0pt; }");
+        rules.add("table { border-collapse:collapse; border-spacing:0pt; table-layout:fixed; width:160px; }");
         rules.add("th { background-color:#cccccc; color:black; border:1px solid black; border-left:none; border-right:none; text-align:center;}");
-        rules.add("td { font-weight:bold; border-bottom:1px solid black; width:20px; }");
-        rules.add("td.wider { width:40px; }");
+        rules.add("td { font-weight:bold; border-bottom:1px solid black; }");
+        rules.add(".column { width:25px; }");
+        rules.add(".speedColumn { width:30px; }");
+        rules.add(".timeDifferenceColumn { width:55px; }");
         ids.forEach(id -> rules.add(toCarRule(id)));
     }
 
