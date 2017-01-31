@@ -34,14 +34,8 @@ public class WindowActions {
     }
 
     private RaceAction buildShowSpeedWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new SpeedTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new SpeedPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowSpeedPopupWindowAction(window);
+        ShowStatPopupWindowFactory factory = new ShowSpeedPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowLapNumberWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
