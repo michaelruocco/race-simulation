@@ -18,9 +18,6 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     private static final int DEFAULT_REFRESH_DELAY = 100;
 
     private final Collection<TimeChangeListener> timeChangeListeners = new ArrayList<>();
-    private final Collection<StartListener> startListeners = new ArrayList<>();
-    private final Collection<StopListener> stopListeners = new ArrayList<>();
-    private final Collection<ResetListener> resetListeners = new ArrayList<>();
     private final Collection<FinishListener> finishListeners = new ArrayList<>();
     private final Collection<LoadRaceListener> loadRaceListeners = new ArrayList<>();
     private final Collection<RaceUpdateListener> raceUpdateListeners = new ArrayList<>();
@@ -38,20 +35,8 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         this.timer.addActionListener(this);
     }
 
-    public void addStartListener(StartListener listener) {
-        startListeners.add(listener);
-    }
-
-    public void addStopListener(StopListener listener) {
-        stopListeners.add(listener);
-    }
-
     public void addFinishListener(FinishListener listener) {
         finishListeners.add(listener);
-    }
-
-    public void addResetListener(ResetListener listener) {
-        resetListeners.add(listener);
     }
 
     public void addRaceUpdateListener(RaceUpdateListener listener) {
@@ -83,7 +68,6 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     public void stop() {
         LOG.debug("race stopped");
         timer.stop();
-        stopListeners.forEach(StopListener::stop);
     }
 
     @Override
@@ -91,14 +75,12 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
         LOG.debug("race reset");
         stop();
         updateTime(new ElapsedTime());
-        resetListeners.forEach(ResetListener::reset);
     }
 
     @Override
     public void start() {
         LOG.debug("race started");
         timer.start();
-        startListeners.forEach(StartListener::start);
     }
 
     @Override

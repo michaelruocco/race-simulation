@@ -7,9 +7,9 @@ public class ControlActions {
     private final Engine engine;
 
     private final RaceAction showOpenFileDialog;
-    private final RaceAction start;
-    private final RaceAction stop;
-    private final RaceAction reset;
+    private final StartAction start;
+    private final StopAction stop;
+    private final ResetAction reset;
     private final RaceAction showControlDialog;
     private final RaceAction exit;
 
@@ -17,11 +17,28 @@ public class ControlActions {
         this.engine = engine;
 
         showOpenFileDialog = new ShowOpenFileDialogAction(engine, window);
-        start = new StartAction(engine);
+        start = new StartAction();
         stop = new StopAction(engine);
-        reset = new ResetAction(engine);
+        reset = new ResetAction();
         showControlDialog = new ShowControlDialogAction(this, window);
         exit = new ExitAction(window);
+
+        start.addStartListener(start);
+        start.addStartListener(stop);
+        start.addStartListener(reset);
+        start.addStartListener(engine);
+
+        stop.addListener(stop);
+        stop.addListener(start);
+        stop.addListener(engine);
+
+        reset.addListener(start);
+        reset.addListener(reset);
+        reset.addListener(engine);
+
+        start.setEnabled(!engine.isRunning());
+        stop.setEnabled(engine.isRunning());
+        reset.setEnabled(engine.isStarted());
     }
 
     public JButton getShowOpenFileDialogButton() {

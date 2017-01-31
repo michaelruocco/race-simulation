@@ -2,6 +2,8 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.HashSet;
 
 import static uk.co.mruoc.race.gui.IconLoader.loadIcon;
 
@@ -10,23 +12,20 @@ public class StopAction extends RaceAction implements StartListener, StopListene
     private final ImageIcon smallIcon = loadIcon("/toolbarButtonGraphics/media/Pause16.gif");
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/media/Pause24.gif");
 
-    private final Engine engine;
-
+    private Collection<StopListener> listeners = new HashSet<StopListener>();
     public StopAction(Engine engine) {
         setLargeIcon(largeIcon);
         setSmallIcon(smallIcon);
         setText("Stop");
-        setEnabled(engine.isRunning());
+    }
 
-        engine.addStartListener(this);
-        engine.addStopListener(this);
-
-        this.engine = engine;
+    public void addListener(StopListener listener) {
+        listeners.add(listener);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        engine.stop();
+        listeners.forEach(StopListener::stop);
     }
 
     @Override

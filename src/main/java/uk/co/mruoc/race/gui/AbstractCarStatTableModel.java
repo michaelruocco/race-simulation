@@ -7,14 +7,14 @@ import uk.co.mruoc.time.ElapsedTime;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
-public abstract class AbstractCarStatTableModel extends AbstractTableModel implements TimeChangeListener, ResetListener, LoadRaceListener {
+public abstract class AbstractCarStatTableModel extends AbstractTableModel implements TimeChangeListener, /*ResetListener,*/ LoadRaceListener {
 
     private final List<String> columnNames;
     private RaceData raceData;
 
     public AbstractCarStatTableModel(List<String> columnNames, Engine engine) {
         engine.addTimeChangeListener(this);
-        engine.addResetListener(this);
+        //engine.addResetListener(this);
         engine.addLoadRaceListener(this);
         this.columnNames = columnNames;
     }
@@ -47,10 +47,10 @@ public abstract class AbstractCarStatTableModel extends AbstractTableModel imple
         fireTableDataChanged();
     }
 
-    @Override
-    public void reset() {
-        fireTableDataChanged();
-    }
+    //@Override
+    //public void reset() {
+    //    fireTableDataChanged();
+    //}
 
     @Override
     public void raceLoaded(RaceData raceData) {

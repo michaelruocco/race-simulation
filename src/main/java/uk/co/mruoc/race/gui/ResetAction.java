@@ -2,6 +2,8 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.util.Collection;
+import java.util.HashSet;
 
 import static uk.co.mruoc.race.gui.IconLoader.loadIcon;
 
@@ -10,23 +12,21 @@ public class ResetAction extends RaceAction implements ResetListener, StartListe
     private final ImageIcon smallIcon = loadIcon("/toolbarButtonGraphics/media/StepBack16.gif");
     private final ImageIcon largeIcon = loadIcon("/toolbarButtonGraphics/media/StepBack24.gif");
 
-    private final Engine engine;
+    private final Collection<ResetListener> listeners = new HashSet<>();
 
-    public ResetAction(Engine engine) {
+    public ResetAction() {
         setSmallIcon(smallIcon);
         setLargeIcon(largeIcon);
         setText("Reset");
-        setEnabled(engine.isStarted());
+    }
 
-        engine.addStartListener(this);
-        engine.addResetListener(this);
-
-        this.engine = engine;
+    public void addListener(ResetListener listener) {
+        listeners.add(listener);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        engine.reset();
+        listeners.forEach(ResetListener::reset);
     }
 
     @Override
