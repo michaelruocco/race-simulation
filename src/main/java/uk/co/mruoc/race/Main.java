@@ -8,7 +8,6 @@ import uk.co.mruoc.race.core.*;
 import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
-import uk.co.mruoc.race.gui.WindowActions;
 
 import static javax.swing.SwingUtilities.invokeLater;
 
@@ -59,6 +58,7 @@ public class Main {
             Engine engine = new Engine();
             ControlActions controlActions = new ControlActions(engine);
             engine.setControlActions(controlActions);
+
             MainWindow window = new MainWindow(controlActions);
             controlActions.addLoadRaceListener(window);
             controlActions.addTimeChangeListener(window);

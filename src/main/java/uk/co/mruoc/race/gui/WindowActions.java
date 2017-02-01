@@ -4,101 +4,101 @@ import javax.swing.*;
 
 public class WindowActions {
 
-    private final ShowStatPopupWindowFactory positionWindowFactory;
-    private final ShowStatPopupWindowFactory speedWindowFactory;
-    private final ShowStatPopupWindowFactory lapNumberWindowFactory;
-    private final ShowStatPopupWindowFactory timeDifferenceWindowFactory;
-    private final ShowStatPopupWindowFactory averageLapSpeedWindowFactory;
-    private final ShowStatPopupWindowFactory maxAverageLapSpeedWindowFactory;
-    private final ShowStatPopupWindowFactory pitStopWindowFactory;
-    private final ShowStatPopupWindowFactory retiredWindowFactory;
+    private final ShowPopupWindowAction positionWindowAction;
+    private final ShowPopupWindowAction speedWindowAction;
+    private final ShowPopupWindowAction lapNumberWindowAction;
+    private final ShowPopupWindowAction timeDifferenceWindowAction;
+    private final ShowPopupWindowAction averageLapSpeedWindowAction;
+    private final ShowPopupWindowAction maxAverageLapSpeedWindowAction;
+    private final ShowPopupWindowAction pitStopWindowAction;
+    private final ShowPopupWindowAction retiredWindowAction;
 
     public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
-        positionWindowFactory = new ShowPositionPopupWindowFactory(controlActions);
-        speedWindowFactory = new ShowSpeedPopupWindowFactory(controlActions);
-        lapNumberWindowFactory = new ShowLapNumberPopupWindowFactory(controlActions);
-        timeDifferenceWindowFactory = new ShowTimeDifferencePopupWindowFactory(controlActions);
-        averageLapSpeedWindowFactory = new ShowAverageLapSpeedPopupWindowFactory(controlActions);
-        maxAverageLapSpeedWindowFactory = new ShowMaximumAverageLapSpeedPopupWindowFactory(controlActions);
-        pitStopWindowFactory = new ShowPitStopPopupWindowFactory(controlActions);
-        retiredWindowFactory = new ShowRetiredPopupWindowFactory(controlActions);
+        positionWindowAction = new ShowPositionPopupWindowActionFactory().buildAction(controlActions);
+        speedWindowAction = new ShowSpeedPopupWindowActionFactory().buildAction(controlActions);
+        lapNumberWindowAction = new ShowLapNumberPopupWindowActionFactory().buildAction(controlActions);
+        timeDifferenceWindowAction = new ShowTimeDifferencePopupWindowActionFactory().buildAction(controlActions);
+        averageLapSpeedWindowAction = new ShowAverageLapSpeedPopupWindowActionFactory().buildAction(controlActions);
+        maxAverageLapSpeedWindowAction = new ShowMaximumAverageLapSpeedPopupWindowActionFactory().buildAction(controlActions);
+        pitStopWindowAction = new ShowPitStopPopupWindowActionFactory().buildAction(controlActions);
+        retiredWindowAction = new ShowRetiredPopupWindowActionFactory().buildAction(controlActions);
 
         addWindowsToDesktop(desktop);
     }
 
     private void addWindowsToDesktop(JDesktopPane desktopPane) {
-        desktopPane.add(positionWindowFactory.getWindow());
-        desktopPane.add(speedWindowFactory.getWindow());
-        desktopPane.add(lapNumberWindowFactory.getWindow());
-        desktopPane.add(timeDifferenceWindowFactory.getWindow());
-        desktopPane.add(averageLapSpeedWindowFactory.getWindow());
-        desktopPane.add(maxAverageLapSpeedWindowFactory.getWindow());
-        desktopPane.add(pitStopWindowFactory.getWindow());
-        desktopPane.add(retiredWindowFactory.getWindow());
+        desktopPane.add(positionWindowAction.getWindow());
+        desktopPane.add(speedWindowAction.getWindow());
+        desktopPane.add(lapNumberWindowAction.getWindow());
+        desktopPane.add(timeDifferenceWindowAction.getWindow());
+        desktopPane.add(averageLapSpeedWindowAction.getWindow());
+        desktopPane.add(maxAverageLapSpeedWindowAction.getWindow());
+        desktopPane.add(pitStopWindowAction.getWindow());
+        desktopPane.add(retiredWindowAction.getWindow());
     }
 
     public JButton getShowPositionWindowButton() {
-        return positionWindowFactory.getButton();
+        return positionWindowAction.getButton();
     }
 
     public JButton getShowSpeedWindowButton() {
-        return speedWindowFactory.getButton();
+        return speedWindowAction.getButton();
     }
 
     public JButton getShowLapNumberWindowButton() {
-        return lapNumberWindowFactory.getButton();
+        return lapNumberWindowAction.getButton();
     }
 
     public JButton getShowTimeDifferenceWindowButton() {
-        return timeDifferenceWindowFactory.getButton();
+        return timeDifferenceWindowAction.getButton();
     }
 
     public JButton getShowAverageLapSpeedWindowButton() {
-        return averageLapSpeedWindowFactory.getButton();
+        return averageLapSpeedWindowAction.getButton();
     }
 
     public JButton getShowMaxAverageLapSpeedWindowButton() {
-        return maxAverageLapSpeedWindowFactory.getButton();
+        return maxAverageLapSpeedWindowAction.getButton();
     }
 
     public JButton getShowPitStopWindowButton() {
-        return pitStopWindowFactory.getButton();
+        return pitStopWindowAction.getButton();
     }
 
     public JButton getShowRetiredWindowButton() {
-        return retiredWindowFactory.getButton();
+        return retiredWindowAction.getButton();
     }
 
     public JMenuItem getShowPositionWindowMenuItem() {
-        return positionWindowFactory.getMenuItem();
+        return positionWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowSpeedWindowMenuItem() {
-        return speedWindowFactory.getMenuItem();
+        return speedWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowLapNumberWindowMenuItem() {
-        return lapNumberWindowFactory.getMenuItem();
+        return lapNumberWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowTimeDifferenceWindowMenuItem() {
-        return timeDifferenceWindowFactory.getMenuItem();
+        return timeDifferenceWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowAverageLapSpeedWindowMenuItem() {
-        return averageLapSpeedWindowFactory.getMenuItem();
+        return averageLapSpeedWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowMaxAverageLapSpeedWindowMenuItem() {
-        return maxAverageLapSpeedWindowFactory.getMenuItem();
+        return maxAverageLapSpeedWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowPitStopWindowMenuItem() {
-        return pitStopWindowFactory.getMenuItem();
+        return pitStopWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowRetiredWindowMenuItem() {
-        return retiredWindowFactory.getMenuItem();
+        return retiredWindowAction.getMenuItem();
     }
 
 }

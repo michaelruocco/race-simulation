@@ -21,4 +21,16 @@ public class ShowPopupWindowAction extends RaceAction {
         window.setVisible(true);
     }
 
+    public JButton getButton() {
+        return new RaceButton(this);
+    }
+
+    public JMenuItem getMenuItem() {
+        return new JMenuItem(this);
+    }
+
+    public JInternalFrame getWindow() {
+        return window;
+    }
+
 }

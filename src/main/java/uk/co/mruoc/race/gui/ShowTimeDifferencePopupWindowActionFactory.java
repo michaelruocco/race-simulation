@@ -3,11 +3,7 @@ package uk.co.mruoc.race.gui;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-public class ShowTimeDifferencePopupWindowFactory extends ShowStatPopupWindowFactory {
-
-    public ShowTimeDifferencePopupWindowFactory(ControlActions controlActions) {
-        super(controlActions);
-    }
+public class ShowTimeDifferencePopupWindowActionFactory extends ShowStatPopupWindowActionFactory {
 
     @Override
     protected CarStatTableModel buildTableModel() {
@@ -20,7 +16,7 @@ public class ShowTimeDifferencePopupWindowFactory extends ShowStatPopupWindowFac
     }
 
     @Override
-    protected RaceAction buildAction(JInternalFrame window) {
+    protected ShowPopupWindowAction buildAction(JInternalFrame window) {
         return new ShowTimeDifferencePopupWindowAction(window);
     }
 

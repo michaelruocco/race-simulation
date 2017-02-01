@@ -3,11 +3,7 @@ package uk.co.mruoc.race.gui;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-public class ShowMaximumAverageLapSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
-
-    public ShowMaximumAverageLapSpeedPopupWindowFactory(ControlActions controlActions) {
-        super(controlActions);
-    }
+public class ShowMaximumAverageLapSpeedPopupWindowActionFactory extends ShowStatPopupWindowActionFactory {
 
     @Override
     protected CarStatTableModel buildTableModel() {
@@ -20,7 +16,7 @@ public class ShowMaximumAverageLapSpeedPopupWindowFactory extends ShowStatPopupW
     }
 
     @Override
-    protected RaceAction buildAction(JInternalFrame window) {
+    protected ShowPopupWindowAction buildAction(JInternalFrame window) {
         return new ShowMaximumAverageLapSpeedAction(window);
     }
 

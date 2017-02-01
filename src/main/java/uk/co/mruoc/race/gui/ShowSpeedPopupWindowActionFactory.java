@@ -3,11 +3,7 @@ package uk.co.mruoc.race.gui;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-public class ShowSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
-
-    public ShowSpeedPopupWindowFactory(ControlActions controlActions) {
-        super(controlActions);
-    }
+public class ShowSpeedPopupWindowActionFactory extends ShowStatPopupWindowActionFactory {
 
     @Override
     protected CarStatTableModel buildTableModel() {
@@ -20,7 +16,7 @@ public class ShowSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
     }
 
     @Override
-    protected RaceAction buildAction(JInternalFrame window) {
+    protected ShowPopupWindowAction buildAction(JInternalFrame window) {
         return new ShowSpeedPopupWindowAction(window);
     }
 
