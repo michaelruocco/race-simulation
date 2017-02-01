@@ -9,6 +9,8 @@ import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
 
+import java.io.File;
+
 import static javax.swing.SwingUtilities.invokeLater;
 
 public class Main {
@@ -18,6 +20,7 @@ public class Main {
 
     private static final CommandLineOptions OPTIONS = new CommandLineOptions();
     private static final CommandLineHelpPrinter HELP_PRINTER = new CommandLineHelpPrinter(APPLICATION_NAME);
+
 
     public static void main(String... args) {
         try {
@@ -42,18 +45,18 @@ public class Main {
         }
 
         if (arguments.runGui()) {
-            runGui(arguments.getFilePath());
+            runGui(arguments.getFile());
             return;
         }
 
-        runConsole(arguments.getFilePath());
+        runConsole(arguments.getFile());
     }
 
     private static void showHelp() {
         HELP_PRINTER.print(OPTIONS);
     }
 
-    private static void runGui(String filePath) {
+    private static void runGui(File file) {
         invokeLater(() -> {
             Engine engine = new Engine();
             ControlActions controlActions = new ControlActions(engine);
@@ -62,23 +65,23 @@ public class Main {
             MainWindow window = new MainWindow(controlActions);
             controlActions.setWindow(window);
 
-            RaceData raceData = loadRaceData(filePath);
+            RaceData raceData = loadRaceData(file);
             controlActions.loadRace(raceData);
             window.setVisible(true);
         });
     }
 
-    private static void runConsole(String filePath) {
-        RaceData raceData = loadRaceData(filePath);
+    private static void runConsole(File file) {
+        RaceData raceData = loadRaceData(file);
         ReportsBuilder builder = new ReportsBuilder();
         String report = builder.build(raceData);
         System.out.println(report);
     }
 
-    private static RaceData loadRaceData(String filePath) {
+    private static RaceData loadRaceData(File file) {
         Track track = new DefaultTrack();
         RaceDataLoader loader = new RaceDataLoader(track);
-        return loader.loadRaceData(filePath);
+        return loader.loadRaceData(file);
     }
 
 }

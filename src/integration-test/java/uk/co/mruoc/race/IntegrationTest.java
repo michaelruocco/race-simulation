@@ -16,7 +16,7 @@ public class IntegrationTest {
 
     @Test
     public void shouldPrintRaceReportToStandardOut() {
-        String[] args = new String[] { "-m", "console", "-f", "data/raceinfo.dat" };
+        String[] args = new String[] { "-m", "console" };
 
         Main.main(args);
 

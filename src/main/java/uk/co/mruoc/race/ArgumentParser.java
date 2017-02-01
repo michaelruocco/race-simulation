@@ -8,7 +8,7 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 public class ArgumentParser {
 
     private static final String DEFAULT_GUI = "gui";
-    private static final String DEFAULT_FILE_PATH = "";
+    private static final String DEFAULT_FILE_PATH = "/uk/co/mruoc/race/default-race.dat";
 
     private final CommandLineOptions options;
     private final CommandLineParser parser;
@@ -34,7 +34,8 @@ public class ArgumentParser {
         Mode mode = parseMode(commandLine);
         String filePath = parseFilePath(commandLine);
         boolean help = parseHelp(commandLine);
-        return new Arguments(mode, filePath, help);
+        boolean loadFromClasspath = isDefaultPath(filePath);
+        return new Arguments(mode, filePath, help, loadFromClasspath);
     }
 
     private boolean parseHelp(CommandLine commandLine) {
@@ -61,6 +62,10 @@ public class ArgumentParser {
 
     private String buildInvalidOptionMessage(String option) {
         return "invalid option: " + option;
+    }
+
+    private boolean isDefaultPath(String path) {
+        return DEFAULT_FILE_PATH.equals(path);
     }
 
 }
