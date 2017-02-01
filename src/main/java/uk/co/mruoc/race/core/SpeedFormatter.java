@@ -8,6 +8,8 @@ public class SpeedFormatter implements CarStatFormatter {
 
     @Override
     public String format(CarStats stats) {
+        if (stats.hasRetired())
+            return NOT_APPLICABLE;
         return formatSpeed(stats.getSpeed());
     }
 

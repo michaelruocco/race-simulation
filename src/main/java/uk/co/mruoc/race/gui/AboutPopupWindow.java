@@ -1,5 +1,7 @@
 package uk.co.mruoc.race.gui;
 
+import uk.co.mruoc.race.core.ClasspathFileLoader;
+
 import javax.swing.*;
 import javax.swing.text.EditorKit;
 import javax.swing.text.html.HTMLEditorKit;
@@ -18,19 +20,15 @@ public class AboutPopupWindow extends PopupWindow {
 
     private static class AboutPane extends JEditorPane {
 
-        private static final String TEXT = "<html><head></head><body><p>This race simulation program has been produced " +
-                "by Michael Ruocco.</p><p>It is a rework of a solution to a computer programming project that was done" +
-                "as part of the CS223 - Introduction to Software Engineering module in the second year of the computer " +
-                "science degree at the University of Warwick.</p>" +
-                "<p>The original attempt was created by group \"Tau 4 Now\" which included the following members:</p>" +
-                "<ul><li>Michael Ruocco</li><li>Edward Steel</li><li>James Gough</li><li>Christopher Dean</li>" +
-                "<li>Philip Ananin</li><li>Mark Flintstone</li></ul></body></html>";
+        private static final String CONTENT_FILE_PATH = "/uk/co/mruoc/race/gui/html/about.html";
+
+        private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
 
         public AboutPane() {
             setEditable(false);
             setContentType("text/html");
             setEditorKit(buildEditorKit());
-            setText(TEXT);
+            setText(fileLoader.loadContent(CONTENT_FILE_PATH));
         }
 
         private EditorKit buildEditorKit() {

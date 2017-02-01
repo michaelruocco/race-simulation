@@ -1,15 +1,9 @@
 package uk.co.mruoc.race;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+import uk.co.mruoc.race.core.ClasspathFileLoader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,6 +11,8 @@ public class IntegrationTest {
 
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+
+    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
 
     @Test
     public void shouldPrintRaceReportToStandardOut() {
@@ -92,13 +88,7 @@ public class IntegrationTest {
     }
 
     private String getExpectedReportContent() {
-        try {
-            URL url = IntegrationTest.class.getResource("/uk/co/mruoc/race/expectedReport");
-            File file = new File(url.toURI());
-            return FileUtils.readFileToString(file, "UTF-8");
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        return fileLoader.loadContent("/uk/co/mruoc/race/expectedReport");
     }
 
 }

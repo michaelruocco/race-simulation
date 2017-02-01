@@ -28,6 +28,14 @@ public class TimeDifferenceFormatterTest {
     }
 
     @Test
+    public void shouldReturnRetiredIfCarHasRetiredAndInPolePosition() {
+        given(stats.getPosition()).willReturn(1);
+        given(stats.hasRetired()).willReturn(true);
+
+        assertThat(formatter.format(stats)).isEqualTo("Retired");
+    }
+
+    @Test
     public void shouldFormatTimeDifference() {
         ElapsedTime timeDifference = new ElapsedTime();
         given(stats.getTimeDifference()).willReturn(timeDifference);

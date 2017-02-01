@@ -11,8 +11,6 @@ public interface CarStatFormatter {
     String format(CarStats stats);
 
     default String format(BigDecimal value) {
-        //if (value == null)
-        //    value = BigDecimal.ZERO;
         return value.setScale(2, HALF_UP).toString();
     }
 
