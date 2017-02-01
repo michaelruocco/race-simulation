@@ -10,7 +10,7 @@ public class ReportPopupWindow extends JInternalFrame {
 
     public ReportPopupWindow(RaceData raceData) {
         super(buildTitle(raceData), false, true, false, false);
-        setPreferredSize(new Dimension(1000, 290));
+        setPreferredSize(new Dimension(1000, 250));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         add(new JScrollPane(new StatusPane(new ReportWindowHtmlBuilder(), raceData)));
         pack();

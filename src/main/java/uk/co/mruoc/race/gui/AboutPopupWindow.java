@@ -11,7 +11,7 @@ public class AboutPopupWindow extends PopupWindow {
     public AboutPopupWindow() {
         super(false);
         setTitle("About");
-        setPreferredSize(new Dimension(400, 330));
+        setPreferredSize(new Dimension(400, 315));
         add(new JScrollPane(new AboutPane()));
         pack();
     }
