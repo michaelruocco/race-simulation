@@ -60,9 +60,6 @@ public class Main {
             engine.setControlActions(controlActions);
 
             MainWindow window = new MainWindow(controlActions);
-            controlActions.addLoadRaceListener(window);
-            controlActions.addTimeChangeListener(window);
-            controlActions.addRaceUpdateListener(window);
             controlActions.setWindow(window);
 
             RaceData raceData = loadRaceData(filePath);

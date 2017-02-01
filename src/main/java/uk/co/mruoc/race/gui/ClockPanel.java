@@ -5,7 +5,7 @@ import uk.co.mruoc.time.ElapsedTime;
 import javax.swing.*;
 import java.awt.*;
 
-public class ClockPanel extends JPanel {
+public class ClockPanel extends JPanel implements TimeChangeListener {
 
     private final AnalogClock analogClock;
     private final TextClock textClock;
@@ -19,7 +19,8 @@ public class ClockPanel extends JPanel {
         add(textClock, BorderLayout.SOUTH);
     }
 
-    public void update(ElapsedTime time) {
+    @Override
+    public void timeUpdated(ElapsedTime time) {
         analogClock.update(time);
         textClock.update(time);
     }

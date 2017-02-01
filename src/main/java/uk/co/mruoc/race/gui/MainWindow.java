@@ -11,9 +11,7 @@ import static java.awt.BorderLayout.EAST;
 import static java.awt.BorderLayout.NORTH;
 import static javax.swing.JDesktopPane.OUTLINE_DRAG_MODE;
 
-public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceListener, RaceUpdateListener {
-
-    private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
+public class MainWindow extends JFrame {
 
     private final StatusPanel statusPanel;
 
@@ -41,23 +39,6 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
 
         setExtendedState(MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    @Override
-    public void timeUpdated(ElapsedTime time) {
-        statusPanel.updateTime(time);
-    }
-
-    @Override
-    public void raceLoaded(RaceData raceData) {
-        CssRules cssRules = carStatsToCssRulesConverter.toCssRules(raceData.getAllCarStats());
-        statusPanel.setCssRules(cssRules);
-        raceUpdated(raceData);
-    }
-
-    @Override
-    public void raceUpdated(RaceData raceData) {
-        statusPanel.updateStatus(raceData.getAllCarStats());
     }
 
 }

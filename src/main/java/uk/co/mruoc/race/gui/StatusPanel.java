@@ -1,11 +1,7 @@
 package uk.co.mruoc.race.gui;
 
-import uk.co.mruoc.race.core.CarStats;
-import uk.co.mruoc.time.ElapsedTime;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
 
 public class StatusPanel extends JPanel {
 
@@ -39,18 +35,10 @@ public class StatusPanel extends JPanel {
 
         add(new JScrollPane(statusPane), BorderLayout.CENTER);
         add(panel, BorderLayout.SOUTH);
-    }
 
-    public void updateTime(ElapsedTime time) {
-        clockPanel.update(time);
-    }
-
-    public void setCssRules(CssRules cssRules) {
-        statusPane.setCssRules(cssRules);
-    }
-
-    public void updateStatus(Iterator<CarStats> carStats) {
-        statusPane.updateStatus(carStats);
+        controlActions.addLoadRaceListener(statusPane);
+        controlActions.addRaceUpdateListener(statusPane);
+        controlActions.addTimeChangeListener(clockPanel);
     }
 
 }

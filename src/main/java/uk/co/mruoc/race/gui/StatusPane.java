@@ -1,6 +1,7 @@
 package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.CarStats;
+import uk.co.mruoc.race.core.RaceData;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -14,8 +15,9 @@ import java.util.Iterator;
 import static javax.swing.BorderFactory.createEtchedBorder;
 import static javax.swing.border.EtchedBorder.LOWERED;
 
-public class StatusPane extends JEditorPane {
+public class StatusPane extends JEditorPane implements RaceUpdateListener, LoadRaceListener {
 
+    private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
     private final HtmlBuilder builder = new HtmlBuilder();
 
     public StatusPane() {
@@ -24,11 +26,23 @@ public class StatusPane extends JEditorPane {
         setBorder(createEtchedBorder(LOWERED));
     }
 
-    public void setCssRules(CssRules cssRules) {
+    @Override
+    public void raceUpdated(RaceData raceData) {
+        updateStatus(raceData.getAllCarStats());
+    }
+
+    @Override
+    public void raceLoaded(RaceData raceData) {
+        CssRules cssRules = carStatsToCssRulesConverter.toCssRules(raceData.getAllCarStats());
+        setCssRules(cssRules);
+        raceUpdated(raceData);
+    }
+
+    private void setCssRules(CssRules cssRules) {
         setEditorKit(buildEditorKit(cssRules));
     }
 
-    public void updateStatus(Iterator<CarStats> carStats) {
+    private void updateStatus(Iterator<CarStats> carStats) {
         try {
             Document document = getDocument();
             document.remove(0, document.getLength());
