@@ -39,69 +39,33 @@ public class WindowActions {
     }
 
     private RaceAction buildShowLapNumberWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new LapNumberTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new LapNumberPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowLapNumberPopupWindowAction(window);
+        ShowStatPopupWindowFactory factory = new ShowLapNumberPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowTimeDifferenceWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new TimeDifferenceTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new TimeDifferencePopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowTimeDifferencePopupWindowAction(window);
+        ShowStatPopupWindowFactory factory = new ShowTimeDifferencePopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowAverageLapSpeedWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new AverageLapSpeedTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new AverageLapSpeedPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowAverageLapSpeedAction(window);
+        ShowStatPopupWindowFactory factory = new ShowAverageLapSpeedPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowMaximumAverageLapSpeedWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new MaximumAverageLapSpeedTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new MaximumAverageLapSpeedPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowMaximumAverageLapSpeedAction(window);
+        ShowStatPopupWindowFactory factory = new ShowMaximumAverageLapSpeedPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowPitStopWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new PitStopTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new PitStopPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowPitStopWindowAction(window);
+        ShowStatPopupWindowFactory factory = new ShowPitStopPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     private RaceAction buildShowRetiredWindowAction(ControlActions controlActions, JDesktopPane desktopPane) {
-        CarStatTableModel tableModel = new RetiredTableModel();
-        controlActions.addTimeChangeListener(tableModel);
-        controlActions.addLoadRaceListener(tableModel);
-
-        JInternalFrame window = new RetiredPopupWindow(tableModel, cellRenderer);
-        desktopPane.add(window);
-
-        return new ShowRetiredPopupWindowAction(window);
+        ShowStatPopupWindowFactory factory = new ShowRetiredPopupWindowFactory(cellRenderer);
+        return factory.build(controlActions, desktopPane);
     }
 
     public JButton getShowPositionWindowButton() {
