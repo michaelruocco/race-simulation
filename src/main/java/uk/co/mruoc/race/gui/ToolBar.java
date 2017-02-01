@@ -22,6 +22,12 @@ public class ToolBar extends JToolBar {
         add(windowActions.getShowMaxAverageLapSpeedWindowButton());
         add(windowActions.getShowPitStopWindowButton());
         add(windowActions.getShowRetiredWindowButton());
+        addSeparator();
+
+        add(windowActions.getShowReportWindowButton());
+        addSeparator();
+
+        add(windowActions.getShowAboutWindowButton());
     }
 
 }

@@ -9,9 +9,10 @@ import java.awt.*;
 public class AboutPopupWindow extends PopupWindow {
 
     public AboutPopupWindow() {
-        super(new AboutPane(), false);
+        super(false);
         setTitle("About");
         setPreferredSize(new Dimension(400, 330));
+        add(new JScrollPane(new AboutPane()));
         pack();
     }
 

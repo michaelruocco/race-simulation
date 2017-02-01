@@ -13,6 +13,7 @@ public class WindowActions {
     private final ShowPopupWindowAction pitStopWindowAction;
     private final ShowPopupWindowAction retiredWindowAction;
 
+    private final ShowReportPopupWindowAction reportWindowAction;
     private final ShowPopupWindowAction aboutWindowAction;
 
     public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
@@ -25,6 +26,7 @@ public class WindowActions {
         pitStopWindowAction = new ShowPitStopPopupWindowActionFactory().buildAction(controlActions);
         retiredWindowAction = new ShowRetiredPopupWindowActionFactory().buildAction(controlActions);
 
+        reportWindowAction = new ShowReportPopupWindowActionFactory().buildAction(controlActions, desktop);
         aboutWindowAction = new ShowAboutPopupWindowAction();
 
         addWindowsToDesktop(desktop);
@@ -75,6 +77,14 @@ public class WindowActions {
         return retiredWindowAction.getButton();
     }
 
+    public JButton getShowReportWindowButton() {
+        return reportWindowAction.getButton();
+    }
+
+    public JButton getShowAboutWindowButton() {
+        return aboutWindowAction.getButton();
+    }
+
     public JMenuItem getShowPositionWindowMenuItem() {
         return positionWindowAction.getMenuItem();
     }
@@ -105,6 +115,10 @@ public class WindowActions {
 
     public JMenuItem getShowRetiredWindowMenuItem() {
         return retiredWindowAction.getMenuItem();
+    }
+
+    public JMenuItem getShowReportWindowMenuItem() {
+        return reportWindowAction.getMenuItem();
     }
 
     public JMenuItem getShowAboutWindowMenuItem() {

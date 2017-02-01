@@ -20,6 +20,11 @@ public class StatusPane extends JEditorPane implements RaceUpdateListener, LoadR
     private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
     private final HtmlBuilder builder = new HtmlBuilder();
 
+    public StatusPane(RaceData raceData) {
+        this();
+        raceLoaded(raceData);
+    }
+
     public StatusPane() {
         setEditable(false);
         setContentType("text/html");
