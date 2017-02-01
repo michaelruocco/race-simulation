@@ -2,7 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 
-public class StatWindowActions {
+public class WindowActions {
 
     private final ShowPopupWindowAction positionWindowAction;
     private final ShowPopupWindowAction speedWindowAction;
@@ -13,7 +13,9 @@ public class StatWindowActions {
     private final ShowPopupWindowAction pitStopWindowAction;
     private final ShowPopupWindowAction retiredWindowAction;
 
-    public StatWindowActions(ControlActions controlActions, JDesktopPane desktop) {
+    private final ShowPopupWindowAction aboutWindowAction;
+
+    public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
         positionWindowAction = new ShowPositionPopupWindowActionFactory().buildAction(controlActions);
         speedWindowAction = new ShowSpeedPopupWindowActionFactory().buildAction(controlActions);
         lapNumberWindowAction = new ShowLapNumberPopupWindowActionFactory().buildAction(controlActions);
@@ -23,18 +25,22 @@ public class StatWindowActions {
         pitStopWindowAction = new ShowPitStopPopupWindowActionFactory().buildAction(controlActions);
         retiredWindowAction = new ShowRetiredPopupWindowActionFactory().buildAction(controlActions);
 
+        aboutWindowAction = new ShowAboutPopupWindowAction();
+
         addWindowsToDesktop(desktop);
     }
 
-    private void addWindowsToDesktop(JDesktopPane desktopPane) {
-        desktopPane.add(positionWindowAction.getWindow());
-        desktopPane.add(speedWindowAction.getWindow());
-        desktopPane.add(lapNumberWindowAction.getWindow());
-        desktopPane.add(timeDifferenceWindowAction.getWindow());
-        desktopPane.add(averageLapSpeedWindowAction.getWindow());
-        desktopPane.add(maxAverageLapSpeedWindowAction.getWindow());
-        desktopPane.add(pitStopWindowAction.getWindow());
-        desktopPane.add(retiredWindowAction.getWindow());
+    private void addWindowsToDesktop(JDesktopPane desktop) {
+        desktop.add(positionWindowAction.getWindow());
+        desktop.add(speedWindowAction.getWindow());
+        desktop.add(lapNumberWindowAction.getWindow());
+        desktop.add(timeDifferenceWindowAction.getWindow());
+        desktop.add(averageLapSpeedWindowAction.getWindow());
+        desktop.add(maxAverageLapSpeedWindowAction.getWindow());
+        desktop.add(pitStopWindowAction.getWindow());
+        desktop.add(retiredWindowAction.getWindow());
+
+        desktop.add(aboutWindowAction.getWindow());
     }
 
     public JButton getShowPositionWindowButton() {
@@ -99,6 +105,10 @@ public class StatWindowActions {
 
     public JMenuItem getShowRetiredWindowMenuItem() {
         return retiredWindowAction.getMenuItem();
+    }
+
+    public JMenuItem getShowAboutWindowMenuItem() {
+        return aboutWindowAction.getMenuItem();
     }
 
 }

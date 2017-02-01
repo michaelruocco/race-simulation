@@ -23,11 +23,10 @@ public class MainWindow extends JFrame implements TimeChangeListener, LoadRaceLi
         JDesktopPane desktop = new JDesktopPane();
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
-        StatWindowActions statWindowActions = new StatWindowActions(controlActions, desktop);
+        WindowActions windowActions = new WindowActions(controlActions, desktop);
 
-        MenuBar menuBar = new MenuBar(controlActions, statWindowActions);
-        ToolBar toolBar = new ToolBar(controlActions, statWindowActions);
-
+        MenuBar menuBar = new MenuBar(controlActions, windowActions);
+        ToolBar toolBar = new ToolBar(controlActions, windowActions);
         this.statusPanel = new StatusPanel(controlActions);
 
         setJMenuBar(menuBar);
