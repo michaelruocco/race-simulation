@@ -76,7 +76,7 @@ public class IntegrationTest {
 
     @Test
     public void shouldPrintErrorMessageAndHelpIfFileIsInvalid() {
-        String[] args = new String[] { "-m", "console", "-f", "data/invalidformat.dat" };
+        String[] args = new String[] { "-m", "console", "-f", "data/invalid-format.dat" };
 
         Main.main(args);
 
