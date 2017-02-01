@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowTimeDifferencePopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowTimeDifferencePopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowTimeDifferencePopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowTimeDifferencePopupWindowFactory extends ShowStatPopupWindowFac
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new TimeDifferencePopupWindow(tableModel, cellRenderer);
     }
 

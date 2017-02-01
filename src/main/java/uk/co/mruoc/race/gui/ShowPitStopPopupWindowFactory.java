@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowPitStopPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowPitStopPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowPitStopPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowPitStopPopupWindowFactory extends ShowStatPopupWindowFactory {
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new PitStopPopupWindow(tableModel, cellRenderer);
     }
 

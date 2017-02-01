@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowPositionPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowPositionPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowPositionPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowPositionPopupWindowFactory extends ShowStatPopupWindowFactory {
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new PositionPopupWindow(tableModel, cellRenderer);
     }
 

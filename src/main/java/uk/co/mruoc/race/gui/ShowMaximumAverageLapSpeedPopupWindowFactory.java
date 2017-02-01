@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowMaximumAverageLapSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowMaximumAverageLapSpeedPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowMaximumAverageLapSpeedPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowMaximumAverageLapSpeedPopupWindowFactory extends ShowStatPopupW
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new MaximumAverageLapSpeedPopupWindow(tableModel, cellRenderer);
     }
 

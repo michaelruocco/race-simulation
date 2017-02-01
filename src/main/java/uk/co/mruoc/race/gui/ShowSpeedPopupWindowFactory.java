@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowSpeedPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowSpeedPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowSpeedPopupWindowFactory extends ShowStatPopupWindowFactory {
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new SpeedPopupWindow(tableModel, cellRenderer);
     }
 

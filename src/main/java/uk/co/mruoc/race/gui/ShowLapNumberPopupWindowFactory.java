@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowLapNumberPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowLapNumberPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowLapNumberPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowLapNumberPopupWindowFactory extends ShowStatPopupWindowFactory 
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new LapNumberPopupWindow(tableModel, cellRenderer);
     }
 

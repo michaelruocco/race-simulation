@@ -5,10 +5,8 @@ import javax.swing.table.TableCellRenderer;
 
 public class ShowRetiredPopupWindowFactory extends ShowStatPopupWindowFactory {
 
-    private final TableCellRenderer cellRenderer;
-
-    public ShowRetiredPopupWindowFactory(TableCellRenderer cellRenderer) {
-        this.cellRenderer = cellRenderer;
+    public ShowRetiredPopupWindowFactory(ControlActions controlActions) {
+        super(controlActions);
     }
 
     @Override
@@ -17,7 +15,7 @@ public class ShowRetiredPopupWindowFactory extends ShowStatPopupWindowFactory {
     }
 
     @Override
-    protected JInternalFrame buildWindow(CarStatTableModel tableModel) {
+    protected JInternalFrame buildWindow(CarStatTableModel tableModel, TableCellRenderer cellRenderer) {
         return new RetiredPopupWindow(tableModel, cellRenderer);
     }
 
