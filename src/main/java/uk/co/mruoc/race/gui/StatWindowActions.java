@@ -2,7 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 
-public class WindowActions {
+public class StatWindowActions {
 
     private final ShowPopupWindowAction positionWindowAction;
     private final ShowPopupWindowAction speedWindowAction;
@@ -13,7 +13,7 @@ public class WindowActions {
     private final ShowPopupWindowAction pitStopWindowAction;
     private final ShowPopupWindowAction retiredWindowAction;
 
-    public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
+    public StatWindowActions(ControlActions controlActions, JDesktopPane desktop) {
         positionWindowAction = new ShowPositionPopupWindowActionFactory().buildAction(controlActions);
         speedWindowAction = new ShowSpeedPopupWindowActionFactory().buildAction(controlActions);
         lapNumberWindowAction = new ShowLapNumberPopupWindowActionFactory().buildAction(controlActions);

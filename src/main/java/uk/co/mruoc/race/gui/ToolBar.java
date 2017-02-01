@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class ToolBar extends JToolBar {
 
-    public ToolBar(ControlActions controlActions, WindowActions windowActions) {
+    public ToolBar(ControlActions controlActions, StatWindowActions statWindowActions) {
         add(controlActions.getShowOpenFileDialogButton());
         addSeparator();
 
@@ -14,14 +14,14 @@ public class ToolBar extends JToolBar {
         add(controlActions.getShowControlDialogButton());
         addSeparator();
 
-        add(windowActions.getShowPositionWindowButton());
-        add(windowActions.getShowSpeedWindowButton());
-        add(windowActions.getShowLapNumberWindowButton());
-        add(windowActions.getShowTimeDifferenceWindowButton());
-        add(windowActions.getShowAverageLapSpeedWindowButton());
-        add(windowActions.getShowMaxAverageLapSpeedWindowButton());
-        add(windowActions.getShowPitStopWindowButton());
-        add(windowActions.getShowRetiredWindowButton());
+        add(statWindowActions.getShowPositionWindowButton());
+        add(statWindowActions.getShowSpeedWindowButton());
+        add(statWindowActions.getShowLapNumberWindowButton());
+        add(statWindowActions.getShowTimeDifferenceWindowButton());
+        add(statWindowActions.getShowAverageLapSpeedWindowButton());
+        add(statWindowActions.getShowMaxAverageLapSpeedWindowButton());
+        add(statWindowActions.getShowPitStopWindowButton());
+        add(statWindowActions.getShowRetiredWindowButton());
     }
 
 }

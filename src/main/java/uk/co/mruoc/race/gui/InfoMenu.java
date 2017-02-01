@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class InfoMenu extends JMenu {
 
-    public InfoMenu(WindowActions actions) {
+    public InfoMenu(StatWindowActions actions) {
         super("Info");
 
         add(actions.getShowPositionWindowMenuItem());
