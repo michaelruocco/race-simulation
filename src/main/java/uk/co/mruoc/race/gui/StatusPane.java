@@ -18,17 +18,18 @@ import static javax.swing.border.EtchedBorder.LOWERED;
 public class StatusPane extends JEditorPane implements RaceUpdateListener, LoadRaceListener {
 
     private final CarStatsToCssRulesConverter carStatsToCssRulesConverter = new CarStatsToCssRulesConverter();
-    private final HtmlBuilder builder = new HtmlBuilder();
+    private final HtmlBuilder htmlBuilder;
 
-    public StatusPane(RaceData raceData) {
-        this();
+    public StatusPane(HtmlBuilder htmlBuilder, RaceData raceData) {
+        this(htmlBuilder);
         raceLoaded(raceData);
     }
 
-    public StatusPane() {
+    public StatusPane(HtmlBuilder htmlBuilder) {
         setEditable(false);
         setContentType("text/html");
         setBorder(createEtchedBorder(LOWERED));
+        this.htmlBuilder = htmlBuilder;
     }
 
     @Override
@@ -51,7 +52,7 @@ public class StatusPane extends JEditorPane implements RaceUpdateListener, LoadR
         try {
             Document document = getDocument();
             document.remove(0, document.getLength());
-            setText(builder.build(carStats));
+            setText(htmlBuilder.build(carStats));
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
         }

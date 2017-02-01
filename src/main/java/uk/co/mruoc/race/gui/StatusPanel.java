@@ -9,7 +9,7 @@ public class StatusPanel extends JPanel {
     private final StatusPane statusPane;
 
     public StatusPanel(ControlActions controlActions) {
-        this.statusPane = new StatusPane();
+        this.statusPane = new StatusPane(new StatusPanelHtmlBuilder());
         this.clockPanel = new ClockPanel();
 
         setPreferredSize(new Dimension(220, 800));

@@ -14,6 +14,17 @@ public class RaceDataTest {
     private final RaceDataBuilder builder = new RaceDataBuilder();
 
     @Test
+    public void timeShouldDefaultToZeroTime() {
+        RaceData raceData = builder
+                .setCarDataList(Collections.emptyList())
+                .build();
+
+        ElapsedTime time = raceData.getTime();
+
+        assertThat(time).isEqualTo(new ElapsedTime());
+    }
+
+    @Test
     public void shouldReturnQueryTimes() {
         List<ElapsedTime> queryTimes = Collections.singletonList(new ElapsedTime());
         RaceData raceData = builder
@@ -80,6 +91,7 @@ public class RaceDataTest {
 
         assertThat(carData1.getTime()).isEqualTo(time);
         assertThat(carData2.getTime()).isEqualTo(time);
+        assertThat(raceData.getTime()).isEqualTo(time);
     }
 
     @Test

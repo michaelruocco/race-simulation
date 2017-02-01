@@ -15,7 +15,9 @@ public class RaceData {
     private final List<ElapsedTime> queryTimes;
     private final List<CarData> carDataList;
     private final ElapsedTime endTime;
+
     private RaceStats raceStats;
+    private ElapsedTime time;
 
     private RaceData(RaceDataBuilder builder) {
         this.queryTimes = builder.queryTimes;
@@ -40,6 +42,7 @@ public class RaceData {
         LOG.debug("set time " + time);
         carDataList.forEach(c -> c.setTime(time));
         raceStats = buildRaceStats(time);
+        this.time = time;
     }
 
     public Iterator<CarStats> getAllCarStats() {
@@ -64,6 +67,10 @@ public class RaceData {
 
     public int getCarCount() {
         return carDataList.size();
+    }
+
+    public ElapsedTime getTime() {
+        return time;
     }
 
     private ElapsedTime extractEndTime(List<CarData> carDataList) {
