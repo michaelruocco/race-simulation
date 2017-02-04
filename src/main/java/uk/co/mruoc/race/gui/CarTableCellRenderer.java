@@ -9,15 +9,19 @@ import java.awt.*;
 
 public class CarTableCellRenderer extends DefaultTableCellRenderer implements LoadRaceListener {
 
-    private static final CarToColorConverter CAR_COLOR_TO_CONVERTER = new CarToColorConverter();
+    private final CarToColorConverter carToColorConverter;
     private RaceData raceData;
+
+    public CarTableCellRenderer(CarToColorConverter carToColorConverter) {
+        this.carToColorConverter = carToColorConverter;
+    }
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         CarStats stats = getCarStats(row);
         c.setFont(c.getFont().deriveFont(Font.BOLD));
-        c.setForeground(CAR_COLOR_TO_CONVERTER.toColor(stats.getCarId()));
+        c.setForeground(carToColorConverter.toColor(stats.getCarId()));
         return c;
     }
 

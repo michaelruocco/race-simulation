@@ -5,8 +5,10 @@ import javax.swing.table.TableCellRenderer;
 
 public abstract class ShowStatPopupWindowActionFactory {
 
+    private static final CarToColorConverter CAR_TO_COLOR_CONVERTER = new CarToColorConverter();
+
     public ShowPopupWindowAction buildAction(ControlActions controlActions) {
-        CarTableCellRenderer cellRenderer = new CarTableCellRenderer();
+        CarTableCellRenderer cellRenderer = new CarTableCellRenderer(CAR_TO_COLOR_CONVERTER);
         controlActions.addLoadRaceListener(cellRenderer);
 
         CarStatTableModel tableModel = buildTableModel();
