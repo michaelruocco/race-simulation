@@ -4,6 +4,7 @@ import uk.co.mruoc.race.gui.Corner.CornerBuilder;
 import uk.co.mruoc.race.gui.Straight.StraightBuilder;
 
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,15 +12,15 @@ import static uk.co.mruoc.race.gui.TrackPartToTrackSplitsConverter.toSplits;
 
 public class MainTrackPathDefinition implements TrackPathDefinition {
 
-    private final Checkpoint checkpoint1 = new Checkpoint(1, 0.7);
-    private final Checkpoint checkpoint2 = new Checkpoint(2, 0.7);
-    private final Checkpoint checkpoint3 = new Checkpoint(3, 1.0);
+    private final Checkpoint checkpoint1 = new Checkpoint(1, BigDecimal.valueOf(0.7));
+    private final Checkpoint checkpoint2 = new Checkpoint(2, BigDecimal.valueOf(0.7));
+    private final Checkpoint checkpoint3 = new Checkpoint(3, BigDecimal.valueOf(1.0));
 
-    private final Checkpoint checkpoint6 = new Checkpoint(6, 1.0);
-    private final Checkpoint checkpoint7 = new Checkpoint(7, 0.7);
-    private final Checkpoint checkpoint8 = new Checkpoint(8, 0.0);
-    private final Checkpoint checkpoint9 = new Checkpoint(9, 0.6);
-    private final Checkpoint checkpoint0 = new Checkpoint(0, 1.0);
+    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(1.0));
+    private final Checkpoint checkpoint7 = new Checkpoint(7, BigDecimal.valueOf(0.7));
+    private final Checkpoint checkpoint8 = new Checkpoint(8, BigDecimal.valueOf(0.0));
+    private final Checkpoint checkpoint9 = new Checkpoint(9, BigDecimal.valueOf(0.6));
+    private final Checkpoint checkpoint0 = new Checkpoint(0, BigDecimal.valueOf(1.0));
 
     private final Straight straight1 = new StraightBuilder()
             .setStart(new Point(150, 50))

@@ -4,6 +4,7 @@ import uk.co.mruoc.race.gui.Corner.CornerBuilder;
 import uk.co.mruoc.race.gui.Straight.StraightBuilder;
 
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
@@ -11,9 +12,9 @@ import static uk.co.mruoc.race.gui.TrackPartToTrackSplitsConverter.toSplits;
 
 public class PitTrackPathDefinition implements TrackPathDefinition {
 
-    private final Checkpoint checkpoint4 = new Checkpoint(4, 0.3);
-    private final Checkpoint checkpoint5 = new Checkpoint(5, 0.6);
-    private final Checkpoint checkpoint6 = new Checkpoint(6, 1);
+    private final Checkpoint checkpoint4 = new Checkpoint(4, BigDecimal.valueOf(0.3));
+    private final Checkpoint checkpoint5 = new Checkpoint(5, BigDecimal.valueOf(0.6));
+    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(1));
 
     private final Corner corner1 = new CornerBuilder()
             .setStart(new Point(450, 111))
