@@ -39,12 +39,12 @@ public class Main {
     }
 
     private static void process(Arguments arguments) {
-        if (arguments.showHelp()) {
+        if (arguments.shouldShowHelp()) {
             showHelp();
             return;
         }
 
-        if (arguments.runGui()) {
+        if (arguments.shouldRunGui()) {
             runGui(arguments.getFile());
             return;
         }

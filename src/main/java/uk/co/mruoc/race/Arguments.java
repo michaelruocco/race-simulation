@@ -22,11 +22,11 @@ public class Arguments {
         this.loadFromClasspath = loadFromClasspath;
     }
 
-    public boolean runGui() {
+    public boolean shouldRunGui() {
         return mode.equals(GUI);
     }
 
-    public boolean showHelp() {
+    public boolean shouldShowHelp() {
         return help;
     }
 
