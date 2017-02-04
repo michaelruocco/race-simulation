@@ -4,6 +4,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
+import uk.co.mruoc.race.Arguments.ArgumentsBuilder;
 
 public class ArgumentParser {
 
@@ -33,9 +34,14 @@ public class ArgumentParser {
     private Arguments toArguments(CommandLine commandLine) {
         Mode mode = parseMode(commandLine);
         String filePath = parseFilePath(commandLine);
-        boolean help = parseHelp(commandLine);
+        boolean showHelp = parseHelp(commandLine);
         boolean loadFromClasspath = isDefaultPath(filePath);
-        return new Arguments(mode, filePath, help, loadFromClasspath);
+        return new ArgumentsBuilder()
+                .setMode(mode)
+                .setFilePath(filePath)
+                .setShowHelp(showHelp)
+                .setLoadFromClasspath(loadFromClasspath)
+                .build();
     }
 
     private boolean parseHelp(CommandLine commandLine) {

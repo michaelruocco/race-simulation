@@ -15,11 +15,11 @@ public class Arguments {
     private final boolean help;
     private final boolean loadFromClasspath;
 
-    public Arguments(Mode mode, String filePath, boolean help, boolean loadFromClasspath) {
-        this.mode = mode;
-        this.filePath = filePath;
-        this.help = help;
-        this.loadFromClasspath = loadFromClasspath;
+    private Arguments(ArgumentsBuilder builder) {
+        this.mode = builder.mode;
+        this.filePath = builder.filePath;
+        this.help = builder.help;
+        this.loadFromClasspath = builder.loadFromClasspath;
     }
 
     public boolean shouldRunGui() {
@@ -34,6 +34,39 @@ public class Arguments {
         if (loadFromClasspath)
             return fileLoader.load(filePath);
         return new File(filePath);
+    }
+
+    public static class ArgumentsBuilder {
+
+        private Mode mode;
+        private String filePath;
+        private boolean help;
+        private boolean loadFromClasspath;
+
+        public ArgumentsBuilder setMode(Mode mode) {
+            this.mode = mode;
+            return this;
+        }
+
+        public ArgumentsBuilder setFilePath(String filePath) {
+            this.filePath = filePath;
+            return this;
+        }
+
+        public ArgumentsBuilder setShowHelp(boolean help) {
+            this.help = help;
+            return this;
+        }
+
+        public ArgumentsBuilder setLoadFromClasspath(boolean loadFromClasspath) {
+            this.loadFromClasspath = loadFromClasspath;
+            return this;
+        }
+
+        public Arguments build() {
+            return new Arguments(this);
+        }
+
     }
 
 }

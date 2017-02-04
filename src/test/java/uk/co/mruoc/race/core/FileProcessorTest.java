@@ -20,7 +20,7 @@ public class FileProcessorTest {
     private static final String END_TIME = "00:50:48.85";
 
     private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
-    private final File file = fileLoader.load("/uk/co/mruoc/race/core/raceinfo.dat");
+    private final File file = fileLoader.load("/uk/co/mruoc/race/core/default-race.dat");
 
     private final Track track = new DefaultTrack();
     private final FileProcessor loader = new FileProcessor(new FileLinesToCarDataConverter(new FileLinesToSplitsConverter(track)));
