@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class CarTableCellRenderer extends DefaultTableCellRenderer implements LoadRaceListener {
 
-    private static final CarColorToConverter CAR_COLOR_TO_CONVERTER = new CarColorToConverter();
+    private static final CarToColorConverter CAR_COLOR_TO_CONVERTER = new CarToColorConverter();
     private RaceData raceData;
 
     @Override

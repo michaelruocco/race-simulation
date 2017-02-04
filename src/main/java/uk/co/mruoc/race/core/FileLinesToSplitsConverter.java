@@ -39,6 +39,7 @@ public class FileLinesToSplitsConverter {
         boolean pit = isPit(startLine, endLine);
         return new SplitBuilder()
                 .setCarId(startLine.getCarId())
+                .setStartCheckpointId(startLine.getCheckpointId())
                 .setEndCheckpointId(endLine.getCheckpointId())
                 .setRetired(endLine.isRetired())
                 .setPit(pit)

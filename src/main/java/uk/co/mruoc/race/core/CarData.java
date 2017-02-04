@@ -70,6 +70,18 @@ public class CarData {
         return lapStats.getAverageLapSpeed();
     }
 
+    public String getSplitId() {
+        if (!hasLapStats())
+            return "";
+        return lapStats.getSplitId();
+    }
+
+    public BigDecimal getSplitProgress() {
+        if (!hasLapStats())
+            return BigDecimal.ZERO;
+        return lapStats.getSplitProgress();
+    }
+
     public BigDecimal getMaximumAverageLapSpeed() {
         if (!hasCompletedAtLeastOneLap())
             return BigDecimal.ZERO;

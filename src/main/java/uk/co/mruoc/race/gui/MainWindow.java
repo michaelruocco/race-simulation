@@ -26,6 +26,12 @@ public class MainWindow extends JFrame {
         MenuBar menuBar = new MenuBar(controlActions, windowActions);
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
         this.statusPanel = new StatusPanel(controlActions);
+        TrackPanel trackPanel = new TrackPanel(new TrackDefinition());
+        controlActions.addLoadRaceListener(trackPanel);
+        controlActions.addRaceUpdateListener(trackPanel);
+
+        JInternalFrame trackWindow = new TrackWindow(trackPanel);
+        desktop.add(trackWindow);
 
         setJMenuBar(menuBar);
 

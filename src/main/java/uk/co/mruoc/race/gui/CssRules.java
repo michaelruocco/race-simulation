@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CssRules implements Iterable<String> {
 
-    private final CarColorToConverter colorConverter = new CarColorToConverter();
+    private final CarToColorConverter colorConverter = new CarToColorConverter();
     private final List<String> rules = new ArrayList<>();
 
     public CssRules(List<Integer> ids) {

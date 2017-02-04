@@ -116,4 +116,20 @@ public class CarStatsTest {
         assertThat(carStats.getRetiredTime()).isEqualTo(retiredTime);
     }
 
+    @Test
+    public void shouldReturnSplitId() {
+        String splitId = "0-1";
+        given(carData.getSplitId()).willReturn(splitId);
+
+        assertThat(carStats.getSplitId()).isEqualTo(splitId);
+    }
+
+    @Test
+    public void shouldReturnSplitProgress() {
+        BigDecimal splitProgress = BigDecimal.valueOf(0.5);
+        given(carData.getSplitProgress()).willReturn(splitProgress);
+
+        assertThat(carStats.getSplitProgress()).isEqualTo(splitProgress);
+    }
+
 }

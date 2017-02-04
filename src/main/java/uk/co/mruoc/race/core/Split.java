@@ -11,6 +11,7 @@ public class Split {
 
     private final SpeedCalculator speedCalculator = new SpeedCalculator();
 
+    private final String id;
     private final int carId;
     private final int endCheckpointId;
     private final boolean retired;
@@ -21,11 +22,11 @@ public class Split {
     private final BigDecimal startDistance;
     private final BigDecimal splitDistance;
     private final BigDecimal splitSpeed;
-    private ElapsedTime time;
 
     private Split(SplitBuilder builder) {
         this.carId = builder.carId;
         this.endCheckpointId = builder.endCheckpointId;
+        this.id = builder.startCheckpointId + "-" + builder.endCheckpointId;
         this.retired = builder.retired;
         this.pit = builder.pit;
         this.startTime = builder.startTime;
@@ -34,6 +35,10 @@ public class Split {
         this.startDistance = builder.startDistance;
         this.splitDistance = builder.splitDistance;
         this.splitSpeed = calculateSplitSpeed();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public int getCarId() {
@@ -78,6 +83,7 @@ public class Split {
         BigDecimal totalDistance = calculateTotalDistance(distance);
         BigDecimal speed = calculateSpeedAt(time);
         return new SplitStatsBuilder()
+                .setId(id)
                 .setProgress(progress)
                 .setDistance(distance)
                 .setTotalDistance(totalDistance)
@@ -143,6 +149,7 @@ public class Split {
     public static class SplitBuilder {
 
         private int carId;
+        private int startCheckpointId;
         private int endCheckpointId;
         private boolean retired;
         private boolean pit;
@@ -153,6 +160,11 @@ public class Split {
 
         public SplitBuilder setCarId(int carId) {
             this.carId = carId;
+            return this;
+        }
+
+        public SplitBuilder setStartCheckpointId(int startCheckpointId) {
+            this.startCheckpointId = startCheckpointId;
             return this;
         }
 
@@ -198,6 +210,5 @@ public class Split {
         }
 
     }
-
 
 }

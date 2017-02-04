@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SplitTest {
 
     private static final int CAR_ID = 1;
+    private static final int START_CHECKPOINT_ID = 1;
     private static final int END_CHECKPOINT_ID = 2;
     private static final boolean RETIRED = false;
     private static final boolean PIT = true;
@@ -23,9 +24,11 @@ public class SplitTest {
     private static final ElapsedTime HALF_TIME = new ElapsedTime("00:00:30.000");
     private static final BigDecimal START_DISTANCE = valueOf(200);
     private static final BigDecimal SPLIT_DISTANCE = valueOf(300);
+    private static final String ID = START_CHECKPOINT_ID + "-" + END_CHECKPOINT_ID;
 
     private final SplitBuilder builder = new SplitBuilder()
             .setCarId(CAR_ID)
+            .setStartCheckpointId(START_CHECKPOINT_ID)
             .setEndCheckpointId(END_CHECKPOINT_ID)
             .setRetired(RETIRED)
             .setPit(PIT)
@@ -35,6 +38,11 @@ public class SplitTest {
             .setSplitDistance(SPLIT_DISTANCE);
 
     private final Split split = builder.build();
+
+    @Test
+    public void shouldReturnId() {
+        assertThat(split.getId()).isEqualTo(ID);
+    }
 
     @Test
     public void shouldReturnCarId() {
@@ -205,6 +213,35 @@ public class SplitTest {
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
         assertThat(stats.getSpeed()).isEqualTo(ZERO);
+    }
+
+    @Test
+    public void shouldReturnProgress() {
+        Split split = builder.build();
+
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getProgress()).isEqualTo(BigDecimal.valueOf(0.5));
+    }
+
+    @Test
+    public void shouldReturnProgressAdjustedIfRetired() {
+        builder.setRetired(true);
+        Split split = builder.build();
+
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getProgress()).isEqualTo(BigDecimal.valueOf(0.1).setScale(2, HALF_UP));
+    }
+
+    @Test
+    public void shouldReturnIdFromStats() {
+        builder.setRetired(true);
+        Split split = builder.build();
+
+        SplitStats stats = split.getStatsAt(HALF_TIME);
+
+        assertThat(stats.getId()).isEqualTo(ID);
     }
 
 }

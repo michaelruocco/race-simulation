@@ -5,7 +5,7 @@ import java.util.*;
 
 import static java.awt.Color.*;
 
-public class CarColorToConverter {
+public class CarToColorConverter {
 
     private static final Color DARK_GREEN = new Color(0, 204, 0);
     private static final Color DARK_ORANGE = new Color(255, 128, 0);

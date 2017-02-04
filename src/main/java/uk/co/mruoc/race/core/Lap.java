@@ -58,7 +58,8 @@ public class Lap {
                 .setTotalDistance(splitStats.getTotalDistance())
                 .setDistance(splitStats.getDistance())
                 .setSpeed(splitStats.getSpeed())
-                .setProgress(splitStats.getProgress())
+                .setSplitId(splitStats.getId())
+                .setSplitProgress(splitStats.getProgress())
                 .setAverageLapSpeed(averageLapSpeed)
                 .build();
     }

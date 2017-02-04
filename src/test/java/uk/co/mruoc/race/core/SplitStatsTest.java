@@ -12,6 +12,15 @@ public class SplitStatsTest {
     private final SplitStatsBuilder builder = new SplitStatsBuilder();
 
     @Test
+    public void shouldReturnId() {
+        String id = "0-1";
+
+        SplitStats stats = builder.setId(id).build();
+
+        assertThat(stats.getId()).isEqualTo(id);
+    }
+
+    @Test
     public void shouldReturnTotalDistance() {
         BigDecimal totalDistance = BigDecimal.valueOf(100);
 

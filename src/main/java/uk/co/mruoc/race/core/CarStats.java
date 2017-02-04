@@ -68,4 +68,12 @@ public class CarStats {
         return carData.getRetiredTime();
     }
 
+    public String getSplitId() {
+        return carData.getSplitId();
+    }
+
+    public BigDecimal getSplitProgress() {
+        return carData.getSplitProgress();
+    }
+
 }

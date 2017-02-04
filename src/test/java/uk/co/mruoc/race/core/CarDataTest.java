@@ -127,6 +127,34 @@ public class CarDataTest {
     }
 
     @Test
+    public void shouldReturnSplitIdAtGivenTime() {
+        String splitId = "0-1";
+        LapStats lapStats = mock(LapStats.class);
+        given(lapStats.getSplitId()).willReturn(splitId);
+
+        ElapsedTime time = new ElapsedTime("00:30:30.000");
+        given(lap2.getStatsAt(time)).willReturn(lapStats);
+
+        carData.setTime(time);
+
+        assertThat(carData.getSplitId()).isEqualTo(splitId);
+    }
+
+    @Test
+    public void shouldReturnSplitProgressAtGivenTime() {
+        BigDecimal splitProgress = BigDecimal.valueOf(0.5);
+        LapStats lapStats = mock(LapStats.class);
+        given(lapStats.getSplitProgress()).willReturn(splitProgress);
+
+        ElapsedTime time = new ElapsedTime("00:30:30.000");
+        given(lap2.getStatsAt(time)).willReturn(lapStats);
+
+        carData.setTime(time);
+
+        assertThat(carData.getSplitProgress()).isEqualTo(splitProgress);
+    }
+
+    @Test
     public void shouldReturnMaxmimumAverageLapSpeedAtGivenTime() {
         BigDecimal maximumAverageLapSpeed = BigDecimal.valueOf(0.6);
         ElapsedTime time = new ElapsedTime("00:30:30.000");

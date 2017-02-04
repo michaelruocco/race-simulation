@@ -39,12 +39,21 @@ public class LapStatsTest {
     }
 
     @Test
-    public void shouldReturnProgress() {
-        BigDecimal progress = BigDecimal.valueOf(0.8);
+    public void shouldReturnSplitId() {
+        String splitId = "0-1";
 
-        LapStats stats = builder.setProgress(progress).build();
+        LapStats stats = builder.setSplitId(splitId).build();
 
-        assertThat(stats.getProgress()).isEqualTo(progress);
+        assertThat(stats.getSplitId()).isEqualTo(splitId);
+    }
+
+    @Test
+    public void shouldReturnSplitProgress() {
+        BigDecimal splitProgress = BigDecimal.valueOf(0.8);
+
+        LapStats stats = builder.setSplitProgress(splitProgress).build();
+
+        assertThat(stats.getSplitProgress()).isEqualTo(splitProgress);
     }
 
     @Test

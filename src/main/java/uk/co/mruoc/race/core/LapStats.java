@@ -7,14 +7,16 @@ public class LapStats {
     private final BigDecimal totalDistance;
     private final BigDecimal distance;
     private final BigDecimal speed;
-    private final BigDecimal progress;
+    private final String splitId;
+    private final BigDecimal splitProgress;
     private final BigDecimal averageLapSpeed;
 
     private LapStats(LapStatsBuilder builder) {
         this.totalDistance = builder.totalDistance;
         this.distance = builder.distance;
         this.speed = builder.speed;
-        this.progress = builder.progress;
+        this.splitId = builder.splitId;
+        this.splitProgress = builder.splitProgress;
         this.averageLapSpeed = builder.averageLapSpeed;
     }
 
@@ -30,8 +32,12 @@ public class LapStats {
         return speed;
     }
 
-    public BigDecimal getProgress() {
-        return progress;
+    public String getSplitId() {
+        return splitId;
+    }
+
+    public BigDecimal getSplitProgress() {
+        return splitProgress;
     }
 
     public BigDecimal getAverageLapSpeed() {
@@ -43,7 +49,8 @@ public class LapStats {
         private BigDecimal totalDistance;
         private BigDecimal distance;
         private BigDecimal speed;
-        private BigDecimal progress;
+        private BigDecimal splitProgress;
+        private String splitId;
         private BigDecimal averageLapSpeed;
 
         public LapStatsBuilder setTotalDistance(BigDecimal totalDistance) {
@@ -61,8 +68,13 @@ public class LapStats {
             return this;
         }
 
-        public LapStatsBuilder setProgress(BigDecimal progress) {
-            this.progress = progress;
+        public LapStatsBuilder setSplitId(String splitId) {
+            this.splitId = splitId;
+            return this;
+        }
+
+        public LapStatsBuilder setSplitProgress(BigDecimal splitProgress) {
+            this.splitProgress = splitProgress;
             return this;
         }
 
