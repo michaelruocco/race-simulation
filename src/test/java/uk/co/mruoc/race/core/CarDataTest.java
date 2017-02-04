@@ -54,6 +54,16 @@ public class CarDataTest {
     }
 
     @Test
+    public void splitIdShouldDefaultToEmptyString() {
+        assertThat(carData.getSplitId()).isEmpty();
+    }
+
+    @Test
+    public void splitProgressShouldDefaultToZero() {
+        assertThat(carData.getSplitProgress()).isEqualTo(BigDecimal.ZERO);
+    }
+
+    @Test
     public void shouldReturnEndTimeOfLastLap() {
         ElapsedTime endTime = new ElapsedTime("00:00:35.123");
         given(lap2.getEndTime()).willReturn(endTime);

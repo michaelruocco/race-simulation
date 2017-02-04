@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 
 public class FileLinesToSplitsConverterTest {
 
@@ -62,6 +61,20 @@ public class FileLinesToSplitsConverterTest {
 
         Split split = splits.get(0);
         assertThat(split.getCarId()).isEqualTo(carId);
+    }
+
+    @Test
+    public void shouldPopulateSplitId() {
+        int startCheckpointId = 8;
+        int endCheckpointId = 9;
+        List<FileLine> lines = new ArrayList<>();
+        lines.add(builder.setCheckpointId(startCheckpointId).build());
+        lines.add(builder.setCheckpointId(endCheckpointId).build());
+
+        List<Split> splits = converter.toSplits(lines);
+
+        Split split = splits.get(0);
+        assertThat(split.getId()).isEqualTo(startCheckpointId + "-" + endCheckpointId);
     }
 
     @Test

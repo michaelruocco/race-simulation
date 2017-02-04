@@ -9,6 +9,8 @@ import java.net.URL;
 
 public class ClasspathFileLoader {
 
+    private static final String DEFAULT_ENCODING = "UTF-8";
+
     public File load(String path) {
         try {
             URL url = getClass().getResource(path);
@@ -21,7 +23,7 @@ public class ClasspathFileLoader {
     public String loadContent(String path) {
         try {
             File file = load(path);
-            return FileUtils.readFileToString(file, "UTF-8");
+            return FileUtils.readFileToString(file, DEFAULT_ENCODING);
         } catch (IOException e) {
             throw new FileLoadException(e);
         }
