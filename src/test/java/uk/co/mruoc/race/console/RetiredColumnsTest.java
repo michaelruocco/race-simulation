@@ -32,15 +32,6 @@ public class RetiredColumnsTest {
     }
 
     @Test
-    public void shouldBeIterable() {
-        int count = 0;
-        for (Column column : columns)
-            count++;
-
-        assertThat(count).isEqualTo(columns.size());
-    }
-
-    @Test
     public void shouldReturnHeaderRow() {
         assertThat(columns.getHeaderRow()).isEqualTo("| ID " +
                 "| Retired Time " +
