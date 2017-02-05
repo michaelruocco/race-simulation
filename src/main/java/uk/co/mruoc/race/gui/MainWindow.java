@@ -13,8 +13,6 @@ import static javax.swing.JDesktopPane.OUTLINE_DRAG_MODE;
 
 public class MainWindow extends JFrame {
 
-    private final StatusPanel statusPanel;
-
     public MainWindow(ControlActions controlActions) {
         super("Race Simulation");
 
@@ -25,7 +23,9 @@ public class MainWindow extends JFrame {
 
         MenuBar menuBar = new MenuBar(controlActions, windowActions);
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
-        this.statusPanel = new StatusPanel(controlActions);
+
+        JPanel statusPanel = new StatusPanel(controlActions);
+
         TrackPanel trackPanel = new TrackPanel(new TrackDefinition());
         controlActions.addLoadRaceListener(trackPanel);
         controlActions.addRaceUpdateListener(trackPanel);
