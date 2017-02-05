@@ -35,7 +35,6 @@ public class ArgumentParser {
         Mode mode = parseMode(commandLine);
         String filePath = parseFilePath(commandLine);
         boolean showHelp = parseHelp(commandLine);
-        boolean loadFromClasspath = isDefaultPath(filePath);
         return new ArgumentsBuilder()
                 .setMode(mode)
                 .setFilePath(filePath)
@@ -67,10 +66,6 @@ public class ArgumentParser {
 
     private String buildInvalidOptionMessage(String option) {
         return "invalid option: " + option;
-    }
-
-    private boolean isDefaultPath(String path) {
-        return DEFAULT_FILE_PATH.equals(path);
     }
 
 }
