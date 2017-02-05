@@ -54,11 +54,24 @@ tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
+def mainClass = 'uk.co.mruoc.race.Main'
+
 task allJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'uk.co.mruoc.race.Main'
+        attributes 'Main-Class': mainClass
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+task runGui(type: JavaExec) {
+    main = mainClass
+    classpath = configurations.runtime + sourceSets.main.output
+}
+
+task runConsole(type: JavaExec) {
+    main = mainClass
+    classpath = configurations.runtime + sourceSets.main.output
+    args = [ '-m', 'console' ]
 }
