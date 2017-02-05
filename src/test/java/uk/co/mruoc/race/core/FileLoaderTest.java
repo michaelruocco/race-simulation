@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.core;
 
 import org.junit.Test;
-import uk.co.mruoc.time.ElapsedTimeFormatException;
 
 import java.io.FileNotFoundException;
 import java.util.List;
