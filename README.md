@@ -1,5 +1,9 @@
 # Race Simulation
 
+[![Build Status](https://travis-ci.org/michaelruocco/race-simulation.svg?branch=master)](https://travis-ci.org/michaelruocco/race-simulation)
+[![Coverage Status](https://coveralls.io/repos/github/michaelruocco/race-simulation/badge.svg?branch=master)](https://coveralls.io/github/michaelruocco/race-simulation?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/db5e4e7a12ad47718874540378fb8c97)](https://www.codacy.com/app/michaelruocco/race-simulation?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=michaelruocco/race-simulation&amp;utm_campaign=Badge_Grade)
+
 This project is a re-work of an old university project. the project was originally
 set as part of the CS223 - Introduction to Software Engineering module in the second
 year of a Computer Science degree at Warwick University. It was originally done as
