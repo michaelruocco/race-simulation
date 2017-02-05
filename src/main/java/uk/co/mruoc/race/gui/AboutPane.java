@@ -1,6 +1,6 @@
 package uk.co.mruoc.race.gui;
 
-import uk.co.mruoc.race.core.ClasspathFileLoader;
+import uk.co.mruoc.race.core.FileLoader;
 
 import javax.swing.*;
 import javax.swing.text.EditorKit;
@@ -11,7 +11,7 @@ public class AboutPane extends JEditorPane {
 
     private static final String CONTENT_FILE_PATH = "/uk/co/mruoc/race/gui/html/about.html";
 
-    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
+    private final FileLoader fileLoader = new FileLoader();
 
     public AboutPane() {
         setEditable(false);

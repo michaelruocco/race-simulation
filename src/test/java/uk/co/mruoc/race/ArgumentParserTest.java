@@ -3,10 +3,6 @@ package uk.co.mruoc.race;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.junit.Test;
-import uk.co.mruoc.race.core.FileLineFormatException;
-import uk.co.mruoc.time.ElapsedTimeFormatException;
-
-import java.io.File;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
@@ -39,22 +35,18 @@ public class ArgumentParserTest {
     }
 
     @Test
-    public void shouldReturnDefaultRaceFileIfNoPathProvided() {
+    public void shouldReturnDefaultFilePathIfNoPathProvided() {
         Arguments arguments = parser.parse();
 
-        File file = arguments.getFile();
-
-        assertThat(file.getName()).isEqualTo("default-race.dat");
+        assertThat(arguments.getFilePath()).isEqualTo("/uk/co/mruoc/race/default-race.dat");
     }
 
     @Test
-    public void shouldReturnRaceFile() {
+    public void shouldReturnSpecifiedFilePath() {
         String path = "data/all-retired.dat";
         Arguments arguments = parser.parse("-f", path);
 
-        File file = arguments.getFile();
-
-        assertThat(file.getPath()).isEqualTo(path);
+        assertThat(arguments.getFilePath()).isEqualTo(path);
     }
 
     @Test

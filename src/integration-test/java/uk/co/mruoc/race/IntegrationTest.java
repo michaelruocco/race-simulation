@@ -3,7 +3,7 @@ package uk.co.mruoc.race;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
-import uk.co.mruoc.race.core.ClasspathFileLoader;
+import uk.co.mruoc.race.core.FileLoader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +12,7 @@ public class IntegrationTest {
     @Rule
     public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
 
-    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
+    private final FileLoader fileLoader = new FileLoader();
 
     @Test
     public void shouldPrintRaceReportToStandardOut() {
@@ -67,7 +67,7 @@ public class IntegrationTest {
 
         Main.main(args);
 
-        assertThat(systemOutRule.getLog()).isEqualTo("file /invalid/path does not exist\n" +
+        assertThat(systemOutRule.getLog()).isEqualTo("file /invalid/path not found\n" +
                 "usage: race-simulation\n" +
                 " -f,--file-path <arg>   Race data file path\n" +
                 " -h,--help              Displays usage help\n" +

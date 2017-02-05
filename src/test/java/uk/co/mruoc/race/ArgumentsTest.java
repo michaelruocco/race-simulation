@@ -37,23 +37,11 @@ public class ArgumentsTest {
     }
 
     @Test
-    public void shouldReturnFileFromClasspath() {
+    public void shouldReturnFilePath() {
         String path = "/uk/co/mruoc/race/core/default-race.dat";
-        Arguments arguments = builder.setFilePath(path).setLoadFromClasspath(true).build();
+        Arguments arguments = builder.setFilePath(path).build();
 
-        File file = arguments.getFile();
-
-        assertThat(file.getName()).isEqualTo("default-race.dat");
-    }
-
-    @Test
-    public void shouldReturnFile() {
-        String path = "data/default-race.dat";
-        Arguments arguments = builder.setFilePath(path).setLoadFromClasspath(false).build();
-
-        File file = arguments.getFile();
-
-        assertThat(file.getPath()).isEqualTo(path);
+        assertThat(arguments.getFilePath()).isEqualTo(path);
     }
 
 }

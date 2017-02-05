@@ -4,6 +4,7 @@ import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
@@ -19,16 +20,17 @@ public class FileProcessorTest {
     private static final String START_TIME = "00:00:00.00";
     private static final String END_TIME = "00:50:48.85";
 
-    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
-    private final File file = fileLoader.load("/uk/co/mruoc/race/core/default-race.dat");
+    private static final String PATH = "/uk/co/mruoc/race/core/default-race.dat";
 
     private final Track track = new DefaultTrack();
-    private final FileProcessor loader = new FileProcessor(new FileLinesToCarDataConverter(new FileLinesToSplitsConverter(track)));
+    private final FileLoader fileLoader = new FileLoader();
+    private final InputStream stream = fileLoader.load(PATH);
+    private final FileProcessor processor = new FileProcessor(new FileLinesToCarDataConverter(new FileLinesToSplitsConverter(track)));
     private final ElapsedTimeParser timeParser = new ElapsedTimeParser();
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartLapNumbers() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -38,7 +40,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndLapNumbers() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -48,7 +50,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredStatsWithCorrectStartLapNumbers() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -58,7 +60,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredStatsWithCorrectEndLapNumbers() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -68,7 +70,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartDistances() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -78,7 +80,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndDistances() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -88,7 +90,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectStartDistances() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -98,7 +100,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectEndDistances() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -108,7 +110,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectStartPositions() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -118,7 +120,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnCarStatsWithCorrectEndPositions() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(CAR_ID);
@@ -128,7 +130,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectStartPositions() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(START_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -138,7 +140,7 @@ public class FileProcessorTest {
 
     @Test
     public void shouldReturnRetiredCarStatsWithCorrectEndPositions() {
-        RaceData raceData = loader.process(file);
+        RaceData raceData = processor.process(stream);
         raceData.setTime(timeParser.parse(END_TIME));
 
         CarStats stats = raceData.getCarStatsById(RETIRED_CAR_ID);
@@ -148,11 +150,11 @@ public class FileProcessorTest {
 
     @Test
     public void shouldThrowErrorIfFileDoesNotExist() {
-        when(loader).process(new File("nonExistent"));
+        when(processor).process(new File("nonExistent"));
 
         then(caughtException())
-                .isInstanceOf(FileProcessingException.class)
-                .hasMessage("file /Users/michaelruocco/git/github/race-simulation/nonExistent does not exist");
+                .isInstanceOf(FileLoadException.class)
+                .hasMessage("file /Users/michaelruocco/git/github/race-simulation/nonExistent not found");
     }
 
 }

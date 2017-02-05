@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ClasspathFileLoaderTest {
+public class FileLoaderTest {
 
-    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
+    private final FileLoader fileLoader = new FileLoader();
 
     @Test
     public void shouldReturnFileContent() {

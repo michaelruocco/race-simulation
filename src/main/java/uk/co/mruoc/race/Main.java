@@ -9,7 +9,7 @@ import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
 
-import java.io.File;
+import java.io.InputStream;
 
 import static javax.swing.SwingUtilities.invokeLater;
 
@@ -45,18 +45,18 @@ public class Main {
         }
 
         if (arguments.shouldRunGui()) {
-            runGui(arguments.getFile());
+            runGui(arguments.getFilePath());
             return;
         }
 
-        runConsole(arguments.getFile());
+        runConsole(arguments.getFilePath());
     }
 
     private static void showHelp() {
         HELP_PRINTER.print(OPTIONS);
     }
 
-    private static void runGui(File file) {
+    private static void runGui(String filePath) {
         invokeLater(() -> {
             Engine engine = new Engine();
             ControlActions controlActions = new ControlActions(engine);
@@ -65,23 +65,25 @@ public class Main {
             MainWindow window = new MainWindow(controlActions);
             controlActions.setWindow(window);
 
-            RaceData raceData = loadRaceData(file);
+            RaceData raceData = loadRaceData(filePath);
             controlActions.loadRace(raceData);
             window.setVisible(true);
         });
     }
 
-    private static void runConsole(File file) {
-        RaceData raceData = loadRaceData(file);
+    private static void runConsole(String filePath) {
+        RaceData raceData = loadRaceData(filePath);
         ReportsBuilder builder = new ReportsBuilder();
         String report = builder.build(raceData);
         System.out.println(report);
     }
 
-    private static RaceData loadRaceData(File file) {
+    private static RaceData loadRaceData(String filePath) {
         Track track = new DefaultTrack();
         RaceDataLoader loader = new RaceDataLoader(track);
-        return loader.loadRaceData(file);
+        FileLoader fileLoader = new FileLoader();
+        InputStream stream = fileLoader.load(filePath);
+        return loader.loadRaceData(stream);
     }
 
 }

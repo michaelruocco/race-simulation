@@ -53,3 +53,12 @@ integrationTest.mustRunAfter test
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
+
+task allJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'uk.co.mruoc.race.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

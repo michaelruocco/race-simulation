@@ -1,25 +1,17 @@
 package uk.co.mruoc.race;
 
-import uk.co.mruoc.race.core.ClasspathFileLoader;
-
-import java.io.File;
-
 import static uk.co.mruoc.race.Mode.GUI;
 
 public class Arguments {
 
-    private final ClasspathFileLoader fileLoader = new ClasspathFileLoader();
-
     private final Mode mode;
     private final String filePath;
     private final boolean help;
-    private final boolean loadFromClasspath;
 
     private Arguments(ArgumentsBuilder builder) {
         this.mode = builder.mode;
         this.filePath = builder.filePath;
         this.help = builder.help;
-        this.loadFromClasspath = builder.loadFromClasspath;
     }
 
     public boolean shouldRunGui() {
@@ -30,10 +22,8 @@ public class Arguments {
         return help;
     }
 
-    public File getFile() {
-        if (loadFromClasspath)
-            return fileLoader.load(filePath);
-        return new File(filePath);
+    public String getFilePath() {
+        return filePath;
     }
 
     public static class ArgumentsBuilder {
@@ -41,7 +31,6 @@ public class Arguments {
         private Mode mode;
         private String filePath;
         private boolean help;
-        private boolean loadFromClasspath;
 
         public ArgumentsBuilder setMode(Mode mode) {
             this.mode = mode;
@@ -55,11 +44,6 @@ public class Arguments {
 
         public ArgumentsBuilder setShowHelp(boolean help) {
             this.help = help;
-            return this;
-        }
-
-        public ArgumentsBuilder setLoadFromClasspath(boolean loadFromClasspath) {
-            this.loadFromClasspath = loadFromClasspath;
             return this;
         }
 

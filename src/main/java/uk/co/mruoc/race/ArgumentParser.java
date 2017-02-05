@@ -40,7 +40,6 @@ public class ArgumentParser {
                 .setMode(mode)
                 .setFilePath(filePath)
                 .setShowHelp(showHelp)
-                .setLoadFromClasspath(loadFromClasspath)
                 .build();
     }
 
