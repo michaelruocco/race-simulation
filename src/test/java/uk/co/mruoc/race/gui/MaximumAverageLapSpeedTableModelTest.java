@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 
 public class MaximumAverageLapSpeedTableModelTest {
 
+    private final CarStats stats = mock(CarStats.class);
     private final MaximumAverageLapSpeedTableModel model = new MaximumAverageLapSpeedTableModel();
 
     @Test
@@ -21,14 +22,11 @@ public class MaximumAverageLapSpeedTableModelTest {
 
     @Test
     public void shouldFormatAverageLapSpeedIfOnFirstLap() {
-        CarStats stats = mock(CarStats.class);
-
         assertThat(model.getValueAt(stats, 0)).isEqualTo("-");
     }
 
     @Test
     public void shouldFormatAverageLapSpeed() {
-        CarStats stats = mock(CarStats.class);
         given(stats.getLapNumber()).willReturn(2);
         given(stats.getMaximumAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.05));
 
@@ -37,7 +35,6 @@ public class MaximumAverageLapSpeedTableModelTest {
 
     @Test
     public void shouldFormatCarId() {
-        CarStats stats = mock(CarStats.class);
         given(stats.getCarId()).willReturn(2);
 
         assertThat(model.getValueAt(stats, 1)).isEqualTo("2");

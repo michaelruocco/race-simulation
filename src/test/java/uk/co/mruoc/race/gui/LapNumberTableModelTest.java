@@ -11,6 +11,7 @@ import static org.mockito.Mockito.mock;
 
 public class LapNumberTableModelTest {
 
+    private final CarStats stats = mock(CarStats.class);
     private final LapNumberTableModel model = new LapNumberTableModel();
 
     @Test
@@ -21,7 +22,6 @@ public class LapNumberTableModelTest {
 
     @Test
     public void shouldFormatAverageLapSpeed() {
-        CarStats stats = mock(CarStats.class);
         given(stats.getLapNumber()).willReturn(2);
 
         assertThat(model.getValueAt(stats, 0)).isEqualTo("2");
@@ -29,7 +29,6 @@ public class LapNumberTableModelTest {
 
     @Test
     public void shouldFormatCarId() {
-        CarStats stats = mock(CarStats.class);
         given(stats.getCarId()).willReturn(4);
 
         assertThat(model.getValueAt(stats, 1)).isEqualTo("4");
