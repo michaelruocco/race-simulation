@@ -21,12 +21,12 @@ public class MaximumAverageLapSpeedTableModelTest {
     }
 
     @Test
-    public void shouldFormatAverageLapSpeedIfOnFirstLap() {
+    public void shouldFormatMaximumAverageLapSpeedIfOnFirstLap() {
         assertThat(model.getValueAt(stats, 0)).isEqualTo("-");
     }
 
     @Test
-    public void shouldFormatAverageLapSpeed() {
+    public void shouldFormatMaximumAverageLapSpeed() {
         given(stats.getLapNumber()).willReturn(2);
         given(stats.getMaximumAverageLapSpeed()).willReturn(BigDecimal.valueOf(0.05));
 
