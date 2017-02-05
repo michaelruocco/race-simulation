@@ -1,5 +1,7 @@
 # Race Simulation
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/db5e4e7a12ad47718874540378fb8c97)](https://www.codacy.com/app/michaelruocco/race-simulation?utm_source=github.com&utm_medium=referral&utm_content=michaelruocco/race-simulation&utm_campaign=badger)
+
 This project is a re-work of an old university project. the project was originally
 set as part of the CS223 - Introduction to Software Engineering module in the second
 year of a Computer Science degree at Warwick University. It was originally done as
