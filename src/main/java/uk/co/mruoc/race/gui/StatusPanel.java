@@ -5,12 +5,9 @@ import java.awt.*;
 
 public class StatusPanel extends JPanel {
 
-    private final ClockPanel clockPanel;
-    private final StatusPane statusPane;
-
     public StatusPanel(ControlActions controlActions) {
-        this.statusPane = new StatusPane(new StatusPanelHtmlBuilder());
-        this.clockPanel = new ClockPanel();
+        StatusPane statusPane = new StatusPane(new StatusPanelHtmlBuilder());
+        ClockPanel clockPanel = new ClockPanel();
 
         setPreferredSize(new Dimension(220, 800));
         setLayout(new BorderLayout());
