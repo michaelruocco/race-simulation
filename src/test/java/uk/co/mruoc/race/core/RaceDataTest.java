@@ -6,7 +6,6 @@ import uk.co.mruoc.time.ElapsedTime;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static uk.co.mruoc.race.core.RaceData.*;
 
 public class RaceDataTest {

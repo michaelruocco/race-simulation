@@ -3,7 +3,6 @@ package uk.co.mruoc.race.core;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

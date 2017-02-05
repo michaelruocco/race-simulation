@@ -178,7 +178,7 @@ public class SplitTest {
     @Test
     public void shouldReturnAdjustedSplitDistanceAtGivenTimeIfRetired() {
         Split split = builder.setRetired(true).build();
-        BigDecimal expectedDistance = BigDecimal.valueOf(30.0).setScale(2, HALF_UP);
+        BigDecimal expectedDistance = valueOf(30.0).setScale(2, HALF_UP);
 
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
@@ -188,7 +188,7 @@ public class SplitTest {
     @Test
     public void shouldReturnAdjustedTotalDistanceAtGivenTimeIfRetired() {
         Split split = builder.setRetired(true).build();
-        BigDecimal expectedDistance = BigDecimal.valueOf(230.0).setScale(2, HALF_UP);
+        BigDecimal expectedDistance = valueOf(230.0).setScale(2, HALF_UP);
 
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
@@ -221,7 +221,7 @@ public class SplitTest {
 
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
-        assertThat(stats.getProgress()).isEqualTo(BigDecimal.valueOf(0.5));
+        assertThat(stats.getProgress()).isEqualTo(valueOf(0.5));
     }
 
     @Test
@@ -231,7 +231,7 @@ public class SplitTest {
 
         SplitStats stats = split.getStatsAt(HALF_TIME);
 
-        assertThat(stats.getProgress()).isEqualTo(BigDecimal.valueOf(0.1).setScale(2, HALF_UP));
+        assertThat(stats.getProgress()).isEqualTo(valueOf(0.1).setScale(2, HALF_UP));
     }
 
     @Test
