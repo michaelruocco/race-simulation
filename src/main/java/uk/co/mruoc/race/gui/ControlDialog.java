@@ -12,13 +12,11 @@ public class ControlDialog {
     private final JLabel speedLabel = new JLabel("Speed");
     private final JLabel refreshLabel = new JLabel("Refresh Rate");
 
-    private final JSlider speedSlider;
-    private final JSlider refreshSlider;
     private final List<JComponent> components;
 
     public ControlDialog(ControlActions controlActions) {
-        speedSlider = controlActions.getDialogSpeedSlider();
-        refreshSlider = controlActions.getRefreshSlider();
+        JSlider speedSlider = controlActions.getDialogSpeedSlider();
+        JSlider refreshSlider = controlActions.getRefreshSlider();
         components = Arrays.asList(speedLabel, speedSlider, refreshLabel, refreshSlider);
     }
 
