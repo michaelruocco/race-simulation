@@ -6,10 +6,6 @@ public class FileLoadException extends RaceException {
         super(cause);
     }
 
-    public FileLoadException(String message) {
-        super(message);
-    }
-
     public FileLoadException(String message, Throwable cause) {
         super(message, cause);
     }
