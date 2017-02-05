@@ -9,8 +9,6 @@ import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
 
-import java.io.InputStream;
-
 import static javax.swing.SwingUtilities.invokeLater;
 
 public class Main {
@@ -71,19 +69,17 @@ public class Main {
         });
     }
 
-    private static void runConsole(String filePath) {
-        RaceData raceData = loadRaceData(filePath);
+    private static void runConsole(String path) {
+        RaceData raceData = loadRaceData(path);
         ReportsBuilder builder = new ReportsBuilder();
         String report = builder.build(raceData);
         System.out.println(report);
     }
 
-    private static RaceData loadRaceData(String filePath) {
+    private static RaceData loadRaceData(String path) {
         Track track = new DefaultTrack();
         RaceDataLoader loader = new RaceDataLoader(track);
-        FileLoader fileLoader = new FileLoader();
-        InputStream stream = fileLoader.load(filePath);
-        return loader.loadRaceData(stream);
+        return loader.loadRaceData(path);
     }
 
 }

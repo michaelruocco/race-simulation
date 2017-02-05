@@ -9,20 +9,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RaceDataLoaderTest {
 
-    private final FileLoader fileLoader = new FileLoader();
     private final RaceDataLoader raceDataLoader = new RaceDataLoader(new DefaultTrack());
 
     @Test
-    public void shouldReturnRaceDataFromInputStream() {
-        InputStream stream = fileLoader.load("/uk/co/mruoc/race/core/default-race.dat");
-
-        RaceData raceData = raceDataLoader.loadRaceData(stream);
+    public void shouldReturnRaceDataFromClasspathFile() {
+        RaceData raceData = raceDataLoader.loadRaceData("/uk/co/mruoc/race/core/default-race.dat");
 
         assertThat(raceData).isNotNull();
     }
 
     @Test
-    public void shouldReturnRaceDataFromFile() {
+    public void shouldReturnRaceDataFromFileSystemFile() {
         File file = new File("data/default-race.dat");
 
         RaceData raceData = raceDataLoader.loadRaceData(file);

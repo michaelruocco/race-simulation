@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.core;
 
 import java.io.File;
-import java.io.InputStream;
 
 public class RaceDataLoader {
 
@@ -12,13 +11,12 @@ public class RaceDataLoader {
     }
 
     public RaceData loadRaceData(File file) {
-        FileProcessor fileProcessor = buildFileProcessor();
-        return fileProcessor.process(file);
+        return loadRaceData(file.getAbsolutePath());
     }
 
-    public RaceData loadRaceData(InputStream stream) {
+    public RaceData loadRaceData(String path) {
         FileProcessor fileProcessor = buildFileProcessor();
-        return fileProcessor.process(stream);
+        return fileProcessor.process(path);
     }
 
     private FileProcessor buildFileProcessor() {

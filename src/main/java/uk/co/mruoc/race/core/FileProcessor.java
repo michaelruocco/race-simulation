@@ -3,8 +3,6 @@ package uk.co.mruoc.race.core;
 import uk.co.mruoc.race.core.RaceData.RaceDataBuilder;
 import uk.co.mruoc.time.ElapsedTime;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,13 +19,8 @@ public class FileProcessor {
         this.carDataConverter = carDataConverter;
     }
 
-    public RaceData process(File file) {
-        List<String> inputs = fileLoader.toLines(file);
-        return processLines(inputs);
-    }
-
-    public RaceData process(InputStream stream) {
-        List<String> inputs = fileLoader.toLines(stream);
+    public RaceData process(String path) {
+        List<String> inputs = fileLoader.loadLines(path);
         return processLines(inputs);
     }
 

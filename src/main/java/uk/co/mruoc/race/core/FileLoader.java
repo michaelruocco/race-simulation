@@ -1,6 +1,5 @@
 package uk.co.mruoc.race.core;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -10,35 +9,32 @@ public class FileLoader {
 
     private static final String DEFAULT_ENCODING = "UTF-8";
 
-    public InputStream load(String path) {
-        InputStream stream = loadFromClasspath(path);
-        if (stream == null)
-            return loadFromFileSystem(path);
-        return stream;
+    public List<String> loadLines(String path) {
+        InputStream stream = toStream(path);
+        return toLines(stream);
     }
 
     public String loadContent(String path) {
         try {
-            InputStream stream = load(path);
+            InputStream stream = toStream(path);
             return IOUtils.toString(stream, DEFAULT_ENCODING);
         } catch (IOException e) {
             throw new FileLoadException(e);
         }
     }
 
-    public List<String> toLines(InputStream stream) {
+    private InputStream toStream(String path) {
+        InputStream stream = loadFromClasspath(path);
+        if (stream == null)
+            stream = loadFromFileSystem(path);
+        return stream;
+    }
+
+    private List<String> toLines(InputStream stream) {
         try {
             return IOUtils.readLines(stream, DEFAULT_ENCODING);
         } catch (IOException e) {
             throw new FileLoadException(e);
-        }
-    }
-
-    public List<String> toLines(File file) {
-        try {
-            return FileUtils.readLines(file, DEFAULT_ENCODING);
-        } catch (IOException e) {
-            throw new FileLoadException(buildFileNotFoundMessage(file), e);
         }
     }
 
@@ -52,10 +48,6 @@ public class FileLoader {
         } catch (FileNotFoundException e) {
             throw new FileLoadException(buildFileNotFoundMessage(path), e);
         }
-    }
-
-    private String buildFileNotFoundMessage(File file) {
-        return buildFileNotFoundMessage(file.getAbsolutePath());
     }
 
     private String buildFileNotFoundMessage(String path) {
