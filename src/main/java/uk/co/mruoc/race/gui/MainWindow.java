@@ -1,8 +1,5 @@
 package uk.co.mruoc.race.gui;
 
-import uk.co.mruoc.race.core.RaceData;
-import uk.co.mruoc.time.ElapsedTime;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -26,7 +23,7 @@ public class MainWindow extends JFrame {
 
         JPanel statusPanel = new StatusPanel(controlActions);
 
-        TrackPanel trackPanel = new TrackPanel(new TrackDefinition());
+        TrackPanel trackPanel = new JavaTrackPanel(new TrackDefinition());
         controlActions.addLoadRaceListener(trackPanel);
         controlActions.addRaceUpdateListener(trackPanel);
 

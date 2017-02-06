@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-public class TrackWindow extends JInternalFrame {
+public class TrackWindow extends JInternalFrame implements ComponentListener {
 
     private static final int DEFAULT_WIDTH = 565;
     private static final int DEFAULT_HEIGHT = 370;
+
+    private final TrackPanel trackPanel;
 
     public TrackWindow(TrackPanel trackPanel) {
         super("Track", true, false, true, true);
@@ -19,8 +21,42 @@ public class TrackWindow extends JInternalFrame {
 
         setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         pack();
-        addComponentListener(trackPanel);
+        addComponentListener(this);
         setVisible(true);
+
+        this.trackPanel = trackPanel;
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        double newXScale = calculateXScale();
+        double newYScale = calculateYScale();
+        trackPanel.updateScale(newXScale, newYScale);
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // intentionally blank
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // intentionally blank
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // intentionally blank
+    }
+
+    private double calculateXScale() {
+        double widthDiff = getWidth() - DEFAULT_WIDTH;
+        return 1 + (widthDiff / DEFAULT_WIDTH);
+    }
+
+    private double calculateYScale() {
+        double heightDiff = getHeight() - DEFAULT_HEIGHT;
+        return 1 + (heightDiff / DEFAULT_HEIGHT);
     }
 
 }
