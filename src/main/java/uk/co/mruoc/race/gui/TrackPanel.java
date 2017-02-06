@@ -5,6 +5,8 @@ import uk.co.mruoc.race.core.RaceData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Iterator;
 
 import static java.awt.Color.DARK_GRAY;
@@ -12,7 +14,7 @@ import static java.awt.Color.WHITE;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
-public class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateListener {
+public class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateListener, ComponentListener {
 
     private static final Color DARK_GREEN = new Color(0, 100, 0);
     private static final Color EDGE_COLOR = WHITE;
@@ -26,6 +28,8 @@ public class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateLi
     private final CarPainter carPainter;
 
     private RaceData raceData;
+    private double xScale;
+    private double yScale;
 
     public TrackPanel(TrackDefinition trackDefinition) {
         setOpaque(true);
@@ -40,6 +44,7 @@ public class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateLi
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+        g2.scale(xScale, yScale);
 
         paintEdge(g2);
         paintTrack(g2);
@@ -101,4 +106,36 @@ public class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateLi
             carPainter.paint(carStats.next(), g);
     }
 
+    private double calculateXScale() {
+        int defaultWidth = trackDefinition.getDefaultWidth();
+        double widthDiff = getWidth() - defaultWidth;
+        return 1 + (widthDiff / defaultWidth);
+    }
+
+    private double calculateYScale() {
+        int defaultHeight = trackDefinition.getDefaultHeight();
+        double heightDiff = getHeight() - defaultHeight;
+        return 1 + (heightDiff / defaultHeight);
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        xScale = calculateXScale();
+        yScale = calculateYScale();
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+        // intentionally blank
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+        // intentionally blank
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+        // intentionally blank
+    }
 }
