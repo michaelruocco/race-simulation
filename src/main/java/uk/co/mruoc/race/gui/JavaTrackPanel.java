@@ -48,7 +48,7 @@ public class JavaTrackPanel extends TrackPanel {
 
         paintEdge(g2);
         paintTrack(g2);
-        paintCheckpoints(g2);
+        //paintCheckpoints(g2);
         paintCars(g2);
     }
 
