@@ -14,7 +14,6 @@ public class PitTrackPathDefinition implements TrackPathDefinition {
 
     private final Checkpoint checkpoint4 = new Checkpoint(4, BigDecimal.valueOf(0.3));
     private final Checkpoint checkpoint5 = new Checkpoint(5, BigDecimal.valueOf(0.6));
-    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(1));
 
     private final Corner corner1 = new CornerBuilder()
             .setStart(new Point(450, 111))
@@ -56,7 +55,6 @@ public class PitTrackPathDefinition implements TrackPathDefinition {
             .setControl1(new Point(450, 210))
             .setControl2(new Point(450, 250))
             .setEnd(new Point(360, 250))
-            .setCheckpoints(checkpoint6)
             .build();
 
     private final List<TrackPart> parts = Arrays.asList(

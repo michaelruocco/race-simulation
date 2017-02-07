@@ -16,7 +16,7 @@ public class MainTrackPathDefinition implements TrackPathDefinition {
     private final Checkpoint checkpoint2 = new Checkpoint(2, BigDecimal.valueOf(0.7));
     private final Checkpoint checkpoint3 = new Checkpoint(3, BigDecimal.valueOf(1.0));
 
-    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(1.0));
+    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(0));
     private final Checkpoint checkpoint7 = new Checkpoint(7, BigDecimal.valueOf(0.7));
     private final Checkpoint checkpoint8 = new Checkpoint(8, BigDecimal.valueOf(0.0));
     private final Checkpoint checkpoint9 = new Checkpoint(9, BigDecimal.valueOf(0.6));
@@ -46,13 +46,12 @@ public class MainTrackPathDefinition implements TrackPathDefinition {
             .setControl1(new Point(450, 210))
             .setControl2(new Point(450, 250))
             .setEnd(new Point(360, 250))
-            .setCheckpoints(checkpoint6)
             .build();
 
     private final Straight straight3 = new StraightBuilder()
             .setStart(new Point(359, 250))
             .setEnd(new Point(150, 250))
-            .setCheckpoints(checkpoint7)
+            .setCheckpoints(checkpoint6, checkpoint7)
             .build();
 
     private final Corner corner3 = new CornerBuilder()
