@@ -4,6 +4,7 @@ import org.apache.commons.collections4.ListUtils;
 
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 public class TrackDefinition {
 
@@ -19,6 +20,10 @@ public class TrackDefinition {
 
     public TrackPoint getTrackPoint(String splitId, BigDecimal splitProgress) {
         return splits.getTrackPoint(splitId, splitProgress);
+    }
+
+    public Collection<TrackPoint> getCheckpoints() {
+        return splits.getCheckpoints();
     }
 
     public Shape getMainPath() {

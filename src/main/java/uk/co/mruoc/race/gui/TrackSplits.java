@@ -1,10 +1,7 @@
 package uk.co.mruoc.race.gui;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TrackSplits {
 
@@ -17,6 +14,12 @@ public class TrackSplits {
     public TrackPoint getTrackPoint(String splitId, BigDecimal splitProgress) {
         TrackSplit split = get(splitId);
         return split.getPointByProgress(splitProgress);
+    }
+
+    public Collection<TrackPoint> getCheckpoints() {
+        Collection<TrackPoint> checkpoints = new ArrayList<>();
+        splits.values().forEach(s -> checkpoints.addAll(s.getCheckpoints()));
+        return checkpoints;
     }
 
     private TrackSplit get(String id) {

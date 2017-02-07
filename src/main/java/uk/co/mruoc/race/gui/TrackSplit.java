@@ -2,6 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class TrackSplit {
@@ -21,6 +22,14 @@ public class TrackSplit {
     public TrackPoint getPointByProgress(BigDecimal progress) {
         int index = toIndex(progress);
         return points.get(index);
+    }
+
+    public Collection<TrackPoint> getCheckpoints() {
+        Collection<TrackPoint> checkpoints = new ArrayList<>();
+        for (TrackPoint point : points)
+            if (point instanceof CheckpointTrackPoint)
+                checkpoints.add(point);
+        return checkpoints;
     }
 
     private int toIndex(BigDecimal progress) {

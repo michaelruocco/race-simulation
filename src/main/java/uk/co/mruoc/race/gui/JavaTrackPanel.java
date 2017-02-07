@@ -4,9 +4,12 @@ import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.RaceData;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
+import java.util.Collection;
 import java.util.Iterator;
 
 import static java.awt.Color.DARK_GRAY;
+import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
@@ -45,6 +48,7 @@ public class JavaTrackPanel extends TrackPanel {
 
         paintEdge(g2);
         paintTrack(g2);
+        paintCheckpoints(g2);
         paintCars(g2);
     }
 
@@ -101,6 +105,12 @@ public class JavaTrackPanel extends TrackPanel {
         g.setColor(TRACK_COLOR);
         g.setStroke(new BasicStroke(PIT_WIDTH - EDGE_WIDTH));
         g.draw(trackDefinition.getPitPath());
+    }
+
+    private void paintCheckpoints(Graphics2D g) {
+        Collection<TrackPoint> checkpoints = trackDefinition.getCheckpoints();
+        for (TrackPoint checkpoint : checkpoints)
+            checkpoint.paint(g);
     }
 
     private void paintCars(Graphics2D g) {

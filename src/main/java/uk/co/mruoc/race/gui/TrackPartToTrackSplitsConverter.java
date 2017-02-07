@@ -12,6 +12,7 @@ public class TrackPartToTrackSplitsConverter {
         for (TrackPart trackPart : trackParts) {
             List<TrackPoint> points = trackPart.getPoints();
             for (TrackPoint trackPoint : points) {
+                splitPoints.add(trackPoint);
                 if (trackPoint instanceof CheckpointTrackPoint) {
                     CheckpointTrackPoint checkpoint = (CheckpointTrackPoint) trackPoint;
                     int endCheckpointId = checkpoint.getId();
@@ -19,8 +20,6 @@ public class TrackPartToTrackSplitsConverter {
                     splits.add(new TrackSplit(id, splitPoints));
                     splitPoints = new ArrayList<>();
                     startCheckpointId = endCheckpointId;
-                } else {
-                    splitPoints.add(trackPoint);
                 }
             }
         }

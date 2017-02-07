@@ -2,12 +2,12 @@ package uk.co.mruoc.race.gui;
 
 import java.awt.*;
 
-import static java.awt.Color.RED;
+import static java.awt.Color.ORANGE;
 
 public class CheckpointTrackPoint extends TrackPoint {
 
     private static final int SIZE = 3;
-    private static final Color COLOR = RED;
+    private static final Color COLOR = ORANGE;
 
     private int id;
 
