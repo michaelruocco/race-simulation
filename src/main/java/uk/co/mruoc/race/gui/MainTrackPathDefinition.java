@@ -10,25 +10,25 @@ import java.util.List;
 
 import static uk.co.mruoc.race.gui.TrackPartToTrackSplitsConverter.toSplits;
 
-public class MainTrackPathDefinition implements TrackPathDefinition {
+public class MainTrackPathDefinition extends TrackPathDefinition {
 
-    private final Checkpoint checkpoint1 = new Checkpoint(1, BigDecimal.valueOf(0.7));
-    private final Checkpoint checkpoint2 = new Checkpoint(2, BigDecimal.valueOf(0.7));
-    private final Checkpoint checkpoint3 = new Checkpoint(3, BigDecimal.valueOf(1.0));
+    private static final Checkpoint checkpoint1 = new Checkpoint(1, new Point(297, 50));
+    private static final Checkpoint checkpoint2 = new Checkpoint(2, new Point(447, 88));
+    private static final Checkpoint checkpoint3 = new Checkpoint(3, new Point(449, 109));
 
-    private final Checkpoint checkpoint6 = new Checkpoint(6, BigDecimal.valueOf(0));
-    private final Checkpoint checkpoint7 = new Checkpoint(7, BigDecimal.valueOf(0.7));
-    private final Checkpoint checkpoint8 = new Checkpoint(8, BigDecimal.valueOf(0.0));
-    private final Checkpoint checkpoint9 = new Checkpoint(9, BigDecimal.valueOf(0.6));
-    private final Checkpoint checkpoint0 = new Checkpoint(0, BigDecimal.valueOf(1.0));
+    private static final Checkpoint checkpoint6 = new Checkpoint(6, new Point(359, 250));
+    private static final Checkpoint checkpoint7 = new Checkpoint(7, new Point(212, 250));
+    private static final Checkpoint checkpoint8 = new Checkpoint(8, new Point(70, 189));
+    private static final Checkpoint checkpoint9 = new Checkpoint(9, new Point(70, 141));
+    private static final Checkpoint checkpoint0 = new Checkpoint(0, new Point(146, 50));
 
-    private final Straight straight1 = new StraightBuilder()
+    private static final TrackPart straight1 = new StraightBuilder()
             .setStart(new Point(150, 50))
             .setEnd(new Point(360, 50))
             .setCheckpoints(checkpoint1)
             .build();
 
-    private final Corner corner1 = new CornerBuilder()
+    private static final TrackPart corner1 = new CornerBuilder()
             .setStart(new Point(361, 50))
             .setControl1(new Point(450, 50))
             .setControl2(new Point(450, 90))
@@ -36,38 +36,38 @@ public class MainTrackPathDefinition implements TrackPathDefinition {
             .setCheckpoints(checkpoint2, checkpoint3)
             .build();
 
-    private final Straight straight2 = new StraightBuilder()
+    private static final TrackPart straight2 = new StraightBuilder()
             .setStart(new Point(450, 111))
             .setEnd(new Point(450, 190))
             .build();
 
-    private final Corner corner2 = new CornerBuilder()
+    private static final TrackPart corner2 = new CornerBuilder()
             .setStart(new Point(450, 191))
             .setControl1(new Point(450, 210))
             .setControl2(new Point(450, 250))
             .setEnd(new Point(360, 250))
             .build();
 
-    private final Straight straight3 = new StraightBuilder()
+    private static final TrackPart straight3 = new StraightBuilder()
             .setStart(new Point(359, 250))
             .setEnd(new Point(150, 250))
             .setCheckpoints(checkpoint6, checkpoint7)
             .build();
 
-    private final Corner corner3 = new CornerBuilder()
+    private static final TrackPart corner3 = new CornerBuilder()
             .setStart(new Point(149, 250))
             .setControl1(new Point(70, 250))
             .setControl2(new Point(70, 210))
             .setEnd(new Point(70, 190))
             .build();
 
-    private final Straight straight4 = new StraightBuilder()
+    private static final TrackPart straight4 = new StraightBuilder()
             .setStart(new Point(70, 189))
             .setEnd(new Point(70, 110))
             .setCheckpoints(checkpoint8, checkpoint9)
             .build();
 
-    private final Corner corner4 = new CornerBuilder()
+    private static final TrackPart corner4 = new CornerBuilder()
             .setStart(new Point(70, 109))
             .setControl1(new Point(70, 90))
             .setControl2(new Point(70, 50))
@@ -75,7 +75,7 @@ public class MainTrackPathDefinition implements TrackPathDefinition {
             .setCheckpoints(checkpoint0)
             .build();
 
-    private final List<TrackPart> parts = Arrays.asList(
+    private static final List<TrackPart> parts = Arrays.asList(
             straight1,
             corner1,
             straight2,
@@ -86,16 +86,8 @@ public class MainTrackPathDefinition implements TrackPathDefinition {
             corner4
     );
 
-    private final List<TrackSplit> splits = toSplits(0, parts);
-
-    @Override
-    public List<TrackPart> getParts() {
-        return parts;
-    }
-
-    @Override
-    public List<TrackSplit> getSplits() {
-        return splits;
+    public MainTrackPathDefinition() {
+        super(0, parts);
     }
 
 }

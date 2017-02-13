@@ -4,6 +4,6 @@ import javax.swing.*;
 
 public abstract class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateListener {
 
-    public abstract void updateScale(double xScale, double yScale);
+    abstract void scale(ScaleParams params);
 
 }

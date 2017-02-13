@@ -7,24 +7,27 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.Collection;
 import java.util.Iterator;
 
+import static java.awt.Color.BLUE;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class ImageTrackPanel extends TrackPanel {
 
-    private final CarPainter carPainter;
-
     private final Image originalBackgroundImage;
+    private final TrackDefinition originalTrackDefinition;
 
     private RaceData raceData;
     private Image backgroundImage;
-    private double xScale;
-    private double yScale;
+    private TrackDefinition trackDefinition;
+    private CarPainter carPainter;
 
     public ImageTrackPanel(TrackDefinition trackDefinition) {
         setOpaque(true);
+        this.originalTrackDefinition = trackDefinition;
+        this.trackDefinition = trackDefinition;
         this.carPainter = new CarPainter(trackDefinition);
         this.originalBackgroundImage = loadBackgroundImage();
     }
@@ -36,14 +39,16 @@ public class ImageTrackPanel extends TrackPanel {
 
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-        g2.scale(xScale, yScale);
+
         paintCars(g2);
+        paintPath(g2);
+        paintCheckpoints(g2);
     }
 
     @Override
-    public void updateScale(double xScale, double yScale) {
-        this.xScale = xScale;
-        this.yScale = yScale;
+    public void scale(ScaleParams params) {
+        trackDefinition = originalTrackDefinition.scale(params);
+        carPainter = new CarPainter(trackDefinition);
         backgroundImage = originalBackgroundImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
     }
 
@@ -70,10 +75,22 @@ public class ImageTrackPanel extends TrackPanel {
         repaint();
     }
 
+    private void paintPath(Graphics2D g) {
+        g.setColor(BLUE);
+        g.draw(trackDefinition.getMainPath());
+        g.draw(trackDefinition.getPitPath());
+    }
+
     private void paintCars(Graphics2D g) {
         Iterator<CarStats> carStats = raceData.getAllCarStats();
         while (carStats.hasNext())
             carPainter.paint(carStats.next(), g);
+    }
+
+    private void paintCheckpoints(Graphics2D g) {
+        Collection<TrackPoint> checkpoints = trackDefinition.getCheckpoints();
+        for (TrackPoint checkpoint : checkpoints)
+            checkpoint.paint(g);
     }
 
 }

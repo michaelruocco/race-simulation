@@ -29,9 +29,8 @@ public class TrackWindow extends JInternalFrame implements ComponentListener {
 
     @Override
     public void componentResized(ComponentEvent e) {
-        double newXScale = calculateXScale();
-        double newYScale = calculateYScale();
-        trackPanel.updateScale(newXScale, newYScale);
+        ScaleParams params = calculateScale();
+        trackPanel.scale(params);
     }
 
     @Override
@@ -47,6 +46,12 @@ public class TrackWindow extends JInternalFrame implements ComponentListener {
     @Override
     public void componentHidden(ComponentEvent e) {
         // intentionally blank
+    }
+
+    private ScaleParams calculateScale() {
+        double x = calculateXScale();
+        double y = calculateYScale();
+        return new ScaleParams(x, y);
     }
 
     private double calculateXScale() {

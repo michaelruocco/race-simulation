@@ -8,16 +8,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Corner implements TrackPart {
+public class Corner implements TrackPart, Scalable<TrackPart> {
 
     private final CubicCurve2D curve;
+    private final List<Checkpoint> checkpoints;
     private final List<TrackPoint> trackPoints;
 
     private Corner(CornerBuilder builder) {
-        curve = builder.getCurve();
-        List<Checkpoint> checkpoints = builder.checkpoints;
+        this.curve = builder.getCurve();
+        this.checkpoints = builder.checkpoints;
         List<Point> points = toPoints(curve);
-        trackPoints = TrackPointsBuilder.toTrackPoints(points, checkpoints);
+        this.trackPoints = TrackPointsBuilder.toTrackPoints(points, checkpoints);
     }
 
     @Override
@@ -33,6 +34,22 @@ public class Corner implements TrackPart {
     @Override
     public void appendTo(GeneralPath path) {
         path.append(curve, true);
+    }
+
+    @Override
+    public TrackPart scale(ScaleParams params) {
+        Point scaledStart = PointScaler.scale(curve.getP1(), params);
+        Point scaledControl1 = PointScaler.scale(curve.getCtrlP1(), params);
+        Point scaledControl2 = PointScaler.scale(curve.getCtrlP2(), params);
+        Point scaledEnd = PointScaler.scale(curve.getP2(), params);
+        List<Checkpoint> scaledCheckpoints = CheckpointScaler.scale(checkpoints, params);
+        return new CornerBuilder()
+                .setStart(scaledStart)
+                .setControl1(scaledControl1)
+                .setControl2(scaledControl2)
+                .setEnd(scaledEnd)
+                .setCheckpoints(scaledCheckpoints)
+                .build();
     }
 
     private List<Point> toPoints(CubicCurve2D curve) {
@@ -82,7 +99,11 @@ public class Corner implements TrackPart {
         }
 
         public CornerBuilder setCheckpoints(Checkpoint... checkpoints) {
-            this.checkpoints = Arrays.asList(checkpoints);
+            return setCheckpoints(Arrays.asList(checkpoints));
+        }
+
+        public CornerBuilder setCheckpoints(List<Checkpoint> checkpoints) {
+            this.checkpoints = checkpoints;
             return this;
         }
 

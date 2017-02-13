@@ -4,12 +4,9 @@ import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.RaceData;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.util.Collection;
 import java.util.Iterator;
 
 import static java.awt.Color.DARK_GRAY;
-import static java.awt.Color.GRAY;
 import static java.awt.Color.WHITE;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
@@ -28,8 +25,7 @@ public class JavaTrackPanel extends TrackPanel {
     private final CarPainter carPainter;
 
     private RaceData raceData;
-    private double xScale;
-    private double yScale;
+    private ScaleParams scaleParams;
 
     public JavaTrackPanel(TrackDefinition trackDefinition) {
         setOpaque(true);
@@ -44,18 +40,16 @@ public class JavaTrackPanel extends TrackPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-        g2.scale(xScale, yScale);
+        g2.scale(scaleParams.getX(), scaleParams.getY());
 
         paintEdge(g2);
         paintTrack(g2);
-        //paintCheckpoints(g2);
         paintCars(g2);
     }
 
     @Override
-    public void updateScale(double xScale, double yScale) {
-        this.xScale = xScale;
-        this.yScale = yScale;
+    public void scale(ScaleParams scaleParams) {
+        this.scaleParams = scaleParams;
     }
 
     @Override
@@ -105,12 +99,6 @@ public class JavaTrackPanel extends TrackPanel {
         g.setColor(TRACK_COLOR);
         g.setStroke(new BasicStroke(PIT_WIDTH - EDGE_WIDTH));
         g.draw(trackDefinition.getPitPath());
-    }
-
-    private void paintCheckpoints(Graphics2D g) {
-        Collection<TrackPoint> checkpoints = trackDefinition.getCheckpoints();
-        for (TrackPoint checkpoint : checkpoints)
-            checkpoint.paint(g);
     }
 
     private void paintCars(Graphics2D g) {

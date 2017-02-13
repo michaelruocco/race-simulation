@@ -3,7 +3,6 @@ package uk.co.mruoc.race.gui;
 import org.junit.Test;
 
 import java.awt.*;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CheckpointTest {
 
     private static final int ID = 0;
-    private static final BigDecimal LOCATION = BigDecimal.valueOf(0.5);
+    private static final Point LOCATION = new Point(5, 5);
 
     @Test
     public void shouldReturnId() {
@@ -21,17 +20,24 @@ public class CheckpointTest {
     }
 
     @Test
-    public void shouldReturnIndexAsLocationPercentageOfListSize() {
+    public void shouldReturnIndexOfLocationInPoints() {
         Checkpoint checkpoint = new Checkpoint(ID, LOCATION);
-        List<Point> points = Arrays.asList(new Point(), new Point(), new Point(), new Point(), new Point(), new Point());
+        List<Point> points = Arrays.asList(new Point(1, 5),
+                new Point(2, 5),
+                new Point(3, 5),
+                LOCATION,
+                new Point(5, 5),
+                new Point(6, 5));
         assertThat(checkpoint.calculateIndex(points)).isEqualTo(3);
     }
 
     @Test
-    public void shouldReturnIndexLastIndexIfLocationIsOne() {
-        Checkpoint checkpoint = new Checkpoint(ID, BigDecimal.ONE);
-        List<Point> points = Arrays.asList(new Point(), new Point(), new Point(), new Point(), new Point(), new Point());
-        assertThat(checkpoint.calculateIndex(points)).isEqualTo(points.size() - 1);
+    public void shouldReturnIndexMinusOneIfLocationNotInPoints() {
+        Checkpoint checkpoint = new Checkpoint(ID, LOCATION);
+        List<Point> points = Arrays.asList(new Point(1, 5),
+                new Point(2, 5),
+                new Point(3, 5));
+        assertThat(checkpoint.calculateIndex(points)).isEqualTo(-1);
     }
 
 }
