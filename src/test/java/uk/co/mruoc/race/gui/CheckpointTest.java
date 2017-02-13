@@ -32,12 +32,12 @@ public class CheckpointTest {
     }
 
     @Test
-    public void shouldReturnIndexMinusOneIfLocationNotInPoints() {
+    public void shouldReturnIndexOfClosesLocationIfExactMatchNotFound() {
         Checkpoint checkpoint = new Checkpoint(ID, LOCATION);
         List<Point> points = Arrays.asList(new Point(1, 5),
                 new Point(2, 5),
                 new Point(3, 5));
-        assertThat(checkpoint.calculateIndex(points)).isEqualTo(-1);
+        assertThat(checkpoint.calculateIndex(points)).isEqualTo(2);
     }
 
 }
