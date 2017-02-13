@@ -10,7 +10,7 @@ import java.util.List;
 
 import static uk.co.mruoc.race.gui.TrackPartToTrackSplitsConverter.toSplits;
 
-public class MainTrackPathDefinition extends TrackPathDefinition {
+public class MainJavaTrackPathDefinition extends TrackPathDefinition {
 
     private static final Checkpoint checkpoint1 = new Checkpoint(1, new Point(297, 50));
     private static final Checkpoint checkpoint2 = new Checkpoint(2, new Point(447, 88));
@@ -86,7 +86,7 @@ public class MainTrackPathDefinition extends TrackPathDefinition {
             corner4
     );
 
-    public MainTrackPathDefinition() {
+    public MainJavaTrackPathDefinition() {
         super(0, parts);
     }
 

@@ -18,10 +18,6 @@ public class TrackDefinition implements Scalable<TrackDefinition> {
 
     private final TrackSplits splits;
 
-    public TrackDefinition() {
-        this(new MainTrackPathDefinition(), new PitTrackPathDefinition());
-    }
-
     public TrackDefinition(TrackPathDefinition mainPathDefinition, TrackPathDefinition pitPathDefinition) {
         this.mainPathDefinition = mainPathDefinition;
         this.pitPathDefinition = pitPathDefinition;

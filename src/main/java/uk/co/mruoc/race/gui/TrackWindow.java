@@ -7,8 +7,8 @@ import java.awt.event.ComponentListener;
 
 public class TrackWindow extends JInternalFrame implements ComponentListener {
 
-    private static final int DEFAULT_WIDTH = 565;
-    private static final int DEFAULT_HEIGHT = 370;
+    private static final int DEFAULT_WIDTH = 992;
+    private static final int DEFAULT_HEIGHT = 613;
 
     private final TrackPanel trackPanel;
 
@@ -19,6 +19,7 @@ public class TrackWindow extends JInternalFrame implements ComponentListener {
         container.setLayout(new BorderLayout());
         container.add(trackPanel, BorderLayout.CENTER);
 
+        setMinimumSize(new Dimension(496, 330));
         setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         pack();
         addComponentListener(this);

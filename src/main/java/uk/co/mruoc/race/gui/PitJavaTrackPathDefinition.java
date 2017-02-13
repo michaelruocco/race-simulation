@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class PitTrackPathDefinition extends TrackPathDefinition {
+public class PitJavaTrackPathDefinition extends TrackPathDefinition {
 
     private static final Checkpoint checkpoint4 = new Checkpoint(4, new Point(486, 132));
     private static final Checkpoint checkpoint5 = new Checkpoint(5, new Point(487, 170));
@@ -63,7 +63,7 @@ public class PitTrackPathDefinition extends TrackPathDefinition {
             corner5
     );
 
-    public PitTrackPathDefinition() {
+    public PitJavaTrackPathDefinition() {
         super(3, parts);
     }
 
