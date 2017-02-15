@@ -2,10 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.CarStats;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 
 public class ImageCarPainter implements CarPainter {
 
@@ -33,11 +30,7 @@ public class ImageCarPainter implements CarPainter {
     }
 
     private Image loadCarImage() {
-        try {
-            return ImageIO.read(ImageTrackPanel.class.getResourceAsStream("/uk/co/mruoc/race/gui/img/car.png"));
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        return ImageLoader.load("/uk/co/mruoc/race/gui/img/car.png");
     }
 
     private Color toColor(CarStats stats) {

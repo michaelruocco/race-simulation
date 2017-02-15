@@ -62,11 +62,7 @@ public class ImageTrackPanel extends TrackPanel {
     }
 
     private Image loadBackgroundImage() {
-        try {
-            return ImageIO.read(ImageTrackPanel.class.getResourceAsStream("/uk/co/mruoc/race/gui/img/track.png"));
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
+        return ImageLoader.load("/uk/co/mruoc/race/gui/img/track.png");
     }
 
     private void update(RaceData raceData) {
