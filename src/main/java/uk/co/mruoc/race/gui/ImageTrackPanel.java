@@ -23,14 +23,14 @@ public class ImageTrackPanel extends TrackPanel {
 
     private RaceData raceData;
     private TrackDefinition trackDefinition;
-    private CarPainter carPainter;
+    private JavaCarPainter carPainter;
 
     public ImageTrackPanel(TrackDefinition trackDefinition) {
         super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setOpaque(true);
         this.originalTrackDefinition = trackDefinition;
         this.trackDefinition = trackDefinition;
-        this.carPainter = new CarPainter(trackDefinition);
+        this.carPainter = new JavaCarPainter(trackDefinition);
         this.backgroundImage = loadBackgroundImage();
     }
 
@@ -48,7 +48,7 @@ public class ImageTrackPanel extends TrackPanel {
     @Override
     public void scale(ScaleParams params) {
         trackDefinition = originalTrackDefinition.scale(params);
-        carPainter = new CarPainter(trackDefinition);
+        carPainter = new JavaCarPainter(trackDefinition);
     }
 
     @Override

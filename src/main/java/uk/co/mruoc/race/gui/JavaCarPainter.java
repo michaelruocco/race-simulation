@@ -5,7 +5,7 @@ import uk.co.mruoc.race.core.CarStats;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class CarPainter {
+public class JavaCarPainter {
 
     private static final int SIZE = 10;
     private static final int HALF_SIZE = SIZE / 2;
@@ -14,7 +14,7 @@ public class CarPainter {
 
     private final TrackDefinition trackDefinition;
 
-    public CarPainter(TrackDefinition trackDefinition) {
+    public JavaCarPainter(TrackDefinition trackDefinition) {
         this.trackDefinition = trackDefinition;
     }
 

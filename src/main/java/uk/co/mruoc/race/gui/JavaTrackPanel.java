@@ -25,7 +25,7 @@ public class JavaTrackPanel extends TrackPanel {
     private final int EDGE_WIDTH = 3;
 
     private final TrackDefinition trackDefinition;
-    private final CarPainter carPainter;
+    private final JavaCarPainter carPainter;
 
     private RaceData raceData;
     private ScaleParams scaleParams;
@@ -36,7 +36,7 @@ public class JavaTrackPanel extends TrackPanel {
         setBackground(DARK_GREEN);
 
         this.trackDefinition = trackDefinition;
-        this.carPainter = new CarPainter(trackDefinition);
+        this.carPainter = new JavaCarPainter(trackDefinition);
     }
 
     @Override
