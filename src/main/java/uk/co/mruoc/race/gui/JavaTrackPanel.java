@@ -13,6 +13,9 @@ import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class JavaTrackPanel extends TrackPanel {
 
+    private static final int DEFAULT_WIDTH = 541;
+    private static final int DEFAULT_HEIGHT = 324;
+
     private static final Color DARK_GREEN = new Color(0, 100, 0);
     private static final Color EDGE_COLOR = WHITE;
     private static final Color TRACK_COLOR = DARK_GRAY;
@@ -28,6 +31,7 @@ public class JavaTrackPanel extends TrackPanel {
     private ScaleParams scaleParams;
 
     public JavaTrackPanel(TrackDefinition trackDefinition) {
+        super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setOpaque(true);
         setBackground(DARK_GREEN);
 

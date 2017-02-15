@@ -7,15 +7,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Collection;
 import java.util.Iterator;
 
-import static java.awt.Color.BLUE;
 import static java.awt.Color.RED;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class ImageTrackPanel extends TrackPanel {
+
+    private static final int DEFAULT_WIDTH = 968;
+    private static final int DEFAULT_HEIGHT = 567;
 
     private final Image backgroundImage;
     private final TrackDefinition originalTrackDefinition;
@@ -25,6 +26,7 @@ public class ImageTrackPanel extends TrackPanel {
     private CarPainter carPainter;
 
     public ImageTrackPanel(TrackDefinition trackDefinition) {
+        super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         setOpaque(true);
         this.originalTrackDefinition = trackDefinition;
         this.trackDefinition = trackDefinition;
@@ -40,6 +42,7 @@ public class ImageTrackPanel extends TrackPanel {
         g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
 
         paintCars(g2);
+        //paintPath(g2);
     }
 
     @Override
@@ -75,6 +78,12 @@ public class ImageTrackPanel extends TrackPanel {
         Iterator<CarStats> carStats = raceData.getAllCarStats();
         while (carStats.hasNext())
             carPainter.paint(carStats.next(), g);
+    }
+
+    private void paintPath(Graphics2D g) {
+        g.setColor(RED);
+        g.draw(trackDefinition.getMainPath());
+        g.draw(trackDefinition.getPitPath());
     }
 
 }

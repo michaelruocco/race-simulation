@@ -2,15 +2,15 @@ package uk.co.mruoc.race.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+//import java.awt.event.ComponentEvent;
+//import java.awt.event.ComponentListener;
 
-public class TrackWindow extends JInternalFrame implements ComponentListener {
+public class TrackWindow extends JInternalFrame { //implements ComponentListener {
 
-    private static final int DEFAULT_WIDTH = 992;
-    private static final int DEFAULT_HEIGHT = 613;
+    //private static final int DEFAULT_WIDTH = 992;
+    //private static final int DEFAULT_HEIGHT = 613;
 
-    private final TrackPanel trackPanel;
+    //private final TrackPanel trackPanel;
 
     public TrackWindow(TrackPanel trackPanel) {
         super("Track", true, false, true, true);
@@ -19,16 +19,16 @@ public class TrackWindow extends JInternalFrame implements ComponentListener {
         container.setLayout(new BorderLayout());
         container.add(trackPanel, BorderLayout.CENTER);
 
-        setMinimumSize(new Dimension(496, 330));
-        setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
+        //setMinimumSize(new Dimension(496, 330));
+        //setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
         pack();
-        addComponentListener(this);
+        addComponentListener(trackPanel);
         setVisible(true);
 
-        this.trackPanel = trackPanel;
+        //this.trackPanel = trackPanel;
     }
 
-    @Override
+    /*@Override
     public void componentResized(ComponentEvent e) {
         ScaleParams params = calculateScale();
         trackPanel.scale(params);
@@ -63,6 +63,6 @@ public class TrackWindow extends JInternalFrame implements ComponentListener {
     private double calculateYScale() {
         double heightDiff = getHeight() - DEFAULT_HEIGHT;
         return 1 + (heightDiff / DEFAULT_HEIGHT);
-    }
+    }*/
 
 }
