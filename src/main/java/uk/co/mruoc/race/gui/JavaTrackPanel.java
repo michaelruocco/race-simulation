@@ -25,7 +25,7 @@ public class JavaTrackPanel extends TrackPanel {
     private final int EDGE_WIDTH = 3;
 
     private final TrackDefinition trackDefinition;
-    private final JavaCarPainter carPainter;
+    private final CarPainter carPainter;
 
     private RaceData raceData;
     private ScaleParams scaleParams;
