@@ -1,13 +1,13 @@
 package uk.co.mruoc.race.gui;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
 public class ImageLoader {
 
-    public static Image load(String path) {
+    public static BufferedImage load(String path) {
         try {
             return ImageIO.read(ImageTrackPanel.class.getResourceAsStream(path));
         } catch (IOException e) {
