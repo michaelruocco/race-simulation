@@ -23,8 +23,8 @@ public class MainWindow extends JFrame {
 
         JPanel statusPanel = new StatusPanel(controlActions);
 
-        //TrackPanel trackPanel = new ImageTrackPanel(new ImageTrackDefinition());
-        TrackPanel trackPanel = new JavaTrackPanel(new JavaTrackDefinition());
+        TrackPanel trackPanel = new ImageTrackPanel(new ImageTrackDefinition());
+        //TrackPanel trackPanel = new JavaTrackPanel(new JavaTrackDefinition());
         controlActions.addLoadRaceListener(trackPanel);
         controlActions.addRaceUpdateListener(trackPanel);
 

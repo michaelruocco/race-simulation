@@ -47,7 +47,7 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     public void reset() {
         LOG.debug("race reset");
         stop();
-        updateTime(new ElapsedTime());
+        updateTime(new ElapsedTime("00:27:13.000"));
     }
 
     @Override

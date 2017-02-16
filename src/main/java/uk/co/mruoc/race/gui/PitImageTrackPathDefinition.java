@@ -17,6 +17,8 @@ public class PitImageTrackPathDefinition extends TrackPathDefinition {
             .setControl1(new Point(770, 240))
             .setControl2(new Point(770, 240))
             .setEnd(new Point(830, 240))
+            .setStartAngle(360)
+            .setEndAngle(270)
             .build();
 
     private static final Corner corner2 = new CornerBuilder()
@@ -25,6 +27,8 @@ public class PitImageTrackPathDefinition extends TrackPathDefinition {
             .setControl2(new Point(870, 280))
             .setEnd(new Point(870, 280))
             .setCheckpoints(checkpoint4)
+            .setStartAngle(270)
+            .setEndAngle(360)
             .build();
 
     private static final Straight straight1 = new StraightBuilder()
@@ -39,11 +43,14 @@ public class PitImageTrackPathDefinition extends TrackPathDefinition {
             .setControl2(new Point(870, 370))
             .setEnd(new Point(830, 370))
             .setCheckpoints(checkpoint5)
+            .setStartAngle(0)
+            .setEndAngle(90)
             .build();
 
     private static final Straight straight2 = new StraightBuilder()
             .setStart(new Point(830, 370))
             .setEnd(new Point(660, 404))
+            .setAngle(90)
             .build();
 
     private static final List<TrackPart> parts = Arrays.asList(
