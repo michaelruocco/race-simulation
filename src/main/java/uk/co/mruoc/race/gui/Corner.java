@@ -12,9 +12,13 @@ public class Corner implements TrackPart {
 
     private final CubicCurve2D curve;
     private final List<TrackPoint> trackPoints;
+    private final int startAngle;
+    private final int endAngle;
 
     private Corner(CornerBuilder builder) {
         this.curve = builder.getCurve();
+        this.startAngle = builder.startAngle;
+        this.endAngle = builder.endAngle;
         List<Checkpoint> checkpoints = builder.checkpoints;
         List<AngledPoint> points = toPoints(curve);
         this.trackPoints = TrackPointsBuilder.toTrackPoints(points, checkpoints);
@@ -37,10 +41,14 @@ public class Corner implements TrackPart {
 
     private List<AngledPoint> toPoints(CubicCurve2D curve) {
         List<AngledPoint> points = new ArrayList<>();
+        double angleDifference = (endAngle - startAngle);
+        double angleChange = (angleDifference / 100);
+        double currentAngle = startAngle;
         for(double t=0; t<=1; t+=0.01) {
             int x = calculateX(t, curve);
             int y = calculateY(t, curve);
-            points.add(new AngledPoint(x, y, 90));
+            points.add(new AngledPoint(x, y, currentAngle));
+            currentAngle += angleChange;
         }
         return points;
     }
@@ -59,6 +67,8 @@ public class Corner implements TrackPart {
         private Point control1;
         private Point control2;
         private Point end;
+        private int startAngle;
+        private int endAngle;
         private List<Checkpoint> checkpoints = Collections.emptyList();
 
         public CornerBuilder setStart(Point start) {
@@ -78,6 +88,16 @@ public class Corner implements TrackPart {
 
         public CornerBuilder setEnd(Point end) {
             this.end = end;
+            return this;
+        }
+
+        public CornerBuilder setStartAngle(int startAngle) {
+            this.startAngle = startAngle;
+            return this;
+        }
+
+        public CornerBuilder setEndAngle(int endAngle) {
+            this.endAngle = endAngle;
             return this;
         }
 

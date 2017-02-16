@@ -32,6 +32,8 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setControl2(new Point(770, 175))
             .setEnd(new Point(770, 195))
             .setCheckpoints(checkpoint2)
+            .setStartAngle(270)
+            .setEndAngle(360)
             .build();
 
     private static final TrackPart straight2 = new StraightBuilder()
@@ -46,6 +48,8 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setControl1(new Point(770, 354))
             .setControl2(new Point(770, 404))
             .setEnd(new Point(680, 404))
+            .setStartAngle(0)
+            .setEndAngle(90)
             .build();
 
     private static final TrackPart straight3 = new StraightBuilder()
@@ -60,6 +64,8 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setControl1(new Point(76, 404))
             .setControl2(new Point(76, 364))
             .setEnd(new Point(76, 364))
+            .setStartAngle(90)
+            .setEndAngle(180)
             .build();
 
     private static final TrackPart straight4 = new StraightBuilder()
@@ -75,6 +81,8 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setControl2(new Point(76, 135))
             .setEnd(new Point(155, 135))
             .setCheckpoints(checkpoint0)
+            .setStartAngle(180)
+            .setEndAngle(270)
             .build();
 
     private static final List<TrackPart> parts = Arrays.asList(

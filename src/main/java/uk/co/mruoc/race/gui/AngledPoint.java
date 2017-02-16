@@ -4,14 +4,14 @@ import java.awt.*;
 
 public class AngledPoint extends Point {
 
-    private final int angle;
+    private final double angle;
 
-    public AngledPoint(int x, int y, int angle) {
+    public AngledPoint(int x, int y, double angle) {
         super(x, y);
         this.angle = angle;
     }
 
-    public int getAngle() {
+    public double getAngle() {
         return angle;
     }
 
