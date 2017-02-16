@@ -13,14 +13,14 @@ public class Checkpoint {
         this.location = location;
     }
 
-    public int calculateIndex(List<Point> points) {
+    public int calculateIndex(List<AngledPoint> points) {
         int index = points.indexOf(location);
         if (index == -1)
             index = nearestIndex(points);
         return Math.min(index, points.size() - 1);
     }
 
-    private int nearestIndex(List<Point> points) {
+    private int nearestIndex(List<AngledPoint> points) {
         int minDiff = Integer.MAX_VALUE;
         int index = -1;
         for (int i = 0; i < points.size(); i++) {

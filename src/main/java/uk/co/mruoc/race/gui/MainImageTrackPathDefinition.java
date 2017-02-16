@@ -23,6 +23,7 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setStart(new Point(155, 135))
             .setEnd(new Point(700, 135))
             .setCheckpoints(checkpoint1)
+            .setAngle(270)
             .build();
 
     private static final TrackPart corner1 = new CornerBuilder()
@@ -37,6 +38,7 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setStart(new Point(770, 195))
             .setEnd(new Point(770, 335))
             .setCheckpoints(checkpoint3)
+            .setAngle(0)
             .build();
 
     private static final TrackPart corner2 = new CornerBuilder()
@@ -50,6 +52,7 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setStart(new Point(680, 404))
             .setEnd(new Point(155, 404))
             .setCheckpoints(checkpoint6, checkpoint7)
+            .setAngle(90)
             .build();
 
     private static final TrackPart corner3 = new CornerBuilder()
@@ -63,6 +66,7 @@ public class MainImageTrackPathDefinition extends TrackPathDefinition {
             .setStart(new Point(76, 364))
             .setEnd(new Point(76, 195))
             .setCheckpoints(checkpoint8, checkpoint9)
+            .setAngle(180)
             .build();
 
     private static final TrackPart corner4 = new CornerBuilder()

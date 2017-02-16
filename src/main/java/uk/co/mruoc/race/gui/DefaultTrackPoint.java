@@ -10,7 +10,7 @@ public class DefaultTrackPoint extends TrackPoint {
     private static final int SIZE = 1;
     private static final Color COLOR = BLACK;
 
-    public DefaultTrackPoint(Point point) {
+    public DefaultTrackPoint(AngledPoint point) {
         super(point, SIZE, COLOR);
     }
 

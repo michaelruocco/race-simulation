@@ -16,10 +16,10 @@ public class CheckpointTrackPoint extends TrackPoint {
 
     private int id;
 
-    public CheckpointTrackPoint(Point point, int id) {
+    public CheckpointTrackPoint(AngledPoint point, int id) {
         super(point, SIZE, COLOR);
         this.id = id;
-        LOG.debug("checkpoint " + id + " created at x " + point.x + " y " + point.y);
+        LOG.debug("checkpoint " + id + " created at x " + point.x + " y " + point.y + " angle " + point.getAngle());
     }
 
     public int getId() {

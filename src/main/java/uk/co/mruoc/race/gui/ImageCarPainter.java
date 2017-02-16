@@ -37,7 +37,7 @@ public class ImageCarPainter extends CarPainter {
         int drawX = rotateX - (DEFAULT_WIDTH / 2);
         int drawY = rotateY - (DEFAULT_HEIGHT / 2);
 
-        double rotation = Math.toRadians(270);
+        double rotation = location.getRotation();
         g.rotate(rotation, rotateX, rotateY);
         g.drawImage(image, drawX, drawY,null);
         g.rotate(-rotation, rotateX, rotateY);

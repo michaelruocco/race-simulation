@@ -5,14 +5,17 @@ import java.awt.geom.Ellipse2D;
 
 public class TrackPoint {
 
-    private final Point point;
-    private final int size;
+    private final AngledPoint point;
     private final Color color;
+    private final double rotation;
+    private final Stroke stroke = new BasicStroke(1);
+    private final Shape shape;
 
-    public TrackPoint(Point point, int size, Color color) {
+    public TrackPoint(AngledPoint point, int size, Color color) {
         this.point = point;
-        this.size = size;
         this.color = color;
+        this.shape = new Ellipse2D.Float(point.x, point.y, size, size);
+        this.rotation = Math.toRadians(point.getAngle());
     }
 
     public int getX() {
@@ -23,14 +26,14 @@ public class TrackPoint {
         return point.y;
     }
 
-    public void paint(Graphics2D g) {
-        g.setStroke(new BasicStroke(1));
-        g.setColor(color);
-        g.fill(shape());
+    public double getRotation() {
+        return rotation;
     }
 
-    private Shape shape() {
-        return new Ellipse2D.Float(point.x, point.y, size, size);
+    public void paint(Graphics2D g) {
+        g.setStroke(stroke);
+        g.setColor(color);
+        g.fill(shape);
     }
 
 }

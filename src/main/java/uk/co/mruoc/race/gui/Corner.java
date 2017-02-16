@@ -16,7 +16,7 @@ public class Corner implements TrackPart {
     private Corner(CornerBuilder builder) {
         this.curve = builder.getCurve();
         List<Checkpoint> checkpoints = builder.checkpoints;
-        List<Point> points = toPoints(curve);
+        List<AngledPoint> points = toPoints(curve);
         this.trackPoints = TrackPointsBuilder.toTrackPoints(points, checkpoints);
     }
 
@@ -35,12 +35,12 @@ public class Corner implements TrackPart {
         path.append(curve, true);
     }
 
-    private List<Point> toPoints(CubicCurve2D curve) {
-        List<Point> points = new ArrayList<>();
+    private List<AngledPoint> toPoints(CubicCurve2D curve) {
+        List<AngledPoint> points = new ArrayList<>();
         for(double t=0; t<=1; t+=0.01) {
             int x = calculateX(t, curve);
             int y = calculateY(t, curve);
-            points.add(new Point(x, y));
+            points.add(new AngledPoint(x, y, 90));
         }
         return points;
     }

@@ -15,11 +15,13 @@ public class Straight implements TrackPart {
 
     private final List<TrackPoint> trackPoints;
     private final Line2D line;
+    private final int angle;
 
     private Straight(StraightBuilder builder) {
         this.line = builder.getLine();
+        this.angle = builder.angle;
         List<Checkpoint> checkpoints = builder.checkpoints;
-        List<Point> points = toPoints(line);
+        List<AngledPoint> points = toPoints(line);
         this.trackPoints = toTrackPoints(points, checkpoints);
     }
 
@@ -38,10 +40,10 @@ public class Straight implements TrackPart {
         path.append(line, true);
     }
 
-    private List<Point> toPoints(Line2D line) {
+    private List<AngledPoint> toPoints(Line2D line) {
         Point2D start = line.getP1();
         Point2D end = line.getP2();
-        Point[][] grid = buildGrid(start, end);
+        AngledPoint[][] grid = buildGrid(start, end, angle);
 
         int x0 = (int) start.getX();
         int y0 = (int) start.getY();
@@ -49,7 +51,7 @@ public class Straight implements TrackPart {
         int x1 = (int) end.getX();
         int y1 = (int) end.getY();
 
-        List<Point> points = new ArrayList<>();
+        List<AngledPoint> points = new ArrayList<>();
 
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
@@ -81,15 +83,15 @@ public class Straight implements TrackPart {
         return points;
     }
 
-    private static Point[][] buildGrid(Point2D start, Point2D end) {
+    private static AngledPoint[][] buildGrid(Point2D start, Point2D end, int angle) {
         int rows = (int) Math.max(start.getX(), end.getX()) + 1;
         int cols = (int) Math.max(start.getY(), end.getY()) + 1;
 
-        Point[][] grid = new Point[rows][cols];
+        AngledPoint[][] grid = new AngledPoint[rows][cols];
 
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                grid[i][j] = new Point(i, j);
+                grid[i][j] = new AngledPoint(i, j, angle);
 
         return grid;
     }
@@ -99,6 +101,7 @@ public class Straight implements TrackPart {
         private Point start;
         private Point end;
         private List<Checkpoint> checkpoints = Collections.emptyList();
+        private int angle;
 
         public StraightBuilder setStart(Point start) {
             this.start = start;
@@ -107,6 +110,11 @@ public class Straight implements TrackPart {
 
         public StraightBuilder setEnd(Point end) {
             this.end = end;
+            return this;
+        }
+
+        public StraightBuilder setAngle(int angle) {
+            this.angle = angle;
             return this;
         }
 
