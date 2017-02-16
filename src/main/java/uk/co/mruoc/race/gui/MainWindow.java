@@ -23,11 +23,8 @@ public class MainWindow extends JFrame {
 
         JPanel statusPanel = new StatusPanel(controlActions);
 
-        TrackDefinition trackDefinition = new ImageTrackDefinition();
-        ImageCarPainter carPainter = new ImageCarPainter(trackDefinition);
-        TrackPanel trackPanel = new ImageTrackPanel(trackDefinition, carPainter);
+        TrackPanel trackPanel = new ImageTrackPanel(new ImageTrackDefinition());
         //TrackPanel trackPanel = new JavaTrackPanel(new JavaTrackDefinition());
-        controlActions.addLoadRaceListener(carPainter);
         controlActions.addLoadRaceListener(trackPanel);
         controlActions.addRaceUpdateListener(trackPanel);
 

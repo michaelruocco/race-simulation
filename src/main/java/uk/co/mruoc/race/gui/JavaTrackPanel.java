@@ -25,50 +25,18 @@ public class JavaTrackPanel extends TrackPanel {
     private final int EDGE_WIDTH = 3;
 
     private final TrackDefinition trackDefinition;
-    private final CarPainter carPainter;
-
-    private RaceData raceData;
-    private ScaleParams scaleParams;
 
     public JavaTrackPanel(TrackDefinition trackDefinition) {
-        super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
-        setOpaque(true);
+        super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT), new JavaCarPainter(trackDefinition));
         setBackground(DARK_GREEN);
-
         this.trackDefinition = trackDefinition;
-        this.carPainter = new JavaCarPainter(trackDefinition);
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-        g2.scale(scaleParams.getX(), scaleParams.getY());
-
-        paintEdge(g2);
-        paintTrack(g2);
-        paintCars(g2);
-    }
-
-    @Override
-    public void scale(ScaleParams scaleParams) {
-        this.scaleParams = scaleParams;
-    }
-
-    @Override
-    public void raceLoaded(RaceData raceData) {
-        update(raceData);
-    }
-
-    @Override
-    public void raceUpdated(RaceData raceData) {
-        update(raceData);
-    }
-
-    private void update(RaceData raceData) {
-        this.raceData = raceData;
-        repaint();
+    protected void paintTrack(Graphics2D g) {
+        paintEdge(g);
+        paintPitTrack(g);
+        paintMainTrack(g);
     }
 
     private void paintEdge(Graphics2D g) {
@@ -76,9 +44,10 @@ public class JavaTrackPanel extends TrackPanel {
         paintMainEdge(g);
     }
 
-    private void paintTrack(Graphics2D g) {
-        paintPitTrack(g);
-        paintMainTrack(g);
+    private void paintPitEdge(Graphics2D g) {
+        g.setColor(EDGE_COLOR);
+        g.setStroke(new BasicStroke(PIT_WIDTH));
+        g.draw(trackDefinition.getPitPath());
     }
 
     private void paintMainEdge(Graphics2D g) {
@@ -93,22 +62,10 @@ public class JavaTrackPanel extends TrackPanel {
         g.draw(trackDefinition.getMainPath());
     }
 
-    private void paintPitEdge(Graphics2D g) {
-        g.setColor(EDGE_COLOR);
-        g.setStroke(new BasicStroke(PIT_WIDTH));
-        g.draw(trackDefinition.getPitPath());
-    }
-
     private void paintPitTrack(Graphics2D g) {
         g.setColor(TRACK_COLOR);
         g.setStroke(new BasicStroke(PIT_WIDTH - EDGE_WIDTH));
         g.draw(trackDefinition.getPitPath());
-    }
-
-    private void paintCars(Graphics2D g) {
-        Iterator<CarStats> carStats = raceData.getAllCarStats();
-        while (carStats.hasNext())
-            carPainter.paint(carStats.next(), g);
     }
 
 }
