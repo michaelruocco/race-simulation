@@ -5,50 +5,23 @@ import uk.co.mruoc.race.core.RaceData;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.Iterator;
 
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
-public abstract class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateListener, ComponentListener {
+public abstract class TrackPanel extends JPanel implements LoadRaceListener, RaceUpdateListener {
 
     private final Dimension defaultSize;
     private final CarPainter carPainter;
 
     private RaceData raceData;
-    private ScaleParams scaleParams;
 
     public TrackPanel(Dimension defaultSize, CarPainter carPainter) {
         this.defaultSize = defaultSize;
         this.carPainter = carPainter;
         setPreferredSize(defaultSize);
         setOpaque(true);
-    }
-
-    public void componentResized(ComponentEvent e) {
-        ScaleParams params = calculateScale();
-        scale(params);
-    }
-
-    @Override
-    public void componentMoved(ComponentEvent e) {
-        // intentionally blank
-    }
-
-    @Override
-    public void componentShown(ComponentEvent e) {
-        // intentionally blank
-    }
-
-    @Override
-    public void componentHidden(ComponentEvent e) {
-        // intentionally blank
-    }
-
-    public void scale(ScaleParams scaleParams) {
-        this.scaleParams = scaleParams;
     }
 
     @Override
@@ -64,10 +37,13 @@ public abstract class TrackPanel extends JPanel implements LoadRaceListener, Rac
 
     @Override
     public void paintComponent(Graphics g) {
+        if (!isVisible())
+            return;
+
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-        g2.scale(scaleParams.getX(), scaleParams.getY());
+        g2.scale(calculateXScale(), calculateYScale());
 
         paintTrack(g2);
         paintCars(g2);

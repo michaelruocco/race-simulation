@@ -26,7 +26,11 @@ public class JavaTrackPanel extends TrackPanel {
 
     private final TrackDefinition trackDefinition;
 
-    public JavaTrackPanel(TrackDefinition trackDefinition) {
+    public JavaTrackPanel() {
+        this(new JavaTrackDefinition());
+    }
+
+    private JavaTrackPanel(TrackDefinition trackDefinition) {
         super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT), new JavaCarPainter(trackDefinition));
         setBackground(DARK_GREEN);
         this.trackDefinition = trackDefinition;

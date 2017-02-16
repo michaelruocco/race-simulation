@@ -14,6 +14,8 @@ public class WindowActions {
     private final ShowPopupWindowAction retiredWindowAction;
 
     private final ShowReportPopupWindowAction reportWindowAction;
+    private final ShowTrackPanelWindowAction imageTrackPanelWindowAction;
+    private final ShowTrackPanelWindowAction javaTrackPanelWindowAction;
     private final ShowPopupWindowAction aboutWindowAction;
 
     public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
@@ -27,9 +29,18 @@ public class WindowActions {
         retiredWindowAction = new ShowRetiredPopupWindowActionFactory().buildAction(controlActions);
 
         reportWindowAction = new ShowReportPopupWindowActionFactory().buildAction(controlActions, desktop);
+
+        imageTrackPanelWindowAction = new ShowImageTrackPanelWindowActionFactory().buildAction(controlActions);
+        javaTrackPanelWindowAction = new ShowJavaTrackPanelWindowActionFactory().buildAction(controlActions);
+
         aboutWindowAction = new ShowAboutPopupWindowAction();
 
         addWindowsToDesktop(desktop);
+    }
+
+    public void showImageTrackPanelWindow() {
+        JInternalFrame window = imageTrackPanelWindowAction.getWindow();
+        window.setVisible(true);
     }
 
     private void addWindowsToDesktop(JDesktopPane desktop) {
@@ -41,6 +52,9 @@ public class WindowActions {
         desktop.add(maxAverageLapSpeedWindowAction.getWindow());
         desktop.add(pitStopWindowAction.getWindow());
         desktop.add(retiredWindowAction.getWindow());
+
+        desktop.add(imageTrackPanelWindowAction.getWindow());
+        desktop.add(javaTrackPanelWindowAction.getWindow());
 
         desktop.add(aboutWindowAction.getWindow());
     }
@@ -123,6 +137,14 @@ public class WindowActions {
 
     public JMenuItem getShowAboutWindowMenuItem() {
         return aboutWindowAction.getMenuItem();
+    }
+
+    public JMenuItem getShowImageTrackPanelWindowMenuItem() {
+        return imageTrackPanelWindowAction.getMenuItem();
+    }
+
+    public JMenuItem getShowJavaTrackPanelWindowMenuItem() {
+        return javaTrackPanelWindowAction.getMenuItem();
     }
 
 }

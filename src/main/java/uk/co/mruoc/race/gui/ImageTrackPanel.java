@@ -12,7 +12,11 @@ public class ImageTrackPanel extends TrackPanel {
     private final Image backgroundImage;
     private final TrackDefinition trackDefinition;
 
-    public ImageTrackPanel(TrackDefinition trackDefinition) {
+    public ImageTrackPanel() {
+        this(new ImageTrackDefinition());
+    }
+
+    private ImageTrackPanel(TrackDefinition trackDefinition) {
         super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT), new ImageCarPainter(trackDefinition));
         this.backgroundImage = loadBackgroundImage();
         this.trackDefinition = trackDefinition;

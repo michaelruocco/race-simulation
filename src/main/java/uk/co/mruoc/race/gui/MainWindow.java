@@ -17,19 +17,12 @@ public class MainWindow extends JFrame {
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
         WindowActions windowActions = new WindowActions(controlActions, desktop);
+        windowActions.showImageTrackPanelWindow();
 
         MenuBar menuBar = new MenuBar(controlActions, windowActions);
         ToolBar toolBar = new ToolBar(controlActions, windowActions);
 
         JPanel statusPanel = new StatusPanel(controlActions);
-
-        TrackPanel trackPanel = new ImageTrackPanel(new ImageTrackDefinition());
-        //TrackPanel trackPanel = new JavaTrackPanel(new JavaTrackDefinition());
-        controlActions.addLoadRaceListener(trackPanel);
-        controlActions.addRaceUpdateListener(trackPanel);
-
-        JInternalFrame trackWindow = new TrackWindow(trackPanel);
-        desktop.add(trackWindow);
 
         setJMenuBar(menuBar);
 
