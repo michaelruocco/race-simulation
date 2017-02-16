@@ -18,7 +18,9 @@ public class WindowActions {
     private final ShowTrackPanelWindowAction javaTrackPanelWindowAction;
     private final ShowPopupWindowAction aboutWindowAction;
 
-    public WindowActions(ControlActions controlActions, JDesktopPane desktop) {
+    private final JInternalFrame trackWindow;
+
+    public WindowActions(ControlActions controlActions, JDesktopPane desktop, JInternalFrame trackWindow) {
         positionWindowAction = new ShowPositionPopupWindowActionFactory().buildAction(controlActions);
         speedWindowAction = new ShowSpeedPopupWindowActionFactory().buildAction(controlActions);
         lapNumberWindowAction = new ShowLapNumberPopupWindowActionFactory().buildAction(controlActions);
@@ -30,17 +32,20 @@ public class WindowActions {
 
         reportWindowAction = new ShowReportPopupWindowActionFactory().buildAction(controlActions, desktop);
 
-        imageTrackPanelWindowAction = new ShowImageTrackPanelWindowActionFactory().buildAction(controlActions);
-        javaTrackPanelWindowAction = new ShowJavaTrackPanelWindowActionFactory().buildAction(controlActions);
+        imageTrackPanelWindowAction = new ShowImageTrackPanelWindowActionFactory(trackWindow).buildAction(controlActions);
+        javaTrackPanelWindowAction = new ShowJavaTrackPanelWindowActionFactory(trackWindow).buildAction(controlActions);
 
         aboutWindowAction = new ShowAboutPopupWindowAction();
 
+        this.trackWindow = trackWindow;
+
         addWindowsToDesktop(desktop);
+
+        showImageTrackPanelWindow();
     }
 
     public void showImageTrackPanelWindow() {
-        JInternalFrame window = imageTrackPanelWindowAction.getWindow();
-        window.setVisible(true);
+        imageTrackPanelWindowAction.showWindow();
     }
 
     private void addWindowsToDesktop(JDesktopPane desktop) {
@@ -53,10 +58,9 @@ public class WindowActions {
         desktop.add(pitStopWindowAction.getWindow());
         desktop.add(retiredWindowAction.getWindow());
 
-        desktop.add(imageTrackPanelWindowAction.getWindow());
-        desktop.add(javaTrackPanelWindowAction.getWindow());
-
         desktop.add(aboutWindowAction.getWindow());
+
+        desktop.add(trackWindow);
     }
 
     public JButton getShowPositionWindowButton() {

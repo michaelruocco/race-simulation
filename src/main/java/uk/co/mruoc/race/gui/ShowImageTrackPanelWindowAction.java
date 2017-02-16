@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class ShowImageTrackPanelWindowAction extends ShowTrackPanelWindowAction {
 
-    public ShowImageTrackPanelWindowAction(JInternalFrame window) {
-        super("High Graphics Track", window);
+    public ShowImageTrackPanelWindowAction(JInternalFrame window, JPanel panel) {
+        super("High Graphics Track", window, panel);
     }
 
 }

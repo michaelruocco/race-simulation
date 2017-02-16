@@ -4,13 +4,18 @@ import javax.swing.*;
 
 public abstract class ShowTrackPanelWindowActionFactory {
 
-    protected abstract TrackPanel buildTrackPanel();
+    private final JInternalFrame window;
+    private final TrackPanel trackPanel;
 
-    protected abstract ShowTrackPanelWindowAction buildAction(JInternalFrame window);
+    public ShowTrackPanelWindowActionFactory(JInternalFrame window, TrackPanel trackPanel) {
+        this.window = window;
+        this.trackPanel = trackPanel;
+    }
+
+    protected abstract ShowTrackPanelWindowAction buildAction(JInternalFrame window, JPanel panel);
 
     public ShowTrackPanelWindowAction buildAction(ControlActions controlActions) {
-        TrackPanel trackPanel = buildTrackPanel();
-        ShowTrackPanelWindowAction action = buildAction(new TrackWindow(trackPanel));
+        ShowTrackPanelWindowAction action = buildAction(window, trackPanel);
         controlActions.addLoadRaceListener(trackPanel);
         controlActions.addRaceUpdateListener(trackPanel);
         return action;

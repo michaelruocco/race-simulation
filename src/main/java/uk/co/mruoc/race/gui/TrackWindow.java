@@ -5,12 +5,8 @@ import java.awt.*;
 
 public class TrackWindow extends JInternalFrame {
 
-    public TrackWindow(TrackPanel trackPanel) {
+    public TrackWindow() {
         super("Track", true, true, true, true);
-
-        Container container = getContentPane();
-        container.add(trackPanel);
-
         pack();
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }

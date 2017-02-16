@@ -4,14 +4,13 @@ import javax.swing.*;
 
 public class ShowImageTrackPanelWindowActionFactory extends ShowTrackPanelWindowActionFactory {
 
-    @Override
-    protected TrackPanel buildTrackPanel() {
-        return new ImageTrackPanel();
+    public ShowImageTrackPanelWindowActionFactory(JInternalFrame window) {
+        super(window, new ImageTrackPanel());
     }
 
     @Override
-    protected ShowTrackPanelWindowAction buildAction(JInternalFrame window) {
-        return new ShowImageTrackPanelWindowAction(window);
+    protected ShowTrackPanelWindowAction buildAction(JInternalFrame window, JPanel panel) {
+        return new ShowImageTrackPanelWindowAction(window, panel);
     }
 
 }

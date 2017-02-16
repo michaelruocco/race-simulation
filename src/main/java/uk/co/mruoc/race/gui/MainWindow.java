@@ -16,7 +16,8 @@ public class MainWindow extends JFrame {
         JDesktopPane desktop = new JDesktopPane();
         desktop.setDragMode(OUTLINE_DRAG_MODE);
 
-        WindowActions windowActions = new WindowActions(controlActions, desktop);
+        JInternalFrame trackWindow = new TrackWindow();
+        WindowActions windowActions = new WindowActions(controlActions, desktop, trackWindow);
         windowActions.showImageTrackPanelWindow();
 
         MenuBar menuBar = new MenuBar(controlActions, windowActions);

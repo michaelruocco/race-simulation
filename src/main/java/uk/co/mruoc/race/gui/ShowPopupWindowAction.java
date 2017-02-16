@@ -13,12 +13,7 @@ public class ShowPopupWindowAction extends RaceAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        window.moveToFront();
-
-        if (window.isVisible())
-            return;
-
-        window.setVisible(true);
+        showWindow();
     }
 
     public JButton getButton() {
@@ -31,6 +26,15 @@ public class ShowPopupWindowAction extends RaceAction {
 
     public JInternalFrame getWindow() {
         return window;
+    }
+
+    public void showWindow() {
+        window.moveToFront();
+
+        if (window.isVisible())
+            return;
+
+        window.setVisible(true);
     }
 
 }
