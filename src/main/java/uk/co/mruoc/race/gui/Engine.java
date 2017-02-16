@@ -8,18 +8,16 @@ import uk.co.mruoc.time.ElapsedTime;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class Engine implements ActionListener, StartListener, StopListener, ResetListener, FinishListener, LoadRaceListener, SpeedUpdateListener, RefreshDelayUpdateListener {
 
+    private static final ElapsedTime START_TIME = new ElapsedTime();
     private static final Logger LOG = LogManager.getLogger(Engine.class);
 
     private final Timer timer;
 
     private RaceData raceData;
-    private ElapsedTime time = new ElapsedTime();
+    private ElapsedTime time = START_TIME;
     private int speed;
     private ControlActions controlActions;
 
@@ -47,7 +45,7 @@ public class Engine implements ActionListener, StartListener, StopListener, Rese
     public void reset() {
         LOG.debug("race reset");
         stop();
-        updateTime(new ElapsedTime("00:27:13.000"));
+        updateTime(START_TIME);
     }
 
     @Override
