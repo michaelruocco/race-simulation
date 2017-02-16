@@ -30,9 +30,17 @@ public class ImageCarPainter extends CarPainter {
     public void paint(CarStats stats, Graphics2D g) {
         TrackPoint location = getLocation(stats);
         Image image = carImages.get(stats.getCarId());
-        int x = location.getX() - (DEFAULT_WIDTH / 2);
-        int y = location.getY() - (DEFAULT_HEIGHT / 2);
-        g.drawImage(image, x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT, null);
+
+        int rotateX = location.getX();
+        int rotateY = location.getY();
+
+        int drawX = rotateX - (DEFAULT_WIDTH / 2);
+        int drawY = rotateY - (DEFAULT_HEIGHT / 2);
+
+        double rotation = Math.toRadians(270);
+        g.rotate(rotation, rotateX, rotateY);
+        g.drawImage(image, drawX, drawY,null);
+        g.rotate(-rotation, rotateX, rotateY);
     }
 
     private Map<Integer, Image> toImages(Iterator<CarStats> carStats) {
