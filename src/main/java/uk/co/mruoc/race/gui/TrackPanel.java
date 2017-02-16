@@ -56,12 +56,6 @@ public abstract class TrackPanel extends JPanel implements LoadRaceListener, Rac
         repaint();
     }
 
-    private ScaleParams calculateScale() {
-        double x = calculateXScale();
-        double y = calculateYScale();
-        return new ScaleParams(x, y);
-    }
-
     private double calculateXScale() {
         int defaultWidth = defaultSize.width;
         double widthDiff = getWidth() - defaultWidth;
