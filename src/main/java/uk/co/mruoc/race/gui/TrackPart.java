@@ -3,7 +3,7 @@ package uk.co.mruoc.race.gui;
 import java.awt.geom.GeneralPath;
 import java.util.List;
 
-public interface TrackPart extends Scalable<TrackPart> {
+public interface TrackPart {
 
     List<TrackPoint> getPoints();
 

@@ -8,15 +8,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Corner implements TrackPart, Scalable<TrackPart> {
+public class Corner implements TrackPart {
 
     private final CubicCurve2D curve;
-    private final List<Checkpoint> checkpoints;
     private final List<TrackPoint> trackPoints;
 
     private Corner(CornerBuilder builder) {
         this.curve = builder.getCurve();
-        this.checkpoints = builder.checkpoints;
+        List<Checkpoint> checkpoints = builder.checkpoints;
         List<Point> points = toPoints(curve);
         this.trackPoints = TrackPointsBuilder.toTrackPoints(points, checkpoints);
     }
@@ -34,22 +33,6 @@ public class Corner implements TrackPart, Scalable<TrackPart> {
     @Override
     public void appendTo(GeneralPath path) {
         path.append(curve, true);
-    }
-
-    @Override
-    public TrackPart scale(ScaleParams params) {
-        Point scaledStart = PointScaler.scale(curve.getP1(), params);
-        Point scaledControl1 = PointScaler.scale(curve.getCtrlP1(), params);
-        Point scaledControl2 = PointScaler.scale(curve.getCtrlP2(), params);
-        Point scaledEnd = PointScaler.scale(curve.getP2(), params);
-        List<Checkpoint> scaledCheckpoints = CheckpointScaler.scale(checkpoints, params);
-        return new CornerBuilder()
-                .setStart(scaledStart)
-                .setControl1(scaledControl1)
-                .setControl2(scaledControl2)
-                .setEnd(scaledEnd)
-                .setCheckpoints(scaledCheckpoints)
-                .build();
     }
 
     private List<Point> toPoints(CubicCurve2D curve) {

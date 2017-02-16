@@ -3,7 +3,7 @@ package uk.co.mruoc.race.gui;
 import java.awt.*;
 import java.util.List;
 
-public class Checkpoint implements Scalable<Checkpoint> {
+public class Checkpoint {
 
     private final int id;
     private final Point location;
@@ -38,11 +38,6 @@ public class Checkpoint implements Scalable<Checkpoint> {
 
     public int getId() {
         return id;
-    }
-
-    public Checkpoint scale(ScaleParams params) {
-        Point scaledLocation = PointScaler.scale(location, params);
-        return new Checkpoint(id, scaledLocation);
     }
 
 }

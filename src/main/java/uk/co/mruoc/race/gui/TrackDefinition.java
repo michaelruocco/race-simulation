@@ -6,12 +6,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-public class TrackDefinition implements Scalable<TrackDefinition> {
-
-    private final TrackPartsToShapeConverter trackPartsToShapeConverter = new TrackPartsToShapeConverter();
-
-    private final TrackPathDefinition mainPathDefinition;
-    private final TrackPathDefinition pitPathDefinition;
+public class TrackDefinition {
 
     private final Shape mainShape;
     private final Shape pitShape;
@@ -19,8 +14,7 @@ public class TrackDefinition implements Scalable<TrackDefinition> {
     private final TrackSplits splits;
 
     public TrackDefinition(TrackPathDefinition mainPathDefinition, TrackPathDefinition pitPathDefinition) {
-        this.mainPathDefinition = mainPathDefinition;
-        this.pitPathDefinition = pitPathDefinition;
+        TrackPartsToShapeConverter trackPartsToShapeConverter = new TrackPartsToShapeConverter();
         this.mainShape = trackPartsToShapeConverter.toClosedShape(mainPathDefinition.getParts());
         this.pitShape = trackPartsToShapeConverter.toOpenShape(pitPathDefinition.getParts());
         this.splits = new TrackSplits(ListUtils.union(mainPathDefinition.getSplits(), pitPathDefinition.getSplits()));
@@ -40,13 +34,6 @@ public class TrackDefinition implements Scalable<TrackDefinition> {
 
     public Shape getPitPath() {
         return pitShape;
-    }
-
-    @Override
-    public TrackDefinition scale(ScaleParams params) {
-        TrackPathDefinition scaledMainPathDefinition = mainPathDefinition.scale(params);
-        TrackPathDefinition scaledPitPathDefinition = pitPathDefinition.scale(params);
-        return new TrackDefinition(scaledMainPathDefinition, scaledPitPathDefinition);
     }
 
 }

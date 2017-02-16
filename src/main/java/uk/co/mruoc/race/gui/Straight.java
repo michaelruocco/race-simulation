@@ -11,15 +11,14 @@ import java.util.List;
 
 import static uk.co.mruoc.race.gui.TrackPointsBuilder.toTrackPoints;
 
-public class Straight implements TrackPart, Scalable<TrackPart> {
+public class Straight implements TrackPart {
 
     private final List<TrackPoint> trackPoints;
-    private final List<Checkpoint> checkpoints;
     private final Line2D line;
 
     private Straight(StraightBuilder builder) {
         this.line = builder.getLine();
-        this.checkpoints = builder.checkpoints;
+        List<Checkpoint> checkpoints = builder.checkpoints;
         List<Point> points = toPoints(line);
         this.trackPoints = toTrackPoints(points, checkpoints);
     }
@@ -38,20 +37,6 @@ public class Straight implements TrackPart, Scalable<TrackPart> {
     public void appendTo(GeneralPath path) {
         path.append(line, true);
     }
-
-    @Override
-    public TrackPart scale(ScaleParams params) {
-        Point scaledStart = PointScaler.scale(line.getP1(), params);
-        Point scaledEnd = PointScaler.scale(line.getP2(), params);
-        List<Checkpoint> scaledCheckpoints = CheckpointScaler.scale(checkpoints, params);
-        return new StraightBuilder()
-                .setCheckpoints(scaledCheckpoints)
-                .setStart(scaledStart)
-                .setEnd(scaledEnd)
-                .build();
-    }
-
-
 
     private List<Point> toPoints(Line2D line) {
         Point2D start = line.getP1();
