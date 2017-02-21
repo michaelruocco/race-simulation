@@ -1,19 +1,22 @@
 package uk.co.mruoc.race;
 
-import org.apache.commons.cli.*;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import static javax.swing.SwingUtilities.invokeLater;
+
+import org.apache.commons.cli.DefaultParser;
+
 import uk.co.mruoc.race.console.ReportsBuilder;
-import uk.co.mruoc.race.core.*;
+import uk.co.mruoc.race.core.DefaultTrack;
+import uk.co.mruoc.race.core.RaceData;
+import uk.co.mruoc.race.core.RaceDataLoader;
+import uk.co.mruoc.race.core.RaceException;
+import uk.co.mruoc.race.core.Track;
 import uk.co.mruoc.race.gui.ControlActions;
 import uk.co.mruoc.race.gui.Engine;
 import uk.co.mruoc.race.gui.MainWindow;
 
-import static javax.swing.SwingUtilities.invokeLater;
-
 public class Main {
 
-    private static final Logger LOG = LogManager.getLogger(Main.class);
+    //private static final Logger LOG = LogManager.getLogger(Main.class);
     private static final String APPLICATION_NAME = "race-simulation";
 
     private static final CommandLineOptions OPTIONS = new CommandLineOptions();
@@ -22,13 +25,19 @@ public class Main {
 
     public static void main(String... args) {
         try {
+            workaroundForLog4JIssueUntilVersion281IsReleased();
             Arguments arguments = parse(args);
             process(arguments);
         } catch (RaceException e) {
-            LOG.debug(e.getMessage(), e);
+            //LOG.debug(e.getMessage(), e);
             System.out.println(e.getMessage());
             showHelp();
         }
+    }
+
+    private static void workaroundForLog4JIssueUntilVersion281IsReleased() {
+        System.getProperties().remove("sun.stdout.encoding");
+        System.getProperties().remove("sun.stderr.encoding");
     }
 
     private static Arguments parse(String... args) {
