@@ -1,7 +1,6 @@
 package uk.co.mruoc.race;
 
 import org.junit.Test;
-import uk.co.mruoc.race.core.FileLoadException;
 import uk.co.mruoc.race.core.RaceException;
 
 import static org.assertj.core.api.Assertions.assertThat;

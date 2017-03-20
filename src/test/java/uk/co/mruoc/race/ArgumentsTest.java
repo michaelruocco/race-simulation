@@ -3,8 +3,6 @@ package uk.co.mruoc.race;
 import org.junit.Test;
 import uk.co.mruoc.race.Arguments.ArgumentsBuilder;
 
-import java.io.File;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static uk.co.mruoc.race.Mode.CONSOLE;
 import static uk.co.mruoc.race.Mode.GUI;

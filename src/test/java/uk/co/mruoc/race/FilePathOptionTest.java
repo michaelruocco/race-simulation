@@ -2,7 +2,6 @@ package uk.co.mruoc.race;
 
 import org.apache.commons.cli.Option;
 import org.junit.Test;
-import uk.co.mruoc.race.ModeOption;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
