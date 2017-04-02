@@ -4,6 +4,8 @@ import static javax.swing.SwingUtilities.invokeLater;
 
 import org.apache.commons.cli.DefaultParser;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import uk.co.mruoc.race.console.ReportsBuilder;
 import uk.co.mruoc.race.core.DefaultTrack;
 import uk.co.mruoc.race.core.RaceData;
@@ -16,7 +18,7 @@ import uk.co.mruoc.race.gui.MainWindow;
 
 public class Main {
 
-    //private static final Logger LOG = LogManager.getLogger(Main.class);
+    private static final Logger LOG = LogManager.getLogger(Main.class);
     private static final String APPLICATION_NAME = "race-simulation";
 
     private static final CommandLineOptions OPTIONS = new CommandLineOptions();
@@ -29,7 +31,7 @@ public class Main {
             Arguments arguments = parse(args);
             process(arguments);
         } catch (RaceException e) {
-            //LOG.debug(e.getMessage(), e);
+            LOG.debug(e.getMessage(), e);
             System.out.println(e.getMessage());
             showHelp();
         }
