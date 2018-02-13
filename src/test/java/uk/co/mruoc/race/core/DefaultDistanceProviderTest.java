@@ -4,10 +4,8 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class DefaultDistanceProviderTest {
 
@@ -31,10 +29,9 @@ public class DefaultDistanceProviderTest {
 
     @Test
     public void shouldThrowExceptionIfNextCheckpointIdNotFound() {
-        when(provider).getDistanceToNextCheckpoint(0);
+        Throwable thrown = catchThrowable(() -> { provider.getDistanceToNextCheckpoint(0); });
 
-        then(caughtException())
-                .isInstanceOf(NextCheckpointIdNotFoundException.class)
+        assertThat(thrown).isInstanceOf(NextCheckpointIdNotFoundException.class)
                 .hasMessage("next checkpoint id not found for checkpoint id 0");
     }
 

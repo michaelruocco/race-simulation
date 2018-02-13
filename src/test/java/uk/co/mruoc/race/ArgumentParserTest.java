@@ -4,11 +4,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.UnrecognizedOptionException;
 import org.junit.Test;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.assertj.core.api.BDDAssertions.then;
 
 public class ArgumentParserTest {
 
@@ -67,5 +64,5 @@ public class ArgumentParserTest {
                 .hasCauseInstanceOf(UnrecognizedOptionException.class)
                 .hasMessage("invalid option: -z");
     }
-    
+
 }
