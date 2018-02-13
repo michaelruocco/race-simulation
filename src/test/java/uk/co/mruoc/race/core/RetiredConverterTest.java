@@ -2,10 +2,8 @@ package uk.co.mruoc.race.core;
 
 import org.junit.Test;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class RetiredConverterTest {
 
@@ -35,10 +33,9 @@ public class RetiredConverterTest {
 
     @Test
     public void shouldThrowExceptionIfNotValue() {
-        when(converter).toValue(INVALID_FLAG);
+        Throwable thrown = catchThrowable(() -> converter.toValue(INVALID_FLAG));
 
-        then(caughtException())
-                .isInstanceOf(InvalidRetiredFlagException.class)
+        assertThat(thrown).isInstanceOf(InvalidRetiredFlagException.class)
                 .hasMessage(INVALID_FLAG);
     }
 

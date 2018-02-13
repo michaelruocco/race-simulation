@@ -29,7 +29,7 @@ public class DefaultDistanceProviderTest {
 
     @Test
     public void shouldThrowExceptionIfNextCheckpointIdNotFound() {
-        Throwable thrown = catchThrowable(() -> { provider.getDistanceToNextCheckpoint(0); });
+        Throwable thrown = catchThrowable(() -> provider.getDistanceToNextCheckpoint(0));
 
         assertThat(thrown).isInstanceOf(NextCheckpointIdNotFoundException.class)
                 .hasMessage("next checkpoint id not found for checkpoint id 0");

@@ -5,10 +5,8 @@ import uk.co.mruoc.time.ElapsedTimeParser;
 
 import java.math.BigDecimal;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class FileProcessorTest {
 
@@ -146,10 +144,9 @@ public class FileProcessorTest {
 
     @Test
     public void shouldThrowErrorIfFileDoesNotExist() {
-        when(processor).process("nonExistent");
+        Throwable thrown = catchThrowable(() -> processor.process("nonExistent"));
 
-        then(caughtException())
-                .isInstanceOf(FileLoadException.class)
+        assertThat(thrown).isInstanceOf(FileLoadException.class)
                 .hasMessage("file nonExistent not found");
     }
 

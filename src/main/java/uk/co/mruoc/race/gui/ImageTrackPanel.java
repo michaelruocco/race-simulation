@@ -2,15 +2,12 @@ package uk.co.mruoc.race.gui;
 
 import java.awt.*;
 
-import static java.awt.Color.RED;
-
 public class ImageTrackPanel extends TrackPanel {
 
     private static final int DEFAULT_WIDTH = 968;
     private static final int DEFAULT_HEIGHT = 567;
 
     private final Image backgroundImage;
-    private final TrackDefinition trackDefinition;
 
     public ImageTrackPanel() {
         this(new ImageTrackDefinition());
@@ -19,7 +16,6 @@ public class ImageTrackPanel extends TrackPanel {
     private ImageTrackPanel(TrackDefinition trackDefinition) {
         super(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT), new ImageCarPainter(trackDefinition));
         this.backgroundImage = loadBackgroundImage();
-        this.trackDefinition = trackDefinition;
     }
 
     private Image loadBackgroundImage() {

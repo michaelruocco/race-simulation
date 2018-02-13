@@ -1,9 +1,7 @@
 package uk.co.mruoc.race.core;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -33,20 +31,18 @@ public class FileLoaderTest {
 
     @Test
     public void loadContentShouldThrowExceptionIfFileNotFound() {
-        when(fileLoader).loadContent("nonExistent");
+        Throwable thrown = catchThrowable(() -> fileLoader.loadContent("nonExistent"));
 
-        then(caughtException())
-                .isInstanceOf(FileLoadException.class)
+        assertThat(thrown).isInstanceOf(FileLoadException.class)
                 .hasMessage("file nonExistent not found")
                 .hasCauseInstanceOf(FileNotFoundException.class);
     }
 
     @Test
     public void loadLinesShouldThrowExceptionIfFileNotFound() {
-        when(fileLoader).loadLines("nonExistent");
+        Throwable thrown = catchThrowable(() -> fileLoader.loadLines("nonExistent"));
 
-        then(caughtException())
-                .isInstanceOf(FileLoadException.class)
+        assertThat(thrown).isInstanceOf(FileLoadException.class)
                 .hasMessage("file nonExistent not found")
                 .hasCauseInstanceOf(FileNotFoundException.class);
     }

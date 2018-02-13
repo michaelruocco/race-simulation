@@ -49,7 +49,7 @@ public class ArgumentParserTest {
 
     @Test
     public void shouldThrowExceptionIfModeIsInvalid() {
-        Throwable thrown = catchThrowable(() -> { parser.parse("-m", "consoles"); });
+        Throwable thrown = catchThrowable(() -> parser.parse("-m", "consoles"));
 
         assertThat(thrown).isInstanceOf(InvalidModeException.class)
                 .hasCauseInstanceOf(IllegalArgumentException.class)
@@ -58,7 +58,7 @@ public class ArgumentParserTest {
 
     @Test
     public void shouldThrowExceptionIfOptionIsInvalid() {
-        Throwable thrown = catchThrowable(() -> { parser.parse("-z"); });
+        Throwable thrown = catchThrowable(() -> parser.parse("-z"));
 
         assertThat(thrown).isInstanceOf(InvalidOptionException.class)
                 .hasCauseInstanceOf(UnrecognizedOptionException.class)

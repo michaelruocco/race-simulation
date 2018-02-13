@@ -6,10 +6,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -72,10 +70,9 @@ public class RaceStatsTest {
     public void shouldThrowExceptionIfCarStatsNotFoundById() {
         int carId = 1;
 
-        when(raceStats).getCarStatsById(carId);
+        Throwable thrown = catchThrowable(() -> raceStats.getCarStatsById(carId));
 
-        then(caughtException())
-                .isInstanceOf(CarStatsNotFoundException.class)
+        assertThat(thrown).isInstanceOf(CarStatsNotFoundException.class)
                 .hasMessage("car id " + Integer.toString(carId));
     }
 
@@ -83,10 +80,9 @@ public class RaceStatsTest {
     public void shouldThrowExceptionIfCarStatsNotFoundByIndex() {
         int index = 2;
 
-        when(raceStats).getCarStatsByIndex(index);
+        Throwable thrown = catchThrowable(() -> raceStats.getCarStatsByIndex(index));
 
-        then(caughtException())
-                .isInstanceOf(CarStatsNotFoundException.class)
+        assertThat(thrown).isInstanceOf(CarStatsNotFoundException.class)
                 .hasMessage("index " + Integer.toString(index));
     }
 

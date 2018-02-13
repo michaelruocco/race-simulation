@@ -3,10 +3,8 @@ package uk.co.mruoc.race.core;
 import org.junit.Test;
 import uk.co.mruoc.time.ElapsedTimeFormatException;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
-import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 public class FileLineValidatorTest {
 
@@ -34,10 +32,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfInputNotFormattedCorrectly() {
         Line invalidLine = toLine("invalidLine");
 
-        when(validator).validate(invalidLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid data line invalidLine at line 1 it should contain 4 items separated by spaces");
     }
 
@@ -45,10 +42,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfTimeNotFormattedCorrectly() {
         Line invalidTimeLine = toLine("16:05.67 7 3 0");
 
-        when(validator).validate(invalidTimeLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidTimeLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("16:05.67")
                 .hasCauseInstanceOf(ElapsedTimeFormatException.class);
     }
@@ -57,10 +53,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfCarIdIsNotInteger() {
         Line invalidCarIdLine = toLine("00:16:05.67 1.1 3 0");
 
-        when(validator).validate(invalidCarIdLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidCarIdLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid car id 1.1 it must be an integer");
     }
 
@@ -68,10 +63,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfCheckpointIdIsNotAnIntegerOrRetired() {
         Line invalidCheckpointIdLine = toLine("00:16:05.67 7 EA 0");
 
-        when(validator).validate(invalidCheckpointIdLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidCheckpointIdLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id EA it must be an integer or R");
     }
 
@@ -79,10 +73,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfCheckpointIdIsNotRetired() {
         Line invalidCheckpointIdLine = toLine("00:16:05.67 7 E 0");
 
-        when(validator).validate(invalidCheckpointIdLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidCheckpointIdLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id E it must be an integer or R");
     }
 
@@ -90,10 +83,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfCheckpointIdIsNotInteger() {
         Line invalidCheckpointIdLine = toLine("00:16:05.67 7 1.1 0");
 
-        when(validator).validate(invalidCheckpointIdLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidCheckpointIdLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid checkpoint id 1.1 it must be an integer or R");
     }
 
@@ -101,10 +93,9 @@ public class FileLineValidatorTest {
     public void shouldThrowExceptionIfQueriedFlagIsNotInteger() {
         Line invalidCheckpointIdLine = toLine("00:16:05.67 7 3 1.1");
 
-        when(validator).validate(invalidCheckpointIdLine);
+        Throwable thrown = catchThrowable(() -> validator.validate(invalidCheckpointIdLine));
 
-        then(caughtException())
-                .isInstanceOf(FileLineFormatException.class)
+        assertThat(thrown).isInstanceOf(FileLineFormatException.class)
                 .hasMessage("invalid queried flag 1.1 it must be an integer");
     }
 
