@@ -1,15 +1,9 @@
 package uk.co.mruoc.race.gui;
 
-import uk.co.mruoc.race.core.CarStats;
-import uk.co.mruoc.race.core.RaceData;
-
 import java.awt.*;
-import java.util.Iterator;
 
 import static java.awt.Color.DARK_GRAY;
 import static java.awt.Color.WHITE;
-import static java.awt.RenderingHints.KEY_ANTIALIASING;
-import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
 public class JavaTrackPanel extends TrackPanel {
 
