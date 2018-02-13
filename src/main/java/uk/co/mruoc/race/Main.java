@@ -27,7 +27,6 @@ public class Main {
 
     public static void main(String... args) {
         try {
-            workaroundForLog4JIssueUntilVersion281IsReleased();
             Arguments arguments = parse(args);
             process(arguments);
         } catch (RaceException e) {
@@ -35,11 +34,6 @@ public class Main {
             System.out.println(e.getMessage());
             showHelp();
         }
-    }
-
-    private static void workaroundForLog4JIssueUntilVersion281IsReleased() {
-        System.getProperties().remove("sun.stdout.encoding");
-        System.getProperties().remove("sun.stderr.encoding");
     }
 
     private static Arguments parse(String... args) {
