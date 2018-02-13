@@ -7,6 +7,7 @@ import org.junit.Test;
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
 
 public class ArgumentParserTest {
@@ -51,21 +52,20 @@ public class ArgumentParserTest {
 
     @Test
     public void shouldThrowExceptionIfModeIsInvalid() {
-        when(parser).parse( "-m", "consoles");
+        Throwable thrown = catchThrowable(() -> { parser.parse("-m", "consoles"); });
 
-        then(caughtException())
-                .isInstanceOf(InvalidModeException.class)
-                .hasMessage("invalid mode: consoles")
-                .hasCauseInstanceOf(IllegalArgumentException.class);
+        assertThat(thrown).isInstanceOf(InvalidModeException.class)
+                .hasCauseInstanceOf(IllegalArgumentException.class)
+                .hasMessage("invalid mode: consoles");
     }
 
     @Test
     public void shouldThrowExceptionIfOptionIsInvalid() {
-        when(parser).parse("-z");
+        Throwable thrown = catchThrowable(() -> { parser.parse("-z"); });
 
-        then(caughtException())
-                .isInstanceOf(InvalidOptionException.class)
-                .hasMessage("invalid option: -z")
-                .hasCauseInstanceOf(UnrecognizedOptionException.class);
+        assertThat(thrown).isInstanceOf(InvalidOptionException.class)
+                .hasCauseInstanceOf(UnrecognizedOptionException.class)
+                .hasMessage("invalid option: -z");
     }
+    
 }

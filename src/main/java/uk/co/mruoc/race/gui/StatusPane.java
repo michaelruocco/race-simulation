@@ -2,6 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.CarStats;
 import uk.co.mruoc.race.core.RaceData;
+import uk.co.mruoc.race.core.RaceException;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -54,7 +55,7 @@ public class StatusPane extends JEditorPane implements RaceUpdateListener, LoadR
             document.remove(0, document.getLength());
             setText(htmlBuilder.build(carStats));
         } catch (BadLocationException e) {
-            throw new RuntimeException(e);
+            throw new RaceException(e);
         }
     }
 

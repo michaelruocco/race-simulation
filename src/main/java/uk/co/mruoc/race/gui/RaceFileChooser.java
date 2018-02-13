@@ -21,7 +21,7 @@ public class RaceFileChooser extends JFileChooser {
 
         private boolean isRaceDataFile(File file) {
             String extension = FilenameUtils.getExtension(file.getName());
-            return extension.equals("dat");
+            return "dat".equals(extension);
         }
 
         @Override
