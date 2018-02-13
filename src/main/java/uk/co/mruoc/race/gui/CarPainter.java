@@ -1,8 +1,6 @@
 package uk.co.mruoc.race.gui;
 
 import uk.co.mruoc.race.core.CarStats;
-import uk.co.mruoc.race.core.RaceDataLoader;
-import uk.co.mruoc.race.core.Track;
 
 import java.awt.*;
 

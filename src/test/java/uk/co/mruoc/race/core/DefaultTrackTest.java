@@ -1,12 +1,14 @@
 package uk.co.mruoc.race.core;
 
 import org.junit.Test;
+import uk.co.mruoc.race.InvalidModeException;
 
 import java.math.BigDecimal;
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
 
 public class DefaultTrackTest {
@@ -46,10 +48,9 @@ public class DefaultTrackTest {
 
     @Test
     public void shouldThrowExceptionIfNextCheckpointIdNotFound() {
-        when(track).getDistanceToNextCheckpoint(10);
+        Throwable thrown = catchThrowable(() -> { track.getDistanceToNextCheckpoint(10); });
 
-        then(caughtException())
-                .isInstanceOf(NextCheckpointIdNotFoundException.class)
+        assertThat(thrown).isInstanceOf(NextCheckpointIdNotFoundException.class)
                 .hasMessage("next checkpoint id not found for checkpoint id 10");
     }
 

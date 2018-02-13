@@ -31,10 +31,4 @@ public class ImageTrackPanel extends TrackPanel {
         g.drawImage(backgroundImage, 0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT, null);
     }
 
-    private void paintPath(Graphics2D g) {
-        g.setColor(RED);
-        g.draw(trackDefinition.getMainPath());
-        g.draw(trackDefinition.getPitPath());
-    }
-
 }

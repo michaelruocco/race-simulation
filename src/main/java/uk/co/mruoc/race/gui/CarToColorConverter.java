@@ -2,6 +2,7 @@ package uk.co.mruoc.race.gui;
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import static java.awt.Color.*;
 
@@ -12,7 +13,7 @@ public class CarToColorConverter {
     private static final Color DARK_YELLOW = new Color(153, 153, 0);
     private static final Color PURPLE = new Color(160, 32, 240);
 
-    private static final java.util.List<Color> COLORS = Arrays.asList(RED,
+    private static final List<Color> COLORS = Arrays.asList(RED,
             DARK_YELLOW,
             MAGENTA,
             DARK_GREEN,

@@ -5,9 +5,10 @@ import java.util.List;
 
 public class TrackPartToTrackSplitsConverter {
 
-    public static List<TrackSplit> toSplits(int startCheckpointId, List<TrackPart> trackParts) {
+    public static List<TrackSplit> toSplits(final int startCheckpoint, List<TrackPart> trackParts) {
         List<TrackSplit> splits = new ArrayList<>();
 
+        int startCheckpointId = startCheckpoint;
         List<TrackPoint> splitPoints = new ArrayList<>();
         for (TrackPart trackPart : trackParts) {
             List<TrackPoint> points = trackPart.getPoints();

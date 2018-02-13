@@ -1,7 +1,6 @@
 package uk.co.mruoc.race.gui;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 import static java.awt.Color.BLACK;
 

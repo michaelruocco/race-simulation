@@ -4,11 +4,8 @@ import uk.co.mruoc.race.gui.Corner.CornerBuilder;
 import uk.co.mruoc.race.gui.Straight.StraightBuilder;
 
 import java.awt.*;
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-
-import static uk.co.mruoc.race.gui.TrackPartToTrackSplitsConverter.toSplits;
 
 public class MainJavaTrackPathDefinition extends TrackPathDefinition {
 
